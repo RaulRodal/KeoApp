@@ -22,20 +22,16 @@ import androidx.room.Insert
 import androidx.room.PrimaryKey
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
+import java.util.Date
 
 @Entity
-data class Recordatorio(
-    val name: String
-) {
-    @PrimaryKey(autoGenerate = true)
-    var uid: Int = 0
-}
+data class RecordatorioEntity(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val name: String,
+    val recurrence: String,
+    val endDate: Date,
+    val recordatorioDone: Boolean,
+    val recordatorioTime: Date
+)
 
-@Dao
-interface RecordatorioDao {
-    @Query("SELECT * FROM recordatorio ORDER BY uid DESC LIMIT 10")
-    fun getRecordatorios(): Flow<List<Recordatorio>>
 
-    @Insert
-    suspend fun insertRecordatorio(item: Recordatorio)
-}

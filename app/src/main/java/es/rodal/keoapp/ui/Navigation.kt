@@ -16,6 +16,8 @@
 
 package es.rodal.keoapp.ui
 
+import android.service.notification.StatusBarNotification
+import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -23,14 +25,35 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import es.rodal.keoapp.ui.recordatorio.RecordatorioScreen
+import es.rodal.keoapp.ui.recordatorio.home.RecordatorioScreen
+import es.rodal.keoapp.ui.recordatorio.entry.RecordatorioEntryScreen
 
 @Composable
-fun MainNavigation() {
+fun MainNavigation(
+    activity: ComponentActivity,
+    notifications: Array<StatusBarNotification>
+    ) {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = "main") {
-        composable("main") { RecordatorioScreen(modifier = Modifier.padding(16.dp)) }
+    NavHost(
+        navController = navController,
+        startDestination = "main"
+    ) {
+        composable("main") {
+            RecordatorioScreen(
+                navigateToRecordatorioEntry = {navController.navigate("addRecordatorio")},
+                modifier = Modifier.padding(16.dp),
+                notifications = notifications
+            )
+        }
+        composable("addRecordatorio") {
+            RecordatorioEntryScreen(
+                navController = navController,
+                activity = activity,
+                navigateBack = { navController.popBackStack() },
+                onNavigateUp = { navController.navigateUp() }
+            )
+        }
         // TODO: Add more destinations
     }
 }

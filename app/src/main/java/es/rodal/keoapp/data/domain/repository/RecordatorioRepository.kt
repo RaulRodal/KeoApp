@@ -14,28 +14,22 @@
  * limitations under the License.
  */
 
-package es.rodal.keoapp.data
+package es.rodal.keoapp.data.domain.repository
 
+import es.rodal.keoapp.data.domain.model.Recordatorio
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import es.rodal.keoapp.data.local.database.Recordatorio
 import es.rodal.keoapp.data.local.database.RecordatorioDao
+import java.util.Date
 import javax.inject.Inject
 
 interface RecordatorioRepository {
-    val recordatorios: Flow<List<String>>
 
-    suspend fun add(name: String)
-}
+    suspend fun getRecordatorios(): Flow<List<Recordatorio>>
+    suspend fun getRecordatoriosByDate(date: Date): Flow<List<Recordatorio>>
+    suspend fun insertRecordatorio(item: Recordatorio)
+    suspend fun updateRecordatorio(item: Recordatorio)
+    suspend fun deleteRecordatorio(item: Recordatorio)
 
-class DefaultRecordatorioRepository @Inject constructor(
-    private val recordatorioDao: RecordatorioDao
-) : RecordatorioRepository {
 
-    override val recordatorios: Flow<List<String>> =
-        recordatorioDao.getRecordatorios().map { items -> items.map { it.name } }
-
-    override suspend fun add(name: String) {
-        recordatorioDao.insertRecordatorio(Recordatorio(name = name))
-    }
 }
