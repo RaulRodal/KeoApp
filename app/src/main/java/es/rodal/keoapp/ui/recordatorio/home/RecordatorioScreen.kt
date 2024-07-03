@@ -17,11 +17,11 @@
 package es.rodal.keoapp.ui.recordatorio.home
 
 import android.os.Build
-import android.service.notification.StatusBarNotification
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -30,6 +30,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -47,22 +48,19 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import es.rodal.keoapp.R
-import es.rodal.keoapp.data.domain.model.Recordatorio
 
 @RequiresApi(Build.VERSION_CODES.M)
 @Composable
 fun RecordatorioScreen(
-    notifications: Array<StatusBarNotification>,
     navigateToRecordatorioEntry: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: RecordatorioViewModel = hiltViewModel()
 ) {
-        RecordatorioScaffold(
-            navigateToRecordatorioEntry = navigateToRecordatorioEntry,
-            viewModel = viewModel,
-            //onSave = viewModel::addRecordatorio,
-            modifier = modifier
-        )
+    RecordatorioScaffold(
+        navigateToRecordatorioEntry = navigateToRecordatorioEntry,
+        viewModel = viewModel,
+        modifier = modifier
+    )
 
 }
 
@@ -102,7 +100,7 @@ fun RecordatorioScaffold(
             }
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = navigateToRecordatorioEntry ) {
+            FloatingActionButton(onClick = navigateToRecordatorioEntry) {
                 Icon(Icons.Default.Add, contentDescription = "Add")
             }
         }
@@ -114,27 +112,41 @@ fun RecordatorioScaffold(
         ) {
             when (viewModel.recordatorioState.isEmpty()) {
                 true -> EmptyView()
-                false -> RecordatorioLazyColumn(viewModel.recordatorioState)}
+                false -> RecordatorioLazyColumn(viewModel)
             }
         }
     }
+}
 
 
 @Composable
-fun RecordatorioLazyColumn(recordatorioList: List<Recordatorio>/*, navigateToRecordatorioDetail: (Recordatorio) -> Unit*/) {
+fun RecordatorioLazyColumn(viewModel: RecordatorioViewModel/*, navigateToRecordatorioDetail: (Recordatorio) -> Unit*/) {
     LazyColumn(
         modifier = Modifier,
         contentPadding = PaddingValues(vertical = 8.dp)
     ) {
-        items(recordatorioList) { recordatorio ->
+        items(viewModel.recordatorioState.asReversed()) { recordatorio ->
             Card(
                 modifier = Modifier
                     .padding(8.dp)
                     .fillMaxWidth()
             ) {
-                Column {
-                    Text(text = recordatorio.name, modifier = Modifier.padding(16.dp))
-                    Text(text = recordatorio.recordatorioTime.toString(), modifier = Modifier.padding(16.dp))
+                Row {
+                    Column {
+                        Text(text = recordatorio.name, modifier = Modifier.padding(16.dp))
+                        Text(
+                            text = recordatorio.recordatorioTime.toString(),
+                            modifier = Modifier.padding(16.dp)
+                        )
+                    }
+                    Column {
+                        Button(onClick = { viewModel.deleteRecordatorio(recordatorio) }) {
+                            Text(stringResource(id = R.string.delete))
+                        }
+                        Button(onClick = { TODO() }) {
+                            Text(stringResource(id = R.string.cancel))
+                        }
+                    }
                 }
             }
         }

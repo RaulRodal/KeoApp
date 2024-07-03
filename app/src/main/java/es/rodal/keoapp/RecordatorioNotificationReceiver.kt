@@ -38,29 +38,4 @@ class RecordatorioNotificationReceiver: BroadcastReceiver() {
 
         notificationManager.notify(1, notification)
     }
-
-    private fun createSimpleNotification(context: Context) {
-        val intent = Intent(context, MainActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }
-
-        val flag = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE else 0
-        val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, flag)
-
-        val notification = NotificationCompat.Builder(context, MainActivity.MY_CHANNEL_ID)
-            .setSmallIcon(android.R.drawable.ic_delete)
-            .setContentTitle("My title")
-            .setContentText("Esto es un ejemplo <3")
-            .setStyle(
-                NotificationCompat.BigTextStyle()
-                    .bigText("Holita holi Holita holi Holita holi Holita holi Holita holi Holita holi Holita holi Holita holi Holita holi Holita holi Holita holi Holita holi Holita holi ")
-            )
-            .setContentIntent(pendingIntent)
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            .build()
-
-        val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        manager.notify(NOTIFICATION_ID, notification)
-    }
-
 }

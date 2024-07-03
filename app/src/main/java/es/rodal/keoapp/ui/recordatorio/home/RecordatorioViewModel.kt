@@ -45,6 +45,12 @@ class RecordatorioViewModel @Inject constructor(
             }
         }
     }
+
+    fun deleteRecordatorio(recordatorio: Recordatorio) {
+        viewModelScope.launch {
+            recordatorioRepository.deleteRecordatorio(recordatorio)
+        }
+    }
 }
 
 sealed interface RecordatorioUiState {

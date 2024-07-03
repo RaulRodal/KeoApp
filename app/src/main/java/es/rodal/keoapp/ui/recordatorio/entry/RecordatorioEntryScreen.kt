@@ -48,7 +48,6 @@ import java.util.Date
 @Composable
 fun RecordatorioEntryScreen (
     navController: NavController,
-    activity: ComponentActivity,
     navigateBack: () -> Unit,
     onNavigateUp: () -> Unit,
     canNavigateBack: Boolean = true,
@@ -91,8 +90,7 @@ fun RecordatorioEntryScreen (
             formGpt(
                 viewModel = viewModel,
                 navController = navController,
-                navigateBack = navigateBack,
-                activity = activity
+                navigateBack = navigateBack
             )
         }
     }
@@ -102,8 +100,7 @@ fun RecordatorioEntryScreen (
 fun formGpt(
     viewModel: RecordatorioEntryViewModel,
     navController: NavController,
-    navigateBack: () -> Unit,
-    activity: ComponentActivity
+    navigateBack: () -> Unit
 ) {
     val context = navController.context
     var taskName by remember { mutableStateOf("") }
@@ -169,55 +166,23 @@ fun formGpt(
 
         Button(
             onClick = {
-                viewModel.addRecordatorio(context, Recordatorio(
-                    name = taskName,
-                    recordatorioDone = false,
-                    recordatorioTime = calendar.time
-                ))
-                navigateBack()
+                if (taskName.isNotEmpty() && taskDate.isNotEmpty() && taskTime.isNotEmpty()) {
+                    viewModel.addRecordatorio(context, Recordatorio(
+                        name = taskName,
+                        recordatorioDone = false,
+                        recordatorioTime = calendar.time
+                    ))
+                    Toast.makeText(context, "Recordatorio guardado", Toast.LENGTH_SHORT).show()
+                    navigateBack()
+                } else {
+                    Toast.makeText(context,"Por favor, complete todos los campos",Toast.LENGTH_SHORT).show()
+                }
             },
-//                if (taskName.isNotEmpty() && taskDate.isNotEmpty() && taskTime.isNotEmpty()) {
-//                    scheduleNotification(
-//                        context = context,
-//                        activity = activity,
-//                        calendarTimeInMillis = calendar.timeInMillis
-//                    )
-//                    Toast.makeText(context, "Recordatorio guardado", Toast.LENGTH_SHORT).show()
-//                    navigateBack()
-//                } else {
-//                    Toast.makeText(context, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show()
-//
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(text = "Guardar Tarea y Establecer Recordatorio")
         }
-    }
-}
 
-fun scheduleNotification(
-    context: Context,
-    activity: ComponentActivity,
-    calendarTimeInMillis: Long = Calendar.getInstance().timeInMillis
-) {
-    val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !alarmManager.canScheduleExactAlarms()) {
-        // Request SCHEDULE_EXACT_ALARM permission
-        ActivityCompat.requestPermissions(
-            activity,
-            arrayOf(Manifest.permission.SCHEDULE_EXACT_ALARM),
-            1
-        )
-    } else {
-        val intent = Intent(context, RecordatorioNotificationReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(
-            context,
-            NOTIFICATION_ID,
-            intent,
-            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-        )
-
-        // Trigger at millis would be the date and time in millis
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendarTimeInMillis, pendingIntent)
     }
 }

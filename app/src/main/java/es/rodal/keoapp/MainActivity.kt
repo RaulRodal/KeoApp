@@ -39,17 +39,10 @@ import java.util.Calendar
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    companion object {
-        const val MY_CHANNEL_ID = "myChannel"
-    }
+
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        createChannel()
-
-        // ver notificaciones
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val activeNotifications = notificationManager.activeNotifications
 
         setContent {
             MyApplicationTheme {
@@ -57,39 +50,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MainNavigation(
-                        activity = this,
-                        notifications = activeNotifications                    )
+                    MainNavigation(activity = this)
                 }
             }
-        }
-    }
-    fun scheduleNotification() {
-        val intent = Intent(applicationContext, RecordatorioNotificationReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(
-            applicationContext,
-            NOTIFICATION_ID,
-            intent,
-            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-        )
-
-        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, Calendar.getInstance().timeInMillis + 15000, pendingIntent)
-    }
-    private fun createChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                MY_CHANNEL_ID,
-                "MySuperChannel",
-                NotificationManager.IMPORTANCE_DEFAULT
-            ).apply {
-                description = "SUSCRIBETE"
-            }
-
-            val notificationManager: NotificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-            notificationManager.createNotificationChannel(channel)
         }
     }
 }

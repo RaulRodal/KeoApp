@@ -30,8 +30,7 @@ import es.rodal.keoapp.ui.recordatorio.entry.RecordatorioEntryScreen
 
 @Composable
 fun MainNavigation(
-    activity: ComponentActivity,
-    notifications: Array<StatusBarNotification>
+    activity: ComponentActivity
     ) {
     val navController = rememberNavController()
 
@@ -42,14 +41,12 @@ fun MainNavigation(
         composable("main") {
             RecordatorioScreen(
                 navigateToRecordatorioEntry = {navController.navigate("addRecordatorio")},
-                modifier = Modifier.padding(16.dp),
-                notifications = notifications
+                modifier = Modifier.padding(16.dp)
             )
         }
         composable("addRecordatorio") {
             RecordatorioEntryScreen(
                 navController = navController,
-                activity = activity,
                 navigateBack = { navController.popBackStack() },
                 onNavigateUp = { navController.navigateUp() }
             )

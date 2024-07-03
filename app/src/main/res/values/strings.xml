@@ -58,4 +58,5 @@
     <string name="recordatorio_reminder_time">Es hora de tomar tu medicación, %s. Abra la aplicación para iniciar sesión.</string>
     <string name="cancel">Cancelar</string>
     <string name="ok">DE ACUERDO</string>
+    <string name="delete">Eliminar</string>
 </resources>
