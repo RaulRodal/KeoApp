@@ -16,6 +16,10 @@ interface RecordatorioDao {
 
     @Query("SELECT * FROM recordatorioentity WHERE endDate > :date")
     fun getRecordatoriosByDate(date: Date): Flow<List<RecordatorioEntity>>
+
+    @Query("SELECT * FROM recordatorioentity WHERE id = :id")
+    fun getRecordatorioById(id: Long): RecordatorioEntity
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertRecordatorio(recordatorioEntity: RecordatorioEntity): Long
 

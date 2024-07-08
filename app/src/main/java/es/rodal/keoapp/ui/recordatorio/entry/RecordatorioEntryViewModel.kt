@@ -1,6 +1,7 @@
 package es.rodal.keoapp.ui.recordatorio.entry
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,12 +23,13 @@ class RecordatorioEntryViewModel @Inject constructor(
     val isRecordatorioSaved = _isRecordatorioSaved.asSharedFlow()
     fun addRecordatorio(context: Context, recordatorio: Recordatorio) {
         viewModelScope.launch {
-            val recordatorioAdded = recordatorioRepository.insertRecordatorio(recordatorio)
-
+            //Guardo el id para poder añadir el Recordatorio con id en el scheduleNotification
+            val idRecordatorioAdded = recordatorioRepository.insertRecordatorio(recordatorio)
             val service = RecordatorioNotificationService(context)
-            service.scheduleNotification(recordatorio)
+            val recordatorioAdded = recordatorio.copy(id = idRecordatorioAdded)
+            service.scheduleNotification(recordatorioAdded)
 
-            _isRecordatorioSaved.emit(recordatorioAdded)
+            //_isRecordatorioSaved.emit(recordatorioAdded)
         }
     }
 }

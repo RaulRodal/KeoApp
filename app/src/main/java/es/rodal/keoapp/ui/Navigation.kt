@@ -40,6 +40,7 @@ fun MainNavigation(
     ) {
         composable("main") {
             RecordatorioScreen(
+                navController = navController,
                 navigateToRecordatorioEntry = {navController.navigate("addRecordatorio")},
                 modifier = Modifier.padding(16.dp)
             )

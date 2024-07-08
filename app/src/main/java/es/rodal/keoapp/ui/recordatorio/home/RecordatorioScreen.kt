@@ -16,6 +16,7 @@
 
 package es.rodal.keoapp.ui.recordatorio.home
 
+import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
@@ -47,16 +48,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import es.rodal.keoapp.R
 
 @RequiresApi(Build.VERSION_CODES.M)
 @Composable
 fun RecordatorioScreen(
+    navController: NavController,
     navigateToRecordatorioEntry: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: RecordatorioViewModel = hiltViewModel()
 ) {
     RecordatorioScaffold(
+        navController = navController,
         navigateToRecordatorioEntry = navigateToRecordatorioEntry,
         viewModel = viewModel,
         modifier = modifier
@@ -67,6 +71,7 @@ fun RecordatorioScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecordatorioScaffold(
+    navController: NavController,
     navigateToRecordatorioEntry: () -> Unit,
     viewModel: RecordatorioViewModel,
     modifier: Modifier = Modifier
@@ -112,7 +117,7 @@ fun RecordatorioScaffold(
         ) {
             when (viewModel.recordatorioState.isEmpty()) {
                 true -> EmptyView()
-                false -> RecordatorioLazyColumn(viewModel)
+                false -> RecordatorioLazyColumn(viewModel, navController.context)
             }
         }
     }
@@ -120,11 +125,12 @@ fun RecordatorioScaffold(
 
 
 @Composable
-fun RecordatorioLazyColumn(viewModel: RecordatorioViewModel/*, navigateToRecordatorioDetail: (Recordatorio) -> Unit*/) {
+fun RecordatorioLazyColumn(viewModel: RecordatorioViewModel, context: Context/*, navigateToRecordatorioDetail: (Recordatorio) -> Unit*/) {
     LazyColumn(
         modifier = Modifier,
         contentPadding = PaddingValues(vertical = 8.dp)
     ) {
+
         items(viewModel.recordatorioState.asReversed()) { recordatorio ->
             Card(
                 modifier = Modifier
@@ -132,15 +138,15 @@ fun RecordatorioLazyColumn(viewModel: RecordatorioViewModel/*, navigateToRecorda
                     .fillMaxWidth()
             ) {
                 Row {
-                    Column {
+                    Column(modifier = Modifier.padding(8.dp).weight(2f)) {
                         Text(text = recordatorio.name, modifier = Modifier.padding(16.dp))
                         Text(
                             text = recordatorio.recordatorioTime.toString(),
-                            modifier = Modifier.padding(16.dp)
+                            modifier = Modifier.padding(8.dp)
                         )
                     }
-                    Column {
-                        Button(onClick = { viewModel.deleteRecordatorio(recordatorio) }) {
+                    Column(modifier = Modifier.padding(8.dp).weight(1f)) {
+                        Button(onClick = { viewModel.deleteRecordatorio(context, recordatorio) }) {
                             Text(stringResource(id = R.string.delete))
                         }
                         Button(onClick = { TODO() }) {

@@ -23,8 +23,11 @@ class RecordatorioRepositoryImpl(
         }
     }
 
-    override suspend fun insertRecordatorio(item: Recordatorio) {
-        dao.insertRecordatorio(item.toRecordatorioEntity())
+    override suspend fun getRecordatorioById(id: Long): Recordatorio {
+        return dao.getRecordatorioById(id).toRecordatorio()
+    }
+    override suspend fun insertRecordatorio(item: Recordatorio): Long {
+        return dao.insertRecordatorio(item.toRecordatorioEntity())
     }
 
     override suspend fun updateRecordatorio(item: Recordatorio) {

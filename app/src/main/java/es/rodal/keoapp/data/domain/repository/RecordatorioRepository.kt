@@ -27,7 +27,8 @@ interface RecordatorioRepository {
 
     suspend fun getRecordatorios(): Flow<List<Recordatorio>>
     suspend fun getRecordatoriosByDate(date: Date): Flow<List<Recordatorio>>
-    suspend fun insertRecordatorio(item: Recordatorio)
+    suspend fun getRecordatorioById(id: Long): Recordatorio
+    suspend fun insertRecordatorio(item: Recordatorio): Long
     suspend fun updateRecordatorio(item: Recordatorio)
     suspend fun deleteRecordatorio(item: Recordatorio)
 

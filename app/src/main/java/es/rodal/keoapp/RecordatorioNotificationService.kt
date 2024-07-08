@@ -33,6 +33,9 @@ class RecordatorioNotificationService(
                     time,
                     pendingIntent
                 )
+                Log.e("RNServiceADD", "Añadiendo alarma ${recordatorio.id}")
+                Log.e("RNServiceADD", "Añadiendo alarma ${recordatorio.hashCode()}")
+                Log.e("RNServiceADD", "Añadiendo alarma $pendingIntent")
             } catch (exception: SecurityException) {
                 Log.e("RNService", "Error al programar la alarma")
                ///FirebaseCrashlytics.getInstance().recordException(exception)
@@ -42,6 +45,21 @@ class RecordatorioNotificationService(
         ///analyticsHelper.trackNotificationScheduled(recordatorio)
     }
 
+    fun deleteNotification(recordatorio: Recordatorio) {
+        val intent = Intent(context, RecordatorioNotificationReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(
+            context,
+            recordatorio.id?.toInt() ?: recordatorio.hashCode(),
+            intent,
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE else 0
+        )
+
+        Log.e("RNServiceDELETE", "Cancelando alarma ${recordatorio.id}")
+        Log.e("RNServiceDELETE", "Cancelando alarma ${recordatorio.hashCode()}")
+        Log.e("RNServiceDELETE", "Cancelando alarma $pendingIntent")
+        val alarmService = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarmService.cancel(pendingIntent)
+    }
     companion object {
         const val RECORDATORIO_CHANNEL_ID = "recordatorio_channel"
     }

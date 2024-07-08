@@ -16,16 +16,21 @@
 
 package es.rodal.keoapp.ui.recordatorio.home
 
+import android.app.NotificationManager
+import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import es.rodal.keoapp.RecordatorioNotificationService
 import es.rodal.keoapp.data.domain.model.Recordatorio
 import es.rodal.keoapp.data.domain.repository.RecordatorioRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 
 @HiltViewModel
 class RecordatorioViewModel @Inject constructor(
@@ -46,9 +51,11 @@ class RecordatorioViewModel @Inject constructor(
         }
     }
 
-    fun deleteRecordatorio(recordatorio: Recordatorio) {
+    fun deleteRecordatorio(context: Context, recordatorio: Recordatorio) {
         viewModelScope.launch {
             recordatorioRepository.deleteRecordatorio(recordatorio)
+            val service = RecordatorioNotificationService(context)
+            service.deleteNotification(recordatorio)
         }
     }
 }
