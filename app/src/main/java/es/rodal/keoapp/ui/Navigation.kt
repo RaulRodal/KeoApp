@@ -26,8 +26,8 @@ import es.rodal.keoapp.ui.recordatorio.home.RecordatorioScreen
 import es.rodal.keoapp.ui.utils.scheduleAlarmPermissionGranted
 
 
-const val ASK_NOTIFICATION_PERMISSION = "notification_permission"
-const val ASK_ALARM_PERMISSION = "alarm_permission"
+//const val ASK_NOTIFICATION_PERMISSION = "notification_permission"
+//const val ASK_ALARM_PERMISSION = "alarm_permission"
 
 @Composable
 fun MainNavigation(
