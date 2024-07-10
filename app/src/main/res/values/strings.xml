@@ -57,6 +57,7 @@
     <string name="notifications_for_recordatorio_reminder">Notificaciones de recordatorios</string>
     <string name="recordatorio_reminder_time">Es hora de tomar tu medicación, %s. Abra la aplicación para iniciar sesión.</string>
     <string name="cancel">Cancelar</string>
+    <string name="activate">Activar</string>
     <string name="ok">DE ACUERDO</string>
     <string name="delete">Eliminar</string>
     <string name="alarms_permission_required">Es necesario permitir alarmas</string>

@@ -1,18 +1,18 @@
 package es.rodal.keoapp.data.domain.model
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import java.util.Date
 
 @Parcelize
 data class Recordatorio (
     val id: Long?,
     val name: String,
-    val recurrence: String,
-    val endDate: Date,
+    val description: String,
+    val active: Boolean,
     val recordatorioDone: Boolean,
     val recordatorioTime: Date
 ) : Parcelable {
-    constructor(name: String, recordatorioDone: Boolean, recordatorioTime: Date) :
-            this(null, name, "", Date(), recordatorioDone, recordatorioTime)
+    constructor(name: String, description: String, recordatorioTime: Date) :
+            this(null, name, description, true, false, recordatorioTime)
 }

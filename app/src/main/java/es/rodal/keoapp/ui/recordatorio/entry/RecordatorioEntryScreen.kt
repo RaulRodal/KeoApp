@@ -75,7 +75,7 @@ fun RecordatorioEntryScreen (
                 .padding(innerPadding),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            formGpt(
+            FormGpt(
                 viewModel = viewModel,
                 navController = navController,
                 navigateBack = navigateBack
@@ -85,7 +85,7 @@ fun RecordatorioEntryScreen (
 }
 
 @Composable
-fun formGpt(
+fun FormGpt(
     viewModel: RecordatorioEntryViewModel,
     navController: NavController,
     navigateBack: () -> Unit
@@ -138,7 +138,7 @@ fun formGpt(
             onClick = { datePickerDialog.show() },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(text = if (taskDate.isEmpty()) "Seleccionar Fecha" else taskDate)
+            Text(text = if (taskDate.isEmpty()) "Seleccionar fecha" else taskDate)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -147,7 +147,7 @@ fun formGpt(
             onClick = { timePickerDialog.show() },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(text = if (taskTime.isEmpty()) "Seleccionar Hora" else taskTime)
+            Text(text = if (taskTime.isEmpty()) "Seleccionar hora" else taskTime)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -157,7 +157,7 @@ fun formGpt(
                 if (taskName.isNotEmpty() && taskDate.isNotEmpty() && taskTime.isNotEmpty()) {
                     viewModel.addRecordatorio(context, Recordatorio(
                         name = taskName,
-                        recordatorioDone = false,
+                        description = "",
                         recordatorioTime = calendar.time
                     ))
                     Toast.makeText(context, "Recordatorio guardado", Toast.LENGTH_SHORT).show()

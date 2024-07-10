@@ -7,8 +7,8 @@ import es.rodal.keoapp.data.local.database.RecordatorioEntity
         return RecordatorioEntity(
             id = id ?: 0L,
             name = name,
-            recurrence = recurrence,
-            endDate = endDate,
+            description = description,
+            active = active,
             recordatorioDone = recordatorioDone,
             recordatorioTime = recordatorioTime
         )
@@ -18,8 +18,8 @@ import es.rodal.keoapp.data.local.database.RecordatorioEntity
         return Recordatorio(
             id = id,
             name = name,
-            recurrence = recurrence,
-            endDate = endDate,
+            description = description,
+            active = active,
             recordatorioDone = recordatorioDone,
             recordatorioTime = recordatorioTime
         )

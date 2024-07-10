@@ -24,8 +24,8 @@ import java.util.Date
 data class RecordatorioEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val name: String,
-    val recurrence: String,
-    val endDate: Date,
+    val description: String,
+    val active: Boolean,
     val recordatorioDone: Boolean,
     val recordatorioTime: Date
 )
