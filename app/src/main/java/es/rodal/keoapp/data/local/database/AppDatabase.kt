@@ -19,7 +19,6 @@ package es.rodal.keoapp.data.local.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import es.rodal.keoapp.data.domain.model.Recordatorio
 
 @Database(entities = [RecordatorioEntity::class], version = 1)
  @TypeConverters(Converters::class)

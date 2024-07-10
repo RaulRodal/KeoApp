@@ -1,15 +1,8 @@
 package es.rodal.keoapp.ui.recordatorio.entry
 
-import android.Manifest
-import android.app.AlarmManager
 import android.app.DatePickerDialog
-import android.app.PendingIntent
 import android.app.TimePickerDialog
-import android.content.Context
-import android.content.Intent
-import android.os.Build
 import android.widget.Toast
-import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -34,15 +27,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.core.app.ActivityCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import es.rodal.keoapp.RecordatorioNotificationReceiver
-import es.rodal.keoapp.RecordatorioNotificationReceiver.Companion.NOTIFICATION_ID
 import es.rodal.keoapp.data.domain.model.Recordatorio
-import es.rodal.keoapp.ui.recordatorio.home.RecordatorioViewModel
 import java.util.Calendar
-import java.util.Date
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

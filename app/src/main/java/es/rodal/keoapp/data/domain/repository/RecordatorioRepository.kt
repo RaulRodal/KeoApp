@@ -18,10 +18,7 @@ package es.rodal.keoapp.data.domain.repository
 
 import es.rodal.keoapp.data.domain.model.Recordatorio
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
-import es.rodal.keoapp.data.local.database.RecordatorioDao
 import java.util.Date
-import javax.inject.Inject
 
 interface RecordatorioRepository {
 

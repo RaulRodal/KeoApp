@@ -1,18 +1,12 @@
 package es.rodal.keoapp
 
-import android.Manifest
-import android.app.AlarmManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import androidx.activity.ComponentActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
-import java.util.Calendar
 
 const val RECORDATORIO_INTENT = "recordatorio_intent"
 const val RECORDATORIO_NOTIFICATION = "recordatorio_notification"

@@ -16,17 +16,14 @@
 
 package es.rodal.keoapp.ui
 
-import android.service.notification.StatusBarNotification
-import androidx.activity.ComponentActivity
-import androidx.compose.foundation.layout.padding
+import android.content.Context
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import es.rodal.keoapp.ui.recordatorio.home.RecordatorioScreen
 import es.rodal.keoapp.ui.recordatorio.entry.RecordatorioEntryScreen
+import es.rodal.keoapp.ui.recordatorio.home.RecordatorioScreen
+import es.rodal.keoapp.ui.utils.scheduleAlarmPermissionGranted
 
 
 const val ASK_NOTIFICATION_PERMISSION = "notification_permission"
@@ -34,7 +31,7 @@ const val ASK_ALARM_PERMISSION = "alarm_permission"
 
 @Composable
 fun MainNavigation(
-    activity: ComponentActivity
+    context: Context
     ) {
     val navController = rememberNavController()
 
@@ -43,14 +40,14 @@ fun MainNavigation(
         startDestination = "main"
     ) {
         composable("main") {
-            val askNotificationPermission = navController.currentBackStackEntry?.savedStateHandle?.get<Boolean>(ASK_NOTIFICATION_PERMISSION) ?: false
-            val askAlarmPermission = navController.currentBackStackEntry?.savedStateHandle?.get<Boolean>(ASK_ALARM_PERMISSION) ?: false
+//            val askNotificationPermission = navController.currentBackStackEntry?.savedStateHandle?.get<Boolean>(ASK_NOTIFICATION_PERMISSION) ?: false
+//            val askAlarmPermission = navController.currentBackStackEntry?.savedStateHandle?.get<Boolean>(ASK_ALARM_PERMISSION) ?: false
+            val askPermission = scheduleAlarmPermissionGranted(context)
             RecordatorioScreen(
                 navController = navController,
-                askNotificationPermission = askNotificationPermission,
-                askAlarmPermission = askAlarmPermission,
-                navigateToRecordatorioEntry = {navController.navigate("addRecordatorio")},
-                modifier = Modifier.padding(16.dp)
+                askNotificationPermission = askPermission,
+                askAlarmPermission = askPermission,
+                navigateToRecordatorioEntry = {navController.navigate("addRecordatorio")}
             )
         }
         composable("addRecordatorio") {

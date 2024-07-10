@@ -1,7 +1,6 @@
 package es.rodal.keoapp.ui.recordatorio.entry
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
