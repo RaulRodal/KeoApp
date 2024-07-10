@@ -14,36 +14,46 @@
  * limitations under the License.
  */
 
-package es.rodal.keoapp.ui.recordatorio
+package es.rodal.keoapp.ui.recordatorio.home
 
+import android.content.Context
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
+import es.rodal.keoapp.RecordatorioNotificationService
+import es.rodal.keoapp.data.domain.model.Recordatorio
+import es.rodal.keoapp.data.domain.repository.RecordatorioRepository
 import kotlinx.coroutines.launch
-import es.rodal.keoapp.data.RecordatorioRepository
-import es.rodal.keoapp.ui.recordatorio.RecordatorioUiState.Error
-import es.rodal.keoapp.ui.recordatorio.RecordatorioUiState.Loading
-import es.rodal.keoapp.ui.recordatorio.RecordatorioUiState.Success
 import javax.inject.Inject
+
 
 @HiltViewModel
 class RecordatorioViewModel @Inject constructor(
     private val recordatorioRepository: RecordatorioRepository
 ) : ViewModel() {
 
-    val uiState: StateFlow<RecordatorioUiState> = recordatorioRepository
-        .recordatorios.map<List<String>, RecordatorioUiState>(::Success)
-        .catch { emit(Error(it)) }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), Loading)
+    var recordatorioState by mutableStateOf(emptyList<Recordatorio>())
 
-    fun addRecordatorio(name: String) {
+    init {
+        loadRecordatorios()
+    }
+
+    fun loadRecordatorios() {
         viewModelScope.launch {
-            recordatorioRepository.add(name)
+            recordatorioRepository.getRecordatorios().collect { recordatorios ->
+                recordatorioState = recordatorios
+            }
+        }
+    }
+
+    fun deleteRecordatorio(context: Context, recordatorio: Recordatorio) {
+        viewModelScope.launch {
+            recordatorioRepository.deleteRecordatorio(recordatorio)
+            val service = RecordatorioNotificationService(context)
+            service.deleteNotification(recordatorio)
         }
     }
 }

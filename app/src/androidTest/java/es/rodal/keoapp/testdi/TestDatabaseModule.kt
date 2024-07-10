@@ -20,7 +20,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
-import es.rodal.keoapp.data.RecordatorioRepository
+import es.rodal.keoapp.data.domain.repository.RecordatorioRepository
 import es.rodal.keoapp.data.di.DataModule
 import es.rodal.keoapp.data.di.FakeRecordatorioRepository
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package es.rodal.keoapp.ui
+package es.rodal.keoapp
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -24,6 +24,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
+import es.rodal.keoapp.ui.MainNavigation
 import es.rodal.keoapp.ui.theme.MyApplicationTheme
 
 @AndroidEntryPoint
@@ -31,13 +32,14 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             MyApplicationTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MainNavigation()
+                    MainNavigation(context = this)
                 }
             }
         }

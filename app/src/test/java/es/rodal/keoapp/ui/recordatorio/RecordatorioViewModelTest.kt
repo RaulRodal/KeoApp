@@ -19,12 +19,13 @@ package es.rodal.keoapp.ui.recordatorio
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import es.rodal.keoapp.data.RecordatorioRepository
+import es.rodal.keoapp.data.domain.repository.RecordatorioRepository
+import es.rodal.keoapp.ui.recordatorio.home.RecordatorioUiState
+import es.rodal.keoapp.ui.recordatorio.home.RecordatorioViewModel
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -36,13 +37,13 @@ class RecordatorioViewModelTest {
     @Test
     fun uiState_initiallyLoading() = runTest {
         val viewModel = RecordatorioViewModel(FakeRecordatorioRepository())
-        assertEquals(viewModel.uiState.first(), RecordatorioUiState.Loading)
+        assertEquals(viewModel.recordatorioState.first(), RecordatorioUiState.Loading)
     }
 
     @Test
     fun uiState_onItemSaved_isDisplayed() = runTest {
         val viewModel = RecordatorioViewModel(FakeRecordatorioRepository())
-        assertEquals(viewModel.uiState.first(), RecordatorioUiState.Loading)
+        assertEquals(viewModel.recordatorioState.first(), RecordatorioUiState.Loading)
     }
 }
 
