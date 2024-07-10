@@ -28,6 +28,10 @@ import androidx.navigation.compose.rememberNavController
 import es.rodal.keoapp.ui.recordatorio.home.RecordatorioScreen
 import es.rodal.keoapp.ui.recordatorio.entry.RecordatorioEntryScreen
 
+
+const val ASK_NOTIFICATION_PERMISSION = "notification_permission"
+const val ASK_ALARM_PERMISSION = "alarm_permission"
+
 @Composable
 fun MainNavigation(
     activity: ComponentActivity
@@ -39,8 +43,12 @@ fun MainNavigation(
         startDestination = "main"
     ) {
         composable("main") {
+            val askNotificationPermission = navController.currentBackStackEntry?.savedStateHandle?.get<Boolean>(ASK_NOTIFICATION_PERMISSION) ?: false
+            val askAlarmPermission = navController.currentBackStackEntry?.savedStateHandle?.get<Boolean>(ASK_ALARM_PERMISSION) ?: false
             RecordatorioScreen(
                 navController = navController,
+                askNotificationPermission = askNotificationPermission,
+                askAlarmPermission = askAlarmPermission,
                 navigateToRecordatorioEntry = {navController.navigate("addRecordatorio")},
                 modifier = Modifier.padding(16.dp)
             )

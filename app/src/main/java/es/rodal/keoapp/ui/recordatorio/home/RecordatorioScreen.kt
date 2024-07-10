@@ -16,8 +16,12 @@
 
 package es.rodal.keoapp.ui.recordatorio.home
 
+import android.Manifest
+import android.app.AlarmManager
 import android.content.Context
+import android.content.Intent
 import android.os.Build
+import android.provider.Settings
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -30,6 +34,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -42,23 +48,37 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberPermissionState
 import es.rodal.keoapp.R
 
-@RequiresApi(Build.VERSION_CODES.M)
 @Composable
 fun RecordatorioScreen(
     navController: NavController,
+    askNotificationPermission: Boolean,
+    askAlarmPermission: Boolean,
     navigateToRecordatorioEntry: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: RecordatorioViewModel = hiltViewModel()
 ) {
+    PermissionAlarmDialog(
+        askAlarmPermission = askAlarmPermission
+    )
+    PermissionDialog(
+        askNotificationPermission = askNotificationPermission
+    )
     RecordatorioScaffold(
         navController = navController,
         navigateToRecordatorioEntry = navigateToRecordatorioEntry,
@@ -175,5 +195,102 @@ fun EmptyView() {
             text = stringResource(id = R.string.no_history_yet),
             color = MaterialTheme.colorScheme.tertiary
         )
+    }
+}
+
+@OptIn(ExperimentalPermissionsApi::class)
+@Composable
+fun PermissionDialog(
+    askNotificationPermission: Boolean
+) {
+    if (askNotificationPermission && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)) {
+        val notificationPermissionState = rememberPermissionState(Manifest.permission.POST_NOTIFICATIONS)
+        if (!notificationPermissionState.status.isGranted) {
+            val openAlertDialog = remember { mutableStateOf(true) }
+
+            when {
+                openAlertDialog.value -> {
+                    AlertDialog(
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Default.Notifications,
+                                contentDescription = stringResource(R.string.notifications)
+                            )
+                        },
+                        title = {
+                            Text(text = stringResource(R.string.notification_permission_required))
+                        },
+                        text = {
+                            Text(text = stringResource(R.string.notification_permission_required_description_message))
+                        },
+                        onDismissRequest = {
+                            openAlertDialog.value = false
+                        },
+                        confirmButton = {
+                            Button(
+                                onClick = {
+                                    notificationPermissionState.launchPermissionRequest()
+                                    openAlertDialog.value = false
+                                }
+                            ) {
+                                Text(stringResource(R.string.allow))
+                            }
+                        }
+                    )
+                }
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalPermissionsApi::class)
+@Composable
+fun PermissionAlarmDialog(
+    askAlarmPermission: Boolean
+) {
+    val context = LocalContext.current
+    val alarmManager = ContextCompat.getSystemService(context, AlarmManager::class.java)
+    if (askAlarmPermission && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE)) {
+        val alarmPermissionState = rememberPermissionState(Manifest.permission.SCHEDULE_EXACT_ALARM)
+        if (alarmManager?.canScheduleExactAlarms() == false) {
+            val openAlertDialog = remember { mutableStateOf(true) }
+
+            when {
+                openAlertDialog.value -> {
+
+                    AlertDialog(
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Default.Notifications,
+                                contentDescription = stringResource(R.string.alarms)
+                            )
+                        },
+                        title = {
+                            Text(text = stringResource(R.string.alarms_permission_required))
+                        },
+                        text = {
+                            Text(text = stringResource(R.string.alarms_permission_required_description_message))
+                        },
+                        onDismissRequest = {
+                            openAlertDialog.value = false
+                        },
+                        confirmButton = {
+                            Button(
+                                onClick = {
+                                    Intent().also { intent ->
+                                        intent.action = Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM
+                                        context.startActivity(intent)
+                                    }
+
+                                    openAlertDialog.value = false
+                                }
+                            ) {
+                                Text(stringResource(R.string.allow))
+                            }
+                        }
+                    )
+                }
+            }
+        }
     }
 }

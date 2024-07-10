@@ -59,4 +59,7 @@
     <string name="cancel">Cancelar</string>
     <string name="ok">DE ACUERDO</string>
     <string name="delete">Eliminar</string>
+    <string name="alarms_permission_required">Es necesario permitir alarmas</string>
+    <string name="alarms">Notificaciones</string>
+    <string name="alarms_permission_required_description_message">Para asegurar que nunca te saltes un recordatorio, es necesario que concedas los permisos</string>
 </resources>
