@@ -18,7 +18,6 @@ package es.rodal.keoapp.ui.recordatorio.home
 
 import android.content.Context
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -32,6 +31,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -46,9 +46,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import es.rodal.keoapp.R
@@ -122,7 +123,7 @@ fun RecordatorioScaffold(
         Column(
             modifier = Modifier
                 .padding(innerPadding),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
+            verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium)),
         ) {
             when (viewModel.recordatorioState.isEmpty()) {
                 true -> EmptyView()
@@ -137,7 +138,7 @@ fun RecordatorioScaffold(
 fun RecordatorioLazyColumn(viewModel: RecordatorioViewModel, context: Context/*, navigateToRecordatorioDetail: (Recordatorio) -> Unit*/) {
     LazyColumn(
         modifier = Modifier,
-        contentPadding = PaddingValues(vertical = 8.dp)
+        contentPadding = PaddingValues(vertical = dimensionResource(id = R.dimen.padding_small))
     ) {
 
         items(viewModel.recordatorioState.asReversed()) { recordatorio ->
@@ -146,7 +147,7 @@ fun RecordatorioLazyColumn(viewModel: RecordatorioViewModel, context: Context/*,
                 viewModel = viewModel,
                 context = context,
                 modifier = Modifier
-                    .padding(8.dp)
+                    .padding(dimensionResource(id = R.dimen.padding_small))
             )
         }
 
@@ -171,31 +172,54 @@ fun RecordatorioCard(
 
     Card(
         modifier = modifier,
-        elevation = CardDefaults.cardElevation(defaultElevation = 5.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = color,
-            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = dimensionResource(id = R.dimen.elevation_medium)
         ),
-        border = BorderStroke(1.dp, borderColor)
+//        colors = CardDefaults.cardColors(
+//            containerColor = color,
+//            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+//        ),
+//        border = BorderStroke(1.dp, borderColor)
     ) {
         Row {
             Column(modifier = Modifier
-                .padding(8.dp)
+                .padding(dimensionResource(id = R.dimen.padding_small))
                 .weight(2f)) {
-                Text(text = recordatorio.name, modifier = Modifier.padding(16.dp))
+                Text(
+                    text = recordatorio.name,
+                    modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_medium))
+                )
                 Text(
                     text = recordatorio.recordatorioTime.toString(),
-                    modifier = Modifier.padding(8.dp)
+                    modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small))
                 )
             }
             Column(modifier = Modifier
-                .padding(8.dp)
+                .padding(dimensionResource(id = R.dimen.padding_small))
                 .weight(1f)) {
-                Button(onClick = { viewModel.deleteRecordatorio(context, recordatorio) }) {
-                    Text(stringResource(id = R.string.delete))
+                Button(
+                    onClick = { viewModel.deleteRecordatorio(context, recordatorio) },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.delete),
+                        fontSize = dimensionResource(id = R.dimen.font_xsmall).value.sp
+                    )
                 }
-                Button(onClick = { viewModel.reverseActive(context, recordatorio) }) {
-                    Text(if (recordatorio.active) stringResource(id = R.string.cancel) else stringResource(id = R.string.activate))
+                Button(
+                    onClick = { viewModel.reverseActive(context, recordatorio) },
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonColors(
+                        containerColor = color,
+                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                        disabledContainerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                        disabledContentColor = MaterialTheme.colorScheme.onTertiaryContainer
+                    )
+                    ) {
+                    Text(
+                        text = if (recordatorio.active) stringResource(id = R.string.cancel) else stringResource(id = R.string.activate),
+                        fontSize = dimensionResource(id = R.dimen.font_xsmall).value.sp
+                    )
                 }
             }
         }
@@ -207,12 +231,12 @@ fun EmptyView() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(dimensionResource(id = R.dimen.padding_medium)),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_medium)),
             style = MaterialTheme.typography.headlineMedium,
             text = stringResource(id = R.string.no_history_yet),
             color = MaterialTheme.colorScheme.tertiary

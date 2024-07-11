@@ -33,9 +33,7 @@ class RecordatorioNotificationService(
                     time,
                     pendingIntent
                 )
-                Log.e("RNServiceADD", "Añadiendo alarma ${recordatorio.id}")
-                Log.e("RNServiceADD", "Añadiendo alarma ${recordatorio.hashCode()}")
-                Log.e("RNServiceADD", "Añadiendo alarma $pendingIntent")
+                Log.d("RNServiceADD", "Añadiendo alarma ${recordatorio.id}")
             } catch (exception: SecurityException) {
                 Log.e("RNService", "Error al programar la alarma")
                ///FirebaseCrashlytics.getInstance().recordException(exception)
@@ -54,9 +52,7 @@ class RecordatorioNotificationService(
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE else 0
         )
 
-        Log.e("RNServiceDELETE", "Cancelando alarma ${recordatorio.id}")
-        Log.e("RNServiceDELETE", "Cancelando alarma ${recordatorio.hashCode()}")
-        Log.e("RNServiceDELETE", "Cancelando alarma $pendingIntent")
+        Log.d("RNServiceDELETE", "Cancelando alarma ${recordatorio.id}")
         val alarmService = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmService.cancel(pendingIntent)
     }
