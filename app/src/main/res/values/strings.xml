@@ -63,4 +63,8 @@
     <string name="alarms_permission_required">Es necesario permitir alarmas</string>
     <string name="alarms">Notificaciones</string>
     <string name="alarms_permission_required_description_message">Para asegurar que nunca te saltes un recordatorio, es necesario que concedas los permisos</string>
+    <string name="recordatorio_home_screen_title">Inicio</string>
+    <string name="recordatorio_entry_screen_title">Añadir recordatorio</string>
+    <string name="recordatorio_history_screen_title">Historico</string>
+    <string name="more_options">Mas opciones</string>
 </resources>

@@ -24,7 +24,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
-import es.rodal.keoapp.ui.MainNavigation
+import es.rodal.keoapp.ui.navigation.MainNavigation
 import es.rodal.keoapp.ui.theme.MyApplicationTheme
 
 @AndroidEntryPoint

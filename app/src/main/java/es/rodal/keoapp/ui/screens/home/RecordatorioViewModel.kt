@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package es.rodal.keoapp.ui.recordatorio.home
+package es.rodal.keoapp.ui.screens.home
 
 import android.content.Context
 import androidx.compose.runtime.getValue

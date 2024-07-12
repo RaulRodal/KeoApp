@@ -1,4 +1,4 @@
-package es.rodal.keoapp.ui.recordatorio.entry
+package es.rodal.keoapp.ui.screens.entry
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
