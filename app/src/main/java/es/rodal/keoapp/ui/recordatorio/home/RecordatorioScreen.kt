@@ -29,7 +29,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Card
@@ -40,20 +39,19 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import es.rodal.keoapp.R
 import es.rodal.keoapp.data.domain.model.Recordatorio
+import es.rodal.keoapp.ui.utils.KeoBottomAppBar
+import es.rodal.keoapp.ui.utils.KeoTopAppBar
 import es.rodal.keoapp.ui.utils.PermissionAlarmDialog
 import es.rodal.keoapp.ui.utils.PermissionDialog
 
@@ -88,31 +86,10 @@ fun RecordatorioScaffold(
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
-                colors = TopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.primary,
-                    actionIconContentColor = MaterialTheme.colorScheme.primary,
-                    navigationIconContentColor = MaterialTheme.colorScheme.primary,
-                    scrolledContainerColor = MaterialTheme.colorScheme.primaryContainer
-                ),
-                title = {
-                    Text(stringResource(id = R.string.app_name))
-                }
-            )
+            KeoTopAppBar(null)
         },
         bottomBar = {
-            BottomAppBar(
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                contentColor = MaterialTheme.colorScheme.primary,
-            ) {
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    textAlign = TextAlign.Center,
-                    text = "Bottom app bar",
-                )
-            }
+            KeoBottomAppBar(navController)
         },
         floatingActionButton = {
             FloatingActionButton(onClick = navigateToRecordatorioEntry) {
