@@ -4,9 +4,9 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.util.Log
 import es.rodal.keoapp.data.domain.model.Recordatorio
+import java.util.Date
 
 class RecordatorioNotificationService(
     private val context: Context
@@ -17,16 +17,17 @@ class RecordatorioNotificationService(
 
         val pendingIntent = PendingIntent.getBroadcast(
             context,
-            //si no existe crea un id con el hashcode
+            //si no existe crea con el hashcode
             recordatorio.id?.toInt() ?: recordatorio.hashCode(),
             intent,
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE else 0
+            PendingIntent.FLAG_IMMUTABLE
         )
 
         val alarmService = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val time = recordatorio.recordatorioTime.time
+        val now = Date()
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (time > now.time) {
             try {
                 alarmService.setExactAndAllowWhileIdle(
                     AlarmManager.RTC_WAKEUP,
@@ -49,7 +50,7 @@ class RecordatorioNotificationService(
             context,
             recordatorio.id?.toInt() ?: recordatorio.hashCode(),
             intent,
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE else 0
+            PendingIntent.FLAG_IMMUTABLE
         )
 
         Log.d("RNServiceDELETE", "Cancelando alarma ${recordatorio.id}")
