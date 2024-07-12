@@ -6,7 +6,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.List
+import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -90,7 +93,7 @@ fun KeoBottomAppBar(navController: NavController, modifier: Modifier = Modifier)
                 onClick = { },
                 icon = {
                     Icon(
-                        imageVector = Icons.Filled.Home,
+                        imageVector = Icons.Filled.DateRange,
                         contentDescription = stringResource(id = R.string.home)
                     )
                 }
@@ -110,7 +113,7 @@ fun KeoBottomAppBar(navController: NavController, modifier: Modifier = Modifier)
                 onClick = { /*TODO*/ },
                 icon = {
                     Icon(
-                        imageVector = Icons.Filled.Home,
+                        imageVector = Icons.AutoMirrored.Filled.List,
                         contentDescription = stringResource(id = R.string.home)
                     )
                 }
