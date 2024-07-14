@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 
 const val RECORDATORIO_INTENT = "recordatorio_intent"
 const val RECORDATORIO_NOTIFICATION = "recordatorio_notification"
@@ -17,19 +18,27 @@ class RecordatorioNotificationReceiver: BroadcastReceiver() {
     }
 
     override fun onReceive(context: Context, intent: Intent) {
+
+        val title = intent.getStringExtra("title") ?: "Alarma"
+        val description = intent.getStringExtra("description") ?: "Descripción de la alarma"
+
+        showNotification(context, title, description)
+
+    }
+
+    private fun showNotification(context: Context, title: String, description: String) {
+        val notificationId = System.currentTimeMillis().toInt()
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val channel = NotificationChannel("default", "Alarm", NotificationManager.IMPORTANCE_DEFAULT)
+        notificationManager.createNotificationChannel(channel)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel("default", "Alarm", NotificationManager.IMPORTANCE_DEFAULT)
-            notificationManager.createNotificationChannel(channel)
-        }
+        val notificationBuilder = NotificationCompat.Builder(context, channel.id)
+            .setSmallIcon(R.mipmap.ic_launcher_foreground) // Asegúrate de tener este recurso de ícono
+            .setContentTitle(title)
+            .setContentText(description)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setAutoCancel(true)
 
-        val notification = NotificationCompat.Builder(context, "default")
-            .setContentTitle("Alarma")
-            .setContentText("La alarma se ha activado.")
-            .setSmallIcon(R.mipmap.ic_launcher_foreground)
-            .build()
-
-        notificationManager.notify(1, notification)
+        notificationManager.notify(notificationId, notificationBuilder.build())
     }
 }

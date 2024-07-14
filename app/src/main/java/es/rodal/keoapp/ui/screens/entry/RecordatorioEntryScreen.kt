@@ -10,28 +10,21 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import es.rodal.keoapp.R
 import es.rodal.keoapp.data.domain.model.Recordatorio
-import es.rodal.keoapp.ui.navigation.NavigationDestination
 import es.rodal.keoapp.ui.utils.KeoBottomAppBar
 import es.rodal.keoapp.ui.utils.KeoTopAppBar
 import java.util.Calendar
@@ -63,32 +56,31 @@ fun RecordatorioEntryScreen (
                 .padding(innerPadding),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            FormGpt(
+            Form(
                 viewModel = viewModel,
-                navController = navController,
-                navigateBack = navigateBack
+                navController = navController
             )
         }
     }
 }
 
 @Composable
-fun FormGpt(
+fun Form(
     viewModel: RecordatorioEntryViewModel,
-    navController: NavController,
-    navigateBack: () -> Unit
+    navController: NavController
 ) {
     val context = navController.context
-    var taskName by remember { mutableStateOf("") }
-    var taskDate by remember { mutableStateOf("") }
-    var taskTime by remember { mutableStateOf("") }
+    var name by remember { mutableStateOf("") }
+    var description by remember { mutableStateOf("") }
+    var date by remember { mutableStateOf("") }
+    var time by remember { mutableStateOf("") }
     var calendar = Calendar.getInstance()
 
     val datePickerDialog = DatePickerDialog(
         context,
         { _, year, month, dayOfMonth ->
             calendar.set(year, month, dayOfMonth)
-            taskDate = "$dayOfMonth/${month + 1}/$year"
+            date = "$dayOfMonth/${month + 1}/$year"
         },
         calendar.get(Calendar.YEAR),
         calendar.get(Calendar.MONTH),
@@ -101,7 +93,7 @@ fun FormGpt(
             calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
             calendar.set(Calendar.MINUTE, minute)
             calendar.set(Calendar.SECOND, 0)
-            taskTime = "$hourOfDay:$minute"
+            time = "$hourOfDay:$minute"
         },
         calendar.get(Calendar.HOUR_OF_DAY),
         calendar.get(Calendar.MINUTE),
@@ -114,9 +106,18 @@ fun FormGpt(
             .padding(16.dp)
     ) {
         TextField(
-            value = taskName,
-            onValueChange = { taskName = it },
-            label = { Text("Nombre de la Tarea") },
+            value = name,
+            onValueChange = { name = it },
+            label = { Text("Nombre del recordatorio") },
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        TextField(
+            value = description,
+            onValueChange = { description = it },
+            label = { Text("Descripcion del recordatorio") },
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -126,7 +127,7 @@ fun FormGpt(
             onClick = { datePickerDialog.show() },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(text = if (taskDate.isEmpty()) "Seleccionar fecha" else taskDate)
+            Text(text = if (date.isEmpty()) "Seleccionar fecha" else date)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -135,7 +136,7 @@ fun FormGpt(
             onClick = { timePickerDialog.show() },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(text = if (taskTime.isEmpty()) "Seleccionar hora" else taskTime)
+            Text(text = if (time.isEmpty()) "Seleccionar hora" else time)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -143,17 +144,17 @@ fun FormGpt(
         Button(
             onClick = {
                 // Comprobacion campos vacios
-                if (taskName.isNotEmpty() && taskDate.isNotEmpty() && taskTime.isNotEmpty()) {
+                if (name.isNotEmpty() && date.isNotEmpty() && time.isNotEmpty()) {
                     val currentCalendar = Calendar.getInstance()
                     // Comprobacion de que no sea pasado
                     if (calendar.after(currentCalendar)) {
                         viewModel.addRecordatorio(context, Recordatorio(
-                            name = taskName,
-                            description = "",
+                            name = name,
+                            description = description,
                             recordatorioTime = calendar.time
                         ))
                         Toast.makeText(context, "Recordatorio guardado", Toast.LENGTH_SHORT).show()
-                        navigateBack()
+                        navController.popBackStack()
                     } else {
                         Toast.makeText(context,"La fecha y hora del recordatorio ya han pasado.",Toast.LENGTH_SHORT).show()
                     }

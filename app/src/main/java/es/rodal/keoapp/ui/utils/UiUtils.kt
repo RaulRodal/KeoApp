@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import es.rodal.keoapp.R
 import es.rodal.keoapp.ui.navigation.NavigationDestinations
@@ -35,7 +36,7 @@ import java.util.Objects
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun KeoTopAppBar(
-    title: String,
+    title: String = "",
     canNavigateBack: Boolean,
     modifier: Modifier = Modifier,
     scrollBehavior: TopAppBarScrollBehavior? = null,
@@ -55,7 +56,7 @@ fun KeoTopAppBar(
             } else {
                 Text(
                     text = title,
-                    style = MaterialTheme.typography.headlineLarge
+                    style = MaterialTheme.typography.headlineSmall
                 )
 
             }
@@ -122,5 +123,14 @@ fun KeoBottomAppBar(navController: NavController, modifier: Modifier = Modifier)
         }
     }
 }
-
+@OptIn(ExperimentalMaterial3Api::class)
+@Preview(showBackground = true)
+@Composable
+fun PreviewKeoTopAppBar() {
+    KeoTopAppBar(
+        title = "Nuevo recordatorio",
+        canNavigateBack = true,
+        navigateUp = {}
+    )
+}
 

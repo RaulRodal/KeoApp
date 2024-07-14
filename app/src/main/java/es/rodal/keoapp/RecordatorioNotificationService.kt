@@ -12,9 +12,11 @@ class RecordatorioNotificationService(
     private val context: Context
 ) {
     fun scheduleNotification(recordatorio: Recordatorio) {
-        val intent = Intent(context, RecordatorioNotificationReceiver::class.java)
-        intent.putExtra(RECORDATORIO_INTENT, recordatorio)
-
+        val intent = Intent(context, RecordatorioNotificationReceiver::class.java).apply {
+            putExtra(RECORDATORIO_INTENT, recordatorio)
+            putExtra("title", recordatorio.name)
+            putExtra("description", recordatorio.description)
+        }
         val pendingIntent = PendingIntent.getBroadcast(
             context,
             //si no existe crea con el hashcode
