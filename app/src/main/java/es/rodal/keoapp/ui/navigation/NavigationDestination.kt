@@ -34,4 +34,9 @@ object NavigationDestinations {
         override val route = "recordatorio_history"
         override val titleRes = R.string.recordatorio_history_screen_title
     }
+
+    object RecordatorioCalendarScreen : NavigationDestination {
+        override val route = "recordatorio_calendar"
+        override val titleRes = R.string.recordatorio_calendar_screen_title
+    }
 }
