@@ -28,6 +28,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import es.rodal.keoapp.R
+import es.rodal.keoapp.ui.navigation.NavigationDestinations
 import java.util.Objects
 
 
@@ -100,7 +101,7 @@ fun KeoBottomAppBar(navController: NavController, modifier: Modifier = Modifier)
             )
             NavigationBarItem(
                 selected = false,
-                onClick = { /*TODO*/ },
+                onClick = { navController.navigate(NavigationDestinations.RecordatorioHomeScreen.route) },
                 icon = {
                     Icon(
                         imageVector = Icons.Filled.Home,
@@ -110,7 +111,7 @@ fun KeoBottomAppBar(navController: NavController, modifier: Modifier = Modifier)
             )
             NavigationBarItem(
                 selected = false,
-                onClick = { /*TODO*/ },
+                onClick = { navController.navigate(NavigationDestinations.RecordatorioHomeScreen.route) },
                 icon = {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.List,
