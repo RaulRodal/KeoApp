@@ -14,15 +14,16 @@
  * limitations under the License.
  */
 
-package es.rodal.keoapp.ui
+package es.rodal.keoapp.ui.navigation
 
 import android.content.Context
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import es.rodal.keoapp.ui.recordatorio.entry.RecordatorioEntryScreen
-import es.rodal.keoapp.ui.recordatorio.home.RecordatorioScreen
+import es.rodal.keoapp.ui.screens.entry.RecordatorioEntryScreen
+import es.rodal.keoapp.ui.screens.home.RecordatorioScreen
 import es.rodal.keoapp.ui.utils.scheduleAlarmPermissionGranted
 
 
@@ -32,31 +33,33 @@ import es.rodal.keoapp.ui.utils.scheduleAlarmPermissionGranted
 @Composable
 fun MainNavigation(
     context: Context
-    ) {
+) {
     val navController = rememberNavController()
-
+//  val askNotificationPermission = navController.currentBackStackEntry?.savedStateHandle?.get<Boolean>(ASK_NOTIFICATION_PERMISSION) ?: false
+//  val askAlarmPermission = navController.currentBackStackEntry?.savedStateHandle?.get<Boolean>(ASK_ALARM_PERMISSION) ?: false
+    val askPermission = scheduleAlarmPermissionGranted(context)
     NavHost(
         navController = navController,
-        startDestination = "main"
+        startDestination = NavigationDestinations.RecordatorioHomeScreen.route
     ) {
-        composable("main") {
-//            val askNotificationPermission = navController.currentBackStackEntry?.savedStateHandle?.get<Boolean>(ASK_NOTIFICATION_PERMISSION) ?: false
-//            val askAlarmPermission = navController.currentBackStackEntry?.savedStateHandle?.get<Boolean>(ASK_ALARM_PERMISSION) ?: false
-            val askPermission = scheduleAlarmPermissionGranted(context)
+        //HOME
+        composable(route = NavigationDestinations.RecordatorioHomeScreen.route) {
             RecordatorioScreen(
                 navController = navController,
                 askNotificationPermission = askPermission,
                 askAlarmPermission = askPermission,
-                navigateToRecordatorioEntry = {navController.navigate("addRecordatorio")}
+                navigateToRecordatorioEntry = { navController.navigate(NavigationDestinations.RecordatorioEntryScreen.route) }
             )
         }
-        composable("addRecordatorio") {
+
+        //ENTRY
+        composable(route = NavigationDestinations.RecordatorioEntryScreen.route) {
             RecordatorioEntryScreen(
                 navController = navController,
                 navigateBack = { navController.popBackStack() },
                 onNavigateUp = { navController.navigateUp() }
             )
         }
-        // TODO: Add more destinations
+
     }
 }

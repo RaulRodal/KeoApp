@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package es.rodal.keoapp.ui.recordatorio.home
+package es.rodal.keoapp.ui.screens.home
 
 import android.content.Context
 import androidx.compose.runtime.getValue
@@ -54,6 +54,18 @@ class RecordatorioViewModel @Inject constructor(
             recordatorioRepository.deleteRecordatorio(recordatorio)
             val service = RecordatorioNotificationService(context)
             service.deleteNotification(recordatorio)
+        }
+    }
+
+    fun reverseActive(context: Context, recordatorio: Recordatorio) {
+        viewModelScope.launch {
+            recordatorioRepository.updateRecordatorio(recordatorio.copy(active = !recordatorio.active))
+            val service = RecordatorioNotificationService(context)
+            if (recordatorio.active) {
+                service.deleteNotification(recordatorio)
+            } else {
+                service.scheduleNotification(recordatorio)
+            }
         }
     }
 }

@@ -27,7 +27,7 @@ class RecordatorioNotificationReceiver: BroadcastReceiver() {
         val notification = NotificationCompat.Builder(context, "default")
             .setContentTitle("Alarma")
             .setContentText("La alarma se ha activado.")
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setSmallIcon(R.mipmap.ic_launcher_foreground)
             .build()
 
         notificationManager.notify(1, notification)

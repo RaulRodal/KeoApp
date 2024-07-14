@@ -1,4 +1,4 @@
-package es.rodal.keoapp.ui.recordatorio.entry
+package es.rodal.keoapp.ui.screens.entry
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -29,8 +29,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import es.rodal.keoapp.R
 import es.rodal.keoapp.data.domain.model.Recordatorio
+import es.rodal.keoapp.ui.navigation.NavigationDestination
+import es.rodal.keoapp.ui.utils.KeoBottomAppBar
+import es.rodal.keoapp.ui.utils.KeoTopAppBar
 import java.util.Calendar
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -43,31 +48,14 @@ fun RecordatorioEntryScreen (
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
-                colors = TopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.primary,
-                    actionIconContentColor = MaterialTheme.colorScheme.primary,
-                    navigationIconContentColor = MaterialTheme.colorScheme.primary,
-                    scrolledContainerColor = MaterialTheme.colorScheme.primaryContainer
-                ),
-                title = {
-                    Text("Top app bar")
-                }
+            KeoTopAppBar(
+                title = "Nuevo Recordatorio",
+                canNavigateBack = true,
+                navigateUp = onNavigateUp
             )
         },
         bottomBar = {
-            BottomAppBar(
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                contentColor = MaterialTheme.colorScheme.primary,
-            ) {
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    textAlign = TextAlign.Center,
-                    text = "Bottom app bar",
-                )
-            }
+            KeoBottomAppBar(navController = navController)
         }
     ) { innerPadding ->
         Column(
@@ -75,7 +63,7 @@ fun RecordatorioEntryScreen (
                 .padding(innerPadding),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            formGpt(
+            FormGpt(
                 viewModel = viewModel,
                 navController = navController,
                 navigateBack = navigateBack
@@ -85,7 +73,7 @@ fun RecordatorioEntryScreen (
 }
 
 @Composable
-fun formGpt(
+fun FormGpt(
     viewModel: RecordatorioEntryViewModel,
     navController: NavController,
     navigateBack: () -> Unit
@@ -138,7 +126,7 @@ fun formGpt(
             onClick = { datePickerDialog.show() },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(text = if (taskDate.isEmpty()) "Seleccionar Fecha" else taskDate)
+            Text(text = if (taskDate.isEmpty()) "Seleccionar fecha" else taskDate)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -147,21 +135,28 @@ fun formGpt(
             onClick = { timePickerDialog.show() },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(text = if (taskTime.isEmpty()) "Seleccionar Hora" else taskTime)
+            Text(text = if (taskTime.isEmpty()) "Seleccionar hora" else taskTime)
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
             onClick = {
+                // Comprobacion campos vacios
                 if (taskName.isNotEmpty() && taskDate.isNotEmpty() && taskTime.isNotEmpty()) {
-                    viewModel.addRecordatorio(context, Recordatorio(
-                        name = taskName,
-                        recordatorioDone = false,
-                        recordatorioTime = calendar.time
-                    ))
-                    Toast.makeText(context, "Recordatorio guardado", Toast.LENGTH_SHORT).show()
-                    navigateBack()
+                    val currentCalendar = Calendar.getInstance()
+                    // Comprobacion de que no sea pasado
+                    if (calendar.after(currentCalendar)) {
+                        viewModel.addRecordatorio(context, Recordatorio(
+                            name = taskName,
+                            description = "",
+                            recordatorioTime = calendar.time
+                        ))
+                        Toast.makeText(context, "Recordatorio guardado", Toast.LENGTH_SHORT).show()
+                        navigateBack()
+                    } else {
+                        Toast.makeText(context,"La fecha y hora del recordatorio ya han pasado.",Toast.LENGTH_SHORT).show()
+                    }
                 } else {
                     Toast.makeText(context,"Por favor, complete todos los campos",Toast.LENGTH_SHORT).show()
                 }

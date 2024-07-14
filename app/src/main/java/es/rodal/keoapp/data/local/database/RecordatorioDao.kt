@@ -7,15 +7,14 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
-import java.util.Date
 
 @Dao
 interface RecordatorioDao {
     @Query("SELECT * FROM recordatorioentity")
     fun getRecordatorios(): Flow<List<RecordatorioEntity>>
 
-    @Query("SELECT * FROM recordatorioentity WHERE endDate > :date")
-    fun getRecordatoriosByDate(date: Date): Flow<List<RecordatorioEntity>>
+//    @Query("SELECT * FROM recordatorioentity WHERE endDate > :date")
+//    fun getRecordatoriosByDate(date: Date): Flow<List<RecordatorioEntity>>
 
     @Query("SELECT * FROM recordatorioentity WHERE id = :id")
     fun getRecordatorioById(id: Long): RecordatorioEntity

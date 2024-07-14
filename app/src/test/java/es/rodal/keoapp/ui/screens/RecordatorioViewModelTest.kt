@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package es.rodal.keoapp.ui.recordatorio
+package es.rodal.keoapp.ui.screens
 
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -24,8 +24,8 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import es.rodal.keoapp.data.domain.repository.RecordatorioRepository
-import es.rodal.keoapp.ui.recordatorio.home.RecordatorioUiState
-import es.rodal.keoapp.ui.recordatorio.home.RecordatorioViewModel
+import es.rodal.keoapp.ui.screens.home.RecordatorioUiState
+import es.rodal.keoapp.ui.screens.home.RecordatorioViewModel
 
 /**
  * Example local unit test, which will execute on the development machine (host).

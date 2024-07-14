@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package es.rodal.keoapp.ui.recordatorio
+package es.rodal.keoapp.ui.screens
 
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import es.rodal.keoapp.ui.recordatorio.home.RecordatorioScreen
+import es.rodal.keoapp.ui.screens.home.RecordatorioScreen
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

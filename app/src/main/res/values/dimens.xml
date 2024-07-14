@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Margins -->
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_medium">16dp</dimen>
+    <dimen name="margin_large">24dp</dimen>
+
+    <!-- Paddings -->
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_medium">16dp</dimen>
+    <dimen name="padding_large">24dp</dimen>
+
+    <!-- Font Sizes -->
+    <dimen name="font_xsmall">10sp</dimen>
+    <dimen name="font_small">12sp</dimen>
+    <dimen name="font_medium">16sp</dimen>
+    <dimen name="font_large">20sp</dimen>
+    <dimen name="font_xlarge">24sp</dimen>
+
+    <!-- Icon Sizes -->
+    <dimen name="icon_small">24dp</dimen>
+    <dimen name="icon_medium">48dp</dimen>
+    <dimen name="icon_large">72dp</dimen>
+
+    <!-- Elevations -->
+    <dimen name="elevation_small">2dp</dimen>
+    <dimen name="elevation_medium">4dp</dimen>
+    <dimen name="elevation_large">8dp</dimen>
+
+    <!-- Border Radius -->
+    <dimen name="border_radius_small">4dp</dimen>
+    <dimen name="border_radius_medium">8dp</dimen>
+    <dimen name="border_radius_large">16dp</dimen>
+</resources>
