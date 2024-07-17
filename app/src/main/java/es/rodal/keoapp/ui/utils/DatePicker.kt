@@ -18,7 +18,7 @@ import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DatePickerButton() {
+fun DatePickerButton(): String {
     var showDatePicker by remember { mutableStateOf(false) }
     var selectedDate by remember { mutableStateOf("") }
     val calendar = Calendar.getInstance()
@@ -41,9 +41,6 @@ fun DatePickerButton() {
             confirmButton = {
                 TextButton(onClick = {
                     selectedDate = datePickerState.selectedDateMillis?.let {
-                        val calendar = Calendar.getInstance()
-                        val date = Date(it)
-                        //"${date.date}/${date.month + 1}/${date.year + 1900}"
                         "${calendar.get(Calendar.DAY_OF_MONTH)}/${calendar.get(Calendar.MONTH)}/${calendar.get(Calendar.YEAR)}"
                     } ?: ""
                     showDatePicker = false
@@ -62,7 +59,7 @@ fun DatePickerButton() {
             )
         }
     }
-
+    return selectedDate;
 }
 
 @Composable

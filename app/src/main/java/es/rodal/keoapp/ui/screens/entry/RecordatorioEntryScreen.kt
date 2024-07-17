@@ -125,7 +125,7 @@ fun Form(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        DatePickerButton()
+        date = DatePickerButton()
 //        Button(
 //            onClick = { datePickerDialog.show() },
 //            modifier = Modifier.fillMaxWidth()
