@@ -68,4 +68,5 @@
     <string name="recordatorio_history_screen_title">Historico</string>
     <string name="more_options">Mas opciones</string>
     <string name="recordatorio_calendar_screen_title">Calendario</string>
+    <string name="select_date">Selecciona una fecha</string>
 </resources>

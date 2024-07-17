@@ -24,7 +24,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.google.android.material.datepicker.MaterialDatePicker
 import es.rodal.keoapp.data.domain.model.Recordatorio
+import es.rodal.keoapp.ui.utils.DatePickerButton
 import es.rodal.keoapp.ui.utils.KeoBottomAppBar
 import es.rodal.keoapp.ui.utils.KeoTopAppBar
 import java.util.Calendar
@@ -123,12 +125,13 @@ fun Form(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(
-            onClick = { datePickerDialog.show() },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(text = if (date.isEmpty()) "Seleccionar fecha" else date)
-        }
+        DatePickerButton()
+//        Button(
+//            onClick = { datePickerDialog.show() },
+//            modifier = Modifier.fillMaxWidth()
+//        ) {
+//            Text(text = if (date.isEmpty()) "Seleccionar fecha" else date)
+//        }
 
         Spacer(modifier = Modifier.height(16.dp))
 
