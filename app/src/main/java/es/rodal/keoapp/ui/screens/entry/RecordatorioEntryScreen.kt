@@ -34,8 +34,6 @@ import java.util.Calendar
 @Composable
 fun RecordatorioEntryScreen (
     navController: NavController,
-    navigateBack: () -> Unit,
-    onNavigateUp: () -> Unit,
     canNavigateBack: Boolean = true,
     viewModel: RecordatorioEntryViewModel = hiltViewModel()
 ) {
@@ -44,7 +42,7 @@ fun RecordatorioEntryScreen (
             KeoTopAppBar(
                 title = "Nuevo Recordatorio",
                 canNavigateBack = true,
-                navigateUp = onNavigateUp
+                navigateUp = navController::navigateUp
             )
         },
         bottomBar = {

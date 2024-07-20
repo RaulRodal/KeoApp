@@ -18,19 +18,24 @@ package es.rodal.keoapp.ui.screens.home
 
 import android.content.Context
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -43,8 +48,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -54,6 +63,8 @@ import es.rodal.keoapp.ui.utils.KeoBottomAppBar
 import es.rodal.keoapp.ui.utils.KeoTopAppBar
 import es.rodal.keoapp.ui.utils.PermissionAlarmDialog
 import es.rodal.keoapp.ui.utils.PermissionDialog
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 @Composable
 fun RecordatorioScreen(
@@ -138,64 +149,76 @@ fun RecordatorioCard(
     context: Context,
     modifier: Modifier = Modifier
 ) {
-    val color by animateColorAsState(//color dependiendo activo o no
+    val color by animateColorAsState(
         targetValue = if (recordatorio.active) MaterialTheme.colorScheme.primaryContainer
         else MaterialTheme.colorScheme.errorContainer, label = "color"
     )
-    val borderColor by animateColorAsState(//color borde dependiendo activo o no
+    val borderColor by animateColorAsState(
         targetValue = if (recordatorio.active) MaterialTheme.colorScheme.onPrimaryContainer
         else MaterialTheme.colorScheme.onErrorContainer, label = "color"
     )
 
+    val dateFormat = SimpleDateFormat("EEE, MMM d, yyyy 'at' h:mm a", Locale.getDefault())
+
     Card(
-        modifier = modifier,
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = dimensionResource(id = R.dimen.elevation_medium)
-        ),
-//        colors = CardDefaults.cardColors(
-//            containerColor = color,
-//            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-//        ),
-//        border = BorderStroke(1.dp, borderColor)
+        modifier = modifier
+            .padding(8.dp)
+            .shadow(4.dp, RoundedCornerShape(12.dp))
+            .background(Color.White, RoundedCornerShape(12.dp)),
+        shape = RoundedCornerShape(12.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
-        Row {
-            Column(modifier = Modifier
-                .padding(dimensionResource(id = R.dimen.padding_small))
-                .weight(2f)) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column(modifier = Modifier.weight(2f)) {
                 Text(
                     text = recordatorio.name,
-                    modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_medium))
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp,
+                    color = MaterialTheme.colorScheme.onBackground,
+                    modifier = Modifier.padding(bottom = 4.dp)
                 )
                 Text(
-                    text = recordatorio.recordatorioTime.toString(),
-                    modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small))
+                    text = dateFormat.format(recordatorio.recordatorioTime),
+                    fontSize = 14.sp,
+                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
                 )
             }
-            Column(modifier = Modifier
-                .padding(dimensionResource(id = R.dimen.padding_small))
-                .weight(1f)) {
+            Column(
+                modifier = Modifier.weight(1f),
+                horizontalAlignment = Alignment.End
+            ) {
                 Button(
                     onClick = { viewModel.deleteRecordatorio(context, recordatorio) },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.error,
+                        contentColor = Color.White
+                    ),
+                    shape = RoundedCornerShape(8.dp),
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
                         text = stringResource(id = R.string.delete),
-                        fontSize = dimensionResource(id = R.dimen.font_xsmall).value.sp
+                        fontSize = 12.sp
                     )
                 }
+                Spacer(modifier = Modifier.height(8.dp))
                 Button(
                     onClick = { viewModel.reverseActive(context, recordatorio) },
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonColors(
+                    colors = ButtonDefaults.buttonColors(
                         containerColor = color,
-                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                        disabledContainerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                        disabledContentColor = MaterialTheme.colorScheme.onTertiaryContainer
-                    )
-                    ) {
+                        contentColor = if (recordatorio.active) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onErrorContainer
+                    ),
+                    shape = RoundedCornerShape(8.dp),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
                     Text(
                         text = if (recordatorio.active) stringResource(id = R.string.cancel) else stringResource(id = R.string.activate),
-                        fontSize = dimensionResource(id = R.dimen.font_xsmall).value.sp
+                        fontSize = 12.sp
                     )
                 }
             }
