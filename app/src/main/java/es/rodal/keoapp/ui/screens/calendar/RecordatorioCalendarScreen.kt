@@ -1,7 +1,9 @@
 package es.rodal.keoapp.ui.screens.calendar
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,9 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -23,21 +23,26 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.viewinterop.AndroidView
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import es.rodal.keoapp.R
 import es.rodal.keoapp.data.domain.model.Recordatorio
+import es.rodal.keoapp.data.domain.model.getFormattedTime
 import es.rodal.keoapp.ui.navigation.NavigationDestinations
 import es.rodal.keoapp.ui.utils.KeoBottomAppBar
 import es.rodal.keoapp.ui.utils.KeoTopAppBar
 import java.util.Calendar
+import java.util.Date
+import android.widget.CalendarView
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.compose.ui.res.dimensionResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RecordatorioCalendarScreen(navController: NavController) {
-    val currentMonth = remember { mutableStateOf(Calendar.getInstance().get(Calendar.MONTH)) }
-    val reminders = remember { mutableStateOf(emptyList<Recordatorio>()) }
-    val remindersFiltered = remember { mutableStateOf(emptyList<Recordatorio>()) }
-
+fun RecordatorioCalendarScreen(
+    navController: NavController,
+    viewModel: RecordatorioCalendarViewModel = hiltViewModel()
+) {
     Scaffold(
         topBar = {
             KeoTopAppBar(
@@ -56,32 +61,38 @@ fun RecordatorioCalendarScreen(navController: NavController) {
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             CalendarView(
-                month = currentMonth.value,
-                onMonthChange = { month ->
-                    currentMonth.value = month
-                    // Actualizar los recordatorios según el mes seleccionado
-                    remindersFiltered.value = getRemindersForMonth(reminders.value, month)
+                onDayChange = { day ->
+                    viewModel.filterRecordatorios(day = day)
+                    Log.d("RecordatorioCalendarScreen", "Reminders filtered: ${viewModel.recordatoriosFilteredState}")
                 }
             )
 
             Spacer(modifier = Modifier.height(16.dp))
-
-            ReminderList(remindersFiltered.value)
+            when (viewModel.recordatoriosFilteredState.isEmpty()){
+                true -> Text(
+                    text = stringResource(id = R.string.recordatorio_day_empty_card_message),
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Normal,
+                    modifier = Modifier.fillMaxWidth().padding(dimensionResource(id = R.dimen.padding_large))
+                )
+                false -> ReminderList(viewModel.recordatoriosFilteredState)
+            }
         }
     }
 }
 
 @Composable
-fun CalendarView(month: Int, onMonthChange: (Int) -> Unit) {
+fun CalendarView(onDayChange: (Date) -> Unit) {
     val context = LocalContext.current
 
     AndroidView(
-        factory = { android.widget.CalendarView(context) },
-        update = { view ->
-            view.setOnDateChangeListener { _, _, selectedMonth, _ ->
-                onMonthChange(selectedMonth)
+        factory = { CalendarView(context).apply {
+            setOnDateChangeListener { _, year, month, dayOfMonth ->
+                val calendar = Calendar.getInstance()
+                calendar.set(year, month, dayOfMonth)
+                onDayChange(calendar.time)
             }
-        },
+        }},
         modifier = Modifier
             .fillMaxWidth()
             .height(300.dp)
@@ -89,28 +100,26 @@ fun CalendarView(month: Int, onMonthChange: (Int) -> Unit) {
 }
 
 @Composable
-fun ReminderList(reminders: List<Recordatorio>) {
+fun ReminderList(recordatorios: List<Recordatorio>) {
     LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.Start
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxSize()
     ) {
-        items(reminders.size) { index ->
-            Text(
-                text = reminders.toString(),
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Normal,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp)
-            )
+        items(recordatorios.size) { index ->
+                RecordatorioItem(recordatorio = recordatorios[index])
         }
     }
 }
 
-fun getRemindersForMonth(reminders: List<Recordatorio>, month: Int): List<Recordatorio> {
-    return reminders.filter { recordatorio ->
-        val calendar = Calendar.getInstance()
-        calendar.time = recordatorio.recordatorioTime
-        calendar.get(Calendar.MONTH) == month
+@Composable
+fun RecordatorioItem(recordatorio: Recordatorio) {
+    Row (
+        modifier = Modifier
+        .fillMaxWidth()
+        .padding(dimensionResource(id = R.dimen.padding_large))
+    ) {
+        Text(text = recordatorio.name)
+        Spacer(modifier = Modifier.weight(0.5f))
+        Text(text = recordatorio.recordatorioTime.getFormattedTime())
     }
 }
