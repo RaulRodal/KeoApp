@@ -22,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -43,14 +44,13 @@ fun RecordatorioHomeScreen(navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            val logo: Painter = painterResource(id = R.mipmap.ic_launcher_foreground) // Reemplaza con tu logo
+            val logo: Painter = painterResource(id = R.mipmap.ic_launcher_foreground)
             Image(
                 painter = logo,
                 contentDescription = null,
                 modifier = Modifier
-                    .size(100.dp)
-                    .background(MaterialTheme.colorScheme.primary, shape = CircleShape)
-                    .padding(16.dp)
+                    .size(200.dp)
+                    .padding(dimensionResource(id = R.dimen.padding_medium))
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -73,7 +73,8 @@ fun RecordatorioHomeScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(32.dp))
 
             Button(
-                onClick = { navController.navigate(NavigationDestinations.RecordatorioCalendarScreen.route) },
+//                onClick = { navController.navigate(NavigationDestinations.RecordatorioCalendarScreen.route) },
+                onClick = { navController.navigate("calendar") },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp)
