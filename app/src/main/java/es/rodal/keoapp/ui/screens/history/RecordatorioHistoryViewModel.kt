@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package es.rodal.keoapp.ui.screens.home
+package es.rodal.keoapp.ui.screens.history
 
 import android.content.Context
 import androidx.compose.runtime.getValue
@@ -31,7 +31,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class RecordatorioViewModel @Inject constructor(
+class RecordatorioHistoryViewModel @Inject constructor(
     private val recordatorioRepository: RecordatorioRepository
 ) : ViewModel() {
 

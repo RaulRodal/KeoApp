@@ -1,7 +1,9 @@
 package es.rodal.keoapp.data.local.database
 
 import androidx.room.TypeConverter
+import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
 
 class Converters {
     @TypeConverter
@@ -13,4 +15,5 @@ class Converters {
     fun dateToTimestamp(date: Date?): Long? {
         return date?.time
     }
+
 }

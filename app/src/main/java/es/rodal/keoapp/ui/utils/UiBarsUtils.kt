@@ -30,7 +30,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import es.rodal.keoapp.R
 import es.rodal.keoapp.ui.navigation.NavigationDestinations
-import java.util.Objects
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -92,7 +91,7 @@ fun KeoBottomAppBar(navController: NavController, modifier: Modifier = Modifier)
         ) {
             NavigationBarItem(
                 selected = false,
-                onClick = { },
+                onClick = { navController.navigate(NavigationDestinations.RecordatorioCalendarScreen.route) },
                 icon = {
                     Icon(
                         imageVector = Icons.Filled.DateRange,
@@ -112,11 +111,11 @@ fun KeoBottomAppBar(navController: NavController, modifier: Modifier = Modifier)
             )
             NavigationBarItem(
                 selected = false,
-                onClick = { navController.navigate(NavigationDestinations.RecordatorioHomeScreen.route) },
+                onClick = { navController.navigate(NavigationDestinations.RecordatorioHistoryScreen.route) },
                 icon = {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.List,
-                        contentDescription = stringResource(id = R.string.home)
+                        contentDescription = stringResource(id = R.string.history)
                     )
                 }
             )
