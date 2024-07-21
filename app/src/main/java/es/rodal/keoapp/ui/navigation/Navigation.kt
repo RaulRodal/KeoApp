@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import es.rodal.keoapp.ui.screens.calendar.RecordatorioCalendarScreen
 import es.rodal.keoapp.ui.screens.entry.RecordatorioEntryScreen
 import es.rodal.keoapp.ui.screens.home.RecordatorioScreen
 import es.rodal.keoapp.ui.utils.scheduleAlarmPermissionGranted
@@ -55,9 +56,14 @@ fun MainNavigation(
         //ENTRY
         composable(route = NavigationDestinations.RecordatorioEntryScreen.route) {
             RecordatorioEntryScreen(
-                navController = navController,
-                navigateBack = { navController.popBackStack() },
-                onNavigateUp = { navController.navigateUp() }
+                navController = navController
+            )
+        }
+
+        //CALENDAR
+        composable(route = NavigationDestinations.RecordatorioCalendarScreen.route) {
+            RecordatorioCalendarScreen(
+                navController = navController
             )
         }
 

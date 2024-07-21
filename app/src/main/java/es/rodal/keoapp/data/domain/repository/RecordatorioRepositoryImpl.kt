@@ -6,6 +6,7 @@ import es.rodal.keoapp.data.mapper.toRecordatorio
 import es.rodal.keoapp.data.mapper.toRecordatorioEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import java.time.Month
 
 class RecordatorioRepositoryImpl(
     private val dao: RecordatorioDao
@@ -16,8 +17,8 @@ class RecordatorioRepositoryImpl(
         }
     }
 
-//    override suspend fun getRecordatoriosByDate(date: Date): Flow<List<Recordatorio>> {
-//        return dao.getRecordatoriosByDate(date).map { entities ->
+//    override suspend fun getRecordatoriosByMonth(month: Integer): Flow<List<Recordatorio>> {
+//        return dao.getRecordatoriosByMonth(month).map { entities ->
 //            entities.map { it.toRecordatorio() }
 //        }
 //    }
