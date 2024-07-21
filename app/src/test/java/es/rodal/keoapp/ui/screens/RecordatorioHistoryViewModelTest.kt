@@ -17,6 +17,7 @@
 package es.rodal.keoapp.ui.screens
 
 
+import es.rodal.keoapp.data.domain.model.Recordatorio
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -24,8 +25,8 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import es.rodal.keoapp.data.domain.repository.RecordatorioRepository
-import es.rodal.keoapp.ui.screens.home.RecordatorioUiState
-import es.rodal.keoapp.ui.screens.home.RecordatorioViewModel
+import es.rodal.keoapp.ui.screens.history.RecordatorioUiState
+import es.rodal.keoapp.ui.screens.history.RecordatorioHistoryViewModel
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -33,16 +34,16 @@ import es.rodal.keoapp.ui.screens.home.RecordatorioViewModel
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @OptIn(ExperimentalCoroutinesApi::class) // TODO: Remove when stable
-class RecordatorioViewModelTest {
+class RecordatorioHistoryViewModelTest {
     @Test
     fun uiState_initiallyLoading() = runTest {
-        val viewModel = RecordatorioViewModel(FakeRecordatorioRepository())
+        val viewModel = RecordatorioHistoryViewModel(FakeRecordatorioRepository())
         assertEquals(viewModel.recordatorioState.first(), RecordatorioUiState.Loading)
     }
 
     @Test
     fun uiState_onItemSaved_isDisplayed() = runTest {
-        val viewModel = RecordatorioViewModel(FakeRecordatorioRepository())
+        val viewModel = RecordatorioHistoryViewModel(FakeRecordatorioRepository())
         assertEquals(viewModel.recordatorioState.first(), RecordatorioUiState.Loading)
     }
 }
@@ -51,10 +52,23 @@ private class FakeRecordatorioRepository : RecordatorioRepository {
 
     private val data = mutableListOf<String>()
 
-    override val recordatorios: Flow<List<String>>
-        get() = flow { emit(data.toList()) }
+    override suspend fun getRecordatorios(): Flow<List<Recordatorio>> {
+        TODO("Not yet implemented")
+    }
 
-    override suspend fun add(name: String) {
-        data.add(0, name)
+    override suspend fun getRecordatorioById(id: Long): Recordatorio {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun insertRecordatorio(item: Recordatorio): Long {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun updateRecordatorio(item: Recordatorio) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun deleteRecordatorio(item: Recordatorio) {
+        TODO("Not yet implemented")
     }
 }
