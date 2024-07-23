@@ -19,6 +19,7 @@ package es.rodal.keoapp.ui.screens.history
 import android.content.Context
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -71,6 +72,7 @@ fun RecordatorioHistoryScreen(
     askNotificationPermission: Boolean,
     askAlarmPermission: Boolean,
     navigateToRecordatorioEntry: () -> Unit,
+    navigateToRecordatorioDetail: (Int) -> Unit,
     viewModel: RecordatorioHistoryViewModel = hiltViewModel()
 ) {
     PermissionAlarmDialog(
@@ -82,6 +84,7 @@ fun RecordatorioHistoryScreen(
     RecordatorioScaffold(
         navController = navController,
         navigateToRecordatorioEntry = navigateToRecordatorioEntry,
+        navigateToRecordatorioDetail = navigateToRecordatorioDetail,
         viewModel = viewModel
     )
 
@@ -92,6 +95,7 @@ fun RecordatorioHistoryScreen(
 fun RecordatorioScaffold(
     navController: NavController,
     navigateToRecordatorioEntry: () -> Unit,
+    navigateToRecordatorioDetail: (Int) -> Unit,
     viewModel: RecordatorioHistoryViewModel
 ) {
     Scaffold(
@@ -114,7 +118,11 @@ fun RecordatorioScaffold(
         ) {
             when (viewModel.recordatorioState.isEmpty()) {
                 true -> EmptyView()
-                false -> RecordatorioLazyColumn(viewModel, navController.context)
+                false -> RecordatorioLazyColumn(
+                    viewModel = viewModel,
+                    context = navController.context,
+                    navigateToRecordatorioDetail = navigateToRecordatorioDetail
+                )
             }
         }
     }
@@ -122,7 +130,10 @@ fun RecordatorioScaffold(
 
 
 @Composable
-fun RecordatorioLazyColumn(viewModel: RecordatorioHistoryViewModel, context: Context/*, navigateToRecordatorioDetail: (Recordatorio) -> Unit*/) {
+fun RecordatorioLazyColumn(
+    viewModel: RecordatorioHistoryViewModel,
+    context: Context, navigateToRecordatorioDetail: (Int) -> Unit
+) {
     LazyColumn(
         modifier = Modifier,
         contentPadding = PaddingValues(vertical = dimensionResource(id = R.dimen.padding_small))
@@ -135,6 +146,7 @@ fun RecordatorioLazyColumn(viewModel: RecordatorioHistoryViewModel, context: Con
                 context = context,
                 modifier = Modifier
                     .padding(dimensionResource(id = R.dimen.padding_small))
+                    .clickable { navigateToRecordatorioDetail(recordatorio.id!!.toInt()) }
             )
         }
 

@@ -9,7 +9,6 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -91,7 +90,7 @@ fun KeoBottomAppBar(navController: NavController, modifier: Modifier = Modifier)
         ) {
             NavigationBarItem(
                 selected = false,
-                onClick = { navController.navigate(NavigationDestinations.RecordatorioCalendarScreen.route) },
+                onClick = { navController.navigate(NavigationDestinations.RecordatorioCalendarDestination.route) },
                 icon = {
                     Icon(
                         imageVector = Icons.Filled.DateRange,
@@ -101,7 +100,7 @@ fun KeoBottomAppBar(navController: NavController, modifier: Modifier = Modifier)
             )
             NavigationBarItem(
                 selected = false,
-                onClick = { navController.navigate(NavigationDestinations.RecordatorioHomeScreen.route) },
+                onClick = { navController.navigate(NavigationDestinations.RecordatorioHomeDestination.route) },
                 icon = {
                     Icon(
                         imageVector = Icons.Filled.Home,
@@ -111,7 +110,7 @@ fun KeoBottomAppBar(navController: NavController, modifier: Modifier = Modifier)
             )
             NavigationBarItem(
                 selected = false,
-                onClick = { navController.navigate(NavigationDestinations.RecordatorioHistoryScreen.route) },
+                onClick = { navController.navigate(NavigationDestinations.RecordatorioHistoryDestination.route) },
                 icon = {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.List,

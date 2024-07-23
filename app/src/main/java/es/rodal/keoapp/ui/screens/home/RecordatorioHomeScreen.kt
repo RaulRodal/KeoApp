@@ -73,7 +73,7 @@ fun RecordatorioHomeScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(32.dp))
 
             Button(
-                onClick = { navController.navigate(NavigationDestinations.RecordatorioCalendarScreen.route) },
+                onClick = { navController.navigate(NavigationDestinations.RecordatorioCalendarDestination.route) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp)
@@ -90,7 +90,7 @@ fun RecordatorioHomeScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(16.dp))
 
             Button(
-                onClick = { navController.navigate(NavigationDestinations.RecordatorioHistoryScreen.route) },
+                onClick = { navController.navigate(NavigationDestinations.RecordatorioHistoryDestination.route) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp)
@@ -107,7 +107,7 @@ fun RecordatorioHomeScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(16.dp))
 
             Button(
-                onClick = { navController.navigate(NavigationDestinations.RecordatorioEntryScreen.route) },
+                onClick = { navController.navigate(NavigationDestinations.RecordatorioEntryDestination.route) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp)

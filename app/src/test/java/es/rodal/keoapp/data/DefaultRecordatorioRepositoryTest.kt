@@ -22,7 +22,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import es.rodal.keoapp.data.local.database.Recordatorio
 import es.rodal.keoapp.data.local.database.RecordatorioDao
 
@@ -32,7 +32,7 @@ import es.rodal.keoapp.data.local.database.RecordatorioDao
 @OptIn(ExperimentalCoroutinesApi::class) // TODO: Remove when stable
 class DefaultRecordatorioRepositoryTest {
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun recordatorios_newItemSaved_itemIsReturned() = runTest {
         val repository = DefaultRecordatorioRepository(FakeRecordatorioDao())
 
