@@ -17,8 +17,8 @@ class RecordatorioRepositoryImpl(
         }
     }
 
-    override suspend fun getRecordatorioById(id: Long): Recordatorio {
-        return dao.getRecordatorioById(id).toRecordatorio()
+    override fun getRecordatorioById(id: Long): Flow<Recordatorio> {
+        return dao.getRecordatorioById(id).map { it.toRecordatorio() }
     }
     override suspend fun insertRecordatorio(item: Recordatorio): Long {
         return dao.insertRecordatorio(item.toRecordatorioEntity())

@@ -9,6 +9,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import es.rodal.keoapp.data.domain.model.Recordatorio
 import es.rodal.keoapp.data.domain.repository.RecordatorioRepository
 import es.rodal.keoapp.ui.navigation.NavigationDestinations
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.util.Date
 import javax.inject.Inject
@@ -21,13 +24,18 @@ class RecordatorioDetailViewModel @Inject constructor(
 
         private val recordatorioId: Long = checkNotNull(savedStateHandle[NavigationDestinations.RecordatorioDetailDestination.recordatorioIdArg])
 
-    val recordatorioState = mutableStateOf<Recordatorio>(Recordatorio("", "", Date()) )
-
-    init {
-        viewModelScope.launch {
-            recordatorioState.value = recordatorioRepository.getRecordatorioById(recordatorioId)
-        }
+    companion object {
+        private const val TIMEOUT_MILLIS = 5_000L
     }
+
+    val recordatorioState: StateFlow<Recordatorio> =
+        recordatorioRepository.getRecordatorioById(recordatorioId)
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
+                initialValue = Recordatorio("", "", Date())
+            )
+
 
         fun deleteRecordatorio(recordatorio: Recordatorio) {
             viewModelScope.launch {

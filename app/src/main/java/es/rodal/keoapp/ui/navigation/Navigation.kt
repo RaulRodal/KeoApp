@@ -85,7 +85,9 @@ fun MainNavigation(
         ) {
             RecordatorioDetailScreen(
                 navigateBack = { navController.popBackStack() },
-                navigateToEditRecordatorio = { navController.navigate("${NavigationDestinations.RecordatorioDetailDestination.route}/${it}") }
+                navController = navController,
+                navigateToRecordatorioEntry = { navController.navigate(NavigationDestinations.RecordatorioEntryDestination.route) },
+                navigateToRecordatorioDetail = { navController.navigate("${NavigationDestinations.RecordatorioDetailDestination.route}/$it") }
             )
         }
     }
