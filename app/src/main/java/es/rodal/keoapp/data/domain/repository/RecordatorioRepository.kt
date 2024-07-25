@@ -22,7 +22,7 @@ import kotlinx.coroutines.flow.Flow
 interface RecordatorioRepository {
 
     suspend fun getRecordatorios(): Flow<List<Recordatorio>>
-    suspend fun getRecordatorioById(id: Long): Recordatorio
+    fun getRecordatorioById(id: Long): Flow<Recordatorio>
     suspend fun insertRecordatorio(item: Recordatorio): Long
     suspend fun updateRecordatorio(item: Recordatorio)
     suspend fun deleteRecordatorio(item: Recordatorio)

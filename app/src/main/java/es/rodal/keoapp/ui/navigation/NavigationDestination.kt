@@ -20,23 +20,30 @@ interface NavigationDestination {
 object NavigationDestinations {
 
 
-    object RecordatorioHomeScreen : NavigationDestination {
+    object RecordatorioHomeDestination : NavigationDestination {
         override val route = "recordatorio_home"
         override val titleRes = R.string.recordatorio_home_screen_title
     }
 
-    object RecordatorioEntryScreen : NavigationDestination {
+    object RecordatorioEntryDestination : NavigationDestination {
         override val route = "recordatorio_entry"
         override val titleRes = R.string.recordatorio_entry_screen_title
     }
 
-    object RecordatorioHistoryScreen : NavigationDestination {
+    object RecordatorioHistoryDestination : NavigationDestination {
         override val route = "recordatorio_history"
         override val titleRes = R.string.recordatorio_history_screen_title
     }
 
-    object RecordatorioCalendarScreen : NavigationDestination {
+    object RecordatorioCalendarDestination : NavigationDestination {
         override val route = "recordatorio_calendar"
         override val titleRes = R.string.recordatorio_calendar_screen_title
+    }
+
+    object RecordatorioDetailDestination : NavigationDestination {
+        override val route = "recordatorio_detail"
+        override val titleRes = R.string.recordatorio_detail_screen_title
+        const val recordatorioIdArg = "recordatorioId"
+        val routeWithArgs = "$route/{$recordatorioIdArg}"
     }
 }

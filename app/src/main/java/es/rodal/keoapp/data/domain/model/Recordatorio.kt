@@ -9,7 +9,7 @@ import java.util.Locale
 
 @Parcelize
 data class Recordatorio (
-    val id: Long?,
+    val id: Long = 0L,
     val name: String,
     val description: String,
     val active: Boolean,
@@ -17,13 +17,13 @@ data class Recordatorio (
     val recordatorioTime: Date
 ) : Parcelable {
     constructor(name: String, description: String, recordatorioTime: Date) :
-            this(null, name, description, true, false, recordatorioTime)
+            this(0, name, description, true, false, recordatorioTime)
 
 
 }
 
 fun Date.getFormattedDateTime(): String {
-    val dateTimeFormat = SimpleDateFormat("EEE, MMM d, yyyy 'at' h:mm a", Locale.getDefault())
+    val dateTimeFormat = SimpleDateFormat("EEE, MMM d, yyyy 'at' hh:mm a", Locale.getDefault())
     return dateTimeFormat.format(this)
 }
 

@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -20,10 +22,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import es.rodal.keoapp.R
 import es.rodal.keoapp.data.domain.model.Recordatorio
 import es.rodal.keoapp.ui.utils.KeoBottomAppBar
 import es.rodal.keoapp.ui.utils.KeoTopAppBar
@@ -40,7 +46,7 @@ fun RecordatorioEntryScreen (
     Scaffold(
         topBar = {
             KeoTopAppBar(
-                title = "Nuevo Recordatorio",
+                title = stringResource(id = R.string.recordatorio_entry_title),
                 canNavigateBack = true,
                 navigateUp = navController::navigateUp
             )
@@ -99,45 +105,47 @@ fun Form(
     )
 
     Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium)),
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(dimensionResource(id = R.dimen.padding_medium))
     ) {
-        TextField(
+        OutlinedTextField(
             value = name,
             onValueChange = { name = it },
-            label = { Text("Nombre del recordatorio") },
+            label = { Text(text = stringResource(id = R.string.recordatorio_name)) },
+            readOnly = false,
             modifier = Modifier.fillMaxWidth()
         )
+        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_medium)))
 
-        Spacer(modifier = Modifier.height(16.dp))
-
-        TextField(
+        OutlinedTextField(
             value = description,
-            onValueChange = { description = it },
-            label = { Text("Descripcion del recordatorio") },
+            onValueChange = { description = it},
+            label = { Text(text = stringResource(id = R.string.recordatorio_description)) },
+            readOnly = false,
             modifier = Modifier.fillMaxWidth()
         )
+        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_medium)))
 
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Button(
+        OutlinedButton(
             onClick = { datePickerDialog.show() },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(text = if (date.isEmpty()) "Seleccionar fecha" else date)
+            Text(text = if (date.isEmpty()) stringResource(id = R.string.select_date) else date)
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_medium)))
 
-        Button(
+        OutlinedButton(
             onClick = { timePickerDialog.show() },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(text = if (time.isEmpty()) "Seleccionar hora" else time)
+            Text(text = if (time.isEmpty()) stringResource(id = R.string.select_hour) else time)
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_medium)))
 
         Button(
             onClick = {
@@ -151,18 +159,18 @@ fun Form(
                             description = description,
                             recordatorioTime = calendar.time
                         ))
-                        Toast.makeText(context, "Recordatorio guardado", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, context.getString(R.string.reminder_saved), Toast.LENGTH_SHORT).show()
                         navController.popBackStack()
                     } else {
-                        Toast.makeText(context,"La fecha y hora del recordatorio ya han pasado.",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context,context.getString(R.string.wrong_datetime),Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    Toast.makeText(context,"Por favor, complete todos los campos",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context,context.getString(R.string.please_fill_all_fields),Toast.LENGTH_SHORT).show()
                 }
             },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(text = "Guardar Tarea y Establecer Recordatorio")
+            Text(text = stringResource(id = R.string.set_reminder))
         }
 
 
