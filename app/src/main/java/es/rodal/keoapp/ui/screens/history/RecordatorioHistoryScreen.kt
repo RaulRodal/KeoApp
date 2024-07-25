@@ -69,18 +69,10 @@ import java.util.Locale
 @Composable
 fun RecordatorioHistoryScreen(
     navController: NavController,
-    askNotificationPermission: Boolean,
-    askAlarmPermission: Boolean,
     navigateToRecordatorioEntry: () -> Unit,
     navigateToRecordatorioDetail: (Int) -> Unit,
     viewModel: RecordatorioHistoryViewModel = hiltViewModel()
 ) {
-    PermissionAlarmDialog(
-        askAlarmPermission = askAlarmPermission
-    )
-    PermissionDialog(
-        askNotificationPermission = askNotificationPermission
-    )
     RecordatorioScaffold(
         navController = navController,
         navigateToRecordatorioEntry = navigateToRecordatorioEntry,
@@ -100,21 +92,21 @@ fun RecordatorioScaffold(
 ) {
     Scaffold(
         topBar = {
-            KeoTopAppBar("", false)
+            KeoTopAppBar("", true)
         },
         bottomBar = {
             KeoBottomAppBar(navController)
         },
         floatingActionButton = {
             FloatingActionButton(onClick = navigateToRecordatorioEntry) {
-                Icon(Icons.Default.Add, contentDescription = "Add")
+                Icon(Icons.Default.Add, contentDescription = stringResource(id = R.string.add))
             }
         }
     ) { innerPadding ->
         Column(
             modifier = Modifier
                 .padding(innerPadding),
-            verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium)),
+            verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
         ) {
             when (viewModel.recordatorioState.isEmpty()) {
                 true -> EmptyView()
@@ -132,7 +124,8 @@ fun RecordatorioScaffold(
 @Composable
 fun RecordatorioLazyColumn(
     viewModel: RecordatorioHistoryViewModel,
-    context: Context, navigateToRecordatorioDetail: (Int) -> Unit
+    context: Context,
+    navigateToRecordatorioDetail: (Int) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier,
@@ -199,25 +192,25 @@ fun RecordatorioCard(
                     color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
                 )
             }
-            Column(
-                modifier = Modifier.weight(1f),
-                horizontalAlignment = Alignment.End
-            ) {
-                Button(
-                    onClick = { viewModel.deleteRecordatorio(context, recordatorio) },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.error,
-                        contentColor = Color.White
-                    ),
-                    shape = RoundedCornerShape(8.dp),
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.delete),
-                        fontSize = 12.sp
-                    )
-                }
-                Spacer(modifier = Modifier.height(8.dp))
+//            Column(
+//                modifier = Modifier.weight(1f),
+//                horizontalAlignment = Alignment.End
+//            ) {
+//                Button(
+//                    onClick = { viewModel.deleteRecordatorio(context, recordatorio) },
+//                    colors = ButtonDefaults.buttonColors(
+//                        containerColor = MaterialTheme.colorScheme.error,
+//                        contentColor = Color.White
+//                    ),
+//                    shape = RoundedCornerShape(8.dp),
+//                    modifier = Modifier.fillMaxWidth()
+//                ) {
+//                    Text(
+//                        text = stringResource(id = R.string.delete),
+//                        fontSize = 12.sp
+//                    )
+//                }
+//                Spacer(modifier = Modifier.height(8.dp))
                 Button(
                     onClick = { viewModel.reverseActive(context, recordatorio) },
                     colors = ButtonDefaults.buttonColors(
@@ -225,14 +218,14 @@ fun RecordatorioCard(
                         contentColor = if (recordatorio.active) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onErrorContainer
                     ),
                     shape = RoundedCornerShape(8.dp),
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth().weight(1f)
                 ) {
                     Text(
                         text = if (recordatorio.active) stringResource(id = R.string.cancel) else stringResource(id = R.string.activate),
                         fontSize = 12.sp
                     )
                 }
-            }
+//            }
         }
     }
 }

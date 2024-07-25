@@ -29,9 +29,23 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import es.rodal.keoapp.R
 import es.rodal.keoapp.ui.navigation.NavigationDestinations
+import es.rodal.keoapp.ui.utils.PermissionAlarmDialog
+import es.rodal.keoapp.ui.utils.PermissionDialog
 
 @Composable
-fun RecordatorioHomeScreen(navController: NavController) {
+fun RecordatorioHomeScreen(
+    navController: NavController,
+    askNotificationPermission: Boolean,
+    askAlarmPermission: Boolean
+    ) {
+
+    PermissionAlarmDialog(
+        askAlarmPermission = askAlarmPermission
+    )
+    PermissionDialog(
+        askNotificationPermission = askNotificationPermission
+    )
+
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background

@@ -48,15 +48,17 @@ fun MainNavigation(
     ) {
         //HOME
         composable(route = NavigationDestinations.RecordatorioHomeDestination.route) {
-            RecordatorioHomeScreen(navController = navController)
+            RecordatorioHomeScreen(
+                navController = navController,
+                askNotificationPermission = askPermission,
+                askAlarmPermission = askPermission
+            )
         }
 
         //HISTORY
         composable(route = NavigationDestinations.RecordatorioHistoryDestination.route) {
             RecordatorioHistoryScreen(
                 navController = navController,
-                askNotificationPermission = askPermission,
-                askAlarmPermission = askPermission,
                 navigateToRecordatorioEntry = { navController.navigate(NavigationDestinations.RecordatorioEntryDestination.route) },
                 navigateToRecordatorioDetail = { navController.navigate("${NavigationDestinations.RecordatorioDetailDestination.route}/$it") }
             )
@@ -84,10 +86,7 @@ fun MainNavigation(
             })
         ) {
             RecordatorioDetailScreen(
-                navigateBack = { navController.popBackStack() },
-                navController = navController,
-                navigateToRecordatorioEntry = { navController.navigate(NavigationDestinations.RecordatorioEntryDestination.route) },
-                navigateToRecordatorioDetail = { navController.navigate("${NavigationDestinations.RecordatorioDetailDestination.route}/$it") }
+                navController = navController
             )
         }
     }

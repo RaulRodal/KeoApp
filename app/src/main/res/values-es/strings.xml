@@ -57,4 +57,20 @@
     <string name="more_options">Mas opciones</string>
     <string name="recordatorio_calendar_screen_title">Calendario</string>
     <string name="recordatorio_day_empty_card_message">No hay recordatorios programados para esta fecha. Tómate un descanso y relájate.</string>
+    <string name="recordatorio_detail_screen_title">Detalle</string>
+    <string name="attention">Atención</string>
+    <string name="delete_question">Estas seguro que deseas eliminar el recordatorio?</string>
+    <string name="no">No</string>
+    <string name="yes">Si</string>
+    <string name="edit">Editar</string>
+    <string name="recordatorio_details">Detalles del recordatorio</string>
+    <string name="recordatorio_description">Descripcion:</string>
+    <string name="recordatorio_date">Fecha:</string>
+    <string name="recordatorio_time">Hora:</string>
+    <string name="select_date">Selecciona fecha</string>
+    <string name="select_hour">Selecciona hora</string>
+    <string name="set_reminder">Añadir recordatorio</string>
+    <string name="reminder_saved">Recordatorio guardado</string>
+    <string name="wrong_datetime">La fecha y hora del recordatorio ya han pasado</string>
+    <string name="please_fill_all_fields">Por favor, complete todos los campos</string>
 </resources>

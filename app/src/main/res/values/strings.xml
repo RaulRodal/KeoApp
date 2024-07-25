@@ -57,9 +57,20 @@
     <string name="more_options">More options</string>
     <string name="recordatorio_calendar_screen_title">Calendar</string>
     <string name="recordatorio_day_empty_card_message">No reminders scheduled for this date. Take a break and relax.</string>
-    <string name="recordatorio_detail_screen_title">detail</string>
+    <string name="recordatorio_detail_screen_title">Detail</string>
     <string name="attention">Attention</string>
     <string name="delete_question">Are you sure to delete the reminder?</string>
     <string name="no">No</string>
     <string name="yes">Yes</string>
+    <string name="edit">Edit</string>
+    <string name="recordatorio_details">Reminder details</string>
+    <string name="recordatorio_description">Description:</string>
+    <string name="recordatorio_date">Date:</string>
+    <string name="recordatorio_time">Hour:</string>
+    <string name="select_date">Select date</string>
+    <string name="select_hour">Select hour</string>
+    <string name="set_reminder">Set reminder</string>
+    <string name="reminder_saved">Reminder saved</string>
+    <string name="wrong_datetime">The reminder date and time have already passed</string>
+    <string name="please_fill_all_fields">Please complete all fields</string>
 </resources>

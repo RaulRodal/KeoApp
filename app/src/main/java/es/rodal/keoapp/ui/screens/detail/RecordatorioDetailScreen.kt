@@ -20,9 +20,11 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -30,6 +32,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
@@ -41,6 +44,7 @@ import androidx.navigation.NavController
 import es.rodal.keoapp.R
 import es.rodal.keoapp.data.domain.model.getFormattedDate
 import es.rodal.keoapp.data.domain.model.getFormattedTime
+import es.rodal.keoapp.ui.navigation.NavigationDestinations
 import es.rodal.keoapp.ui.screens.history.EmptyView
 import es.rodal.keoapp.ui.screens.history.RecordatorioHistoryViewModel
 import es.rodal.keoapp.ui.screens.history.RecordatorioLazyColumn
@@ -51,117 +55,121 @@ import es.rodal.keoapp.ui.utils.KeoTopAppBar
 @Composable
 fun RecordatorioDetailScreen(
     modifier: Modifier = Modifier,
-    navigateBack: () -> Unit,
     navController: NavController,
-    navigateToRecordatorioEntry: () -> Unit,
-    navigateToRecordatorioDetail: (Int) -> Unit,
     viewModel: RecordatorioDetailViewModel = hiltViewModel()
-){
+) {
+
     Scaffold(
         topBar = {
-            KeoTopAppBar("", false)
+            KeoTopAppBar(
+                title = stringResource(id = NavigationDestinations.RecordatorioDetailDestination.titleRes),
+                canNavigateBack = true,
+                navigateUp = { navController.popBackStack() }
+            )
         },
         bottomBar = {
             KeoBottomAppBar(navController)
-        },
-        floatingActionButton = {
-            FloatingActionButton(onClick = navigateToRecordatorioEntry) {
-                Icon(Icons.Default.Add, contentDescription = "Add")
-            }
         }
     ) { innerPadding ->
         RecordatorioDetailColumn(
             padding = innerPadding,
             navigateToEditRecordatorio = { TODO() },
-            navigateBack = navigateBack
+            navController = navController,
+            viewModel = viewModel
         )
     }
 }
-
 @Composable
 fun RecordatorioDetailColumn(
     padding: PaddingValues,
     modifier: Modifier = Modifier,
-    navigateToEditRecordatorio: (Int) -> Unit,
-    navigateBack: () -> Unit,
-    viewModel: RecordatorioDetailViewModel = hiltViewModel()
+    navigateToEditRecordatorio: (Long) -> Unit,
+    navController: NavController,
+    viewModel: RecordatorioDetailViewModel
 ) {
 
     val recordatorio by viewModel.recordatorioState.collectAsState()
 
-    var name by remember { mutableStateOf(TextFieldValue(recordatorio.name)) }
-    var description by remember { mutableStateOf(TextFieldValue(recordatorio.description)) }
-    var date by remember { mutableStateOf(recordatorio.recordatorioTime.getFormattedDate()) }
-    var time by remember { mutableStateOf(recordatorio.recordatorioTime.getFormattedTime()) }
-    val context = LocalContext.current
-
-    Column(modifier = Modifier.padding(padding)) {
-
+    Column(
+        modifier = Modifier
+            .padding(dimensionResource(id = R.dimen.padding_large))
+            .fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
+    ) {
         var deleteConfirmationRequired by rememberSaveable { mutableStateOf(false) }
 
-        Text(text = "Recordatorio Details", style = MaterialTheme.typography.headlineSmall)
-        Spacer(modifier = Modifier.height(8.dp))
+        Text(text = stringResource(id = R.string.recordatorio_details), style = MaterialTheme.typography.headlineSmall)
+        Spacer(modifier = Modifier.height(16.dp))
 
-        BasicTextField(
-            value = name,
-            onValueChange = { name = it },
+        OutlinedTextField(
+            value = recordatorio.name,
+            onValueChange = {},
+            label = { Text(text = stringResource(id = R.string.recordatorio_name)) },
+            readOnly = true,
             modifier = Modifier.fillMaxWidth()
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
-        BasicTextField(
-            value = description,
-            onValueChange = { description = it },
+        OutlinedTextField(
+            value = recordatorio.description,
+            onValueChange = {},
+            label = { Text(text = stringResource(id = R.string.recordatorio_description)) },
+            readOnly = true,
             modifier = Modifier.fillMaxWidth()
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
-        BasicTextField(
-            value = TextFieldValue(date),
-            onValueChange = { /* Update date here */ },
+        OutlinedTextField(
+            value = recordatorio.recordatorioTime.getFormattedDate(),
+            onValueChange = {},
+            label = { Text(text = stringResource(id = R.string.recordatorio_date)) },
+            readOnly = true,
             modifier = Modifier.fillMaxWidth()
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
-        BasicTextField(
-            value = TextFieldValue(time),
-            onValueChange = { /* Update time here */ },
+        OutlinedTextField(
+            value = recordatorio.recordatorioTime.getFormattedTime(),
+            onValueChange = {},
+            label = { Text(text = stringResource(id = R.string.recordatorio_time)) },
+            readOnly = true,
             modifier = Modifier.fillMaxWidth()
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
-        Row {
-            Button(onClick = {
-                val updatedRecordatorio = recordatorio.copy(
-                    name = name.text,
-                    description = description.text
-                )
-                //onSave(updatedRecordatorio)
-            }) {
-                Text(text = "Save")
-            }
-            Spacer(modifier = Modifier.width(8.dp))
-            OutlinedButton(
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Button(
                 onClick = { deleteConfirmationRequired = true },
-                shape = MaterialTheme.shapes.small,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.weight(1f)
             ) {
-                Text(stringResource(R.string.delete))
+                Text(text = stringResource(id = R.string.delete))
             }
-            if (deleteConfirmationRequired) {
-                DeleteConfirmationDialog(
-                    onDeleteConfirm = {
-                        deleteConfirmationRequired = false
-                        viewModel.deleteRecordatorio(recordatorio)
-                    },
-                    onDeleteCancel = { deleteConfirmationRequired = false },
-                    modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_medium))
-                )
+            OutlinedButton(
+                onClick = { navigateToEditRecordatorio(recordatorio.id!!) },
+                shape = MaterialTheme.shapes.small,
+                modifier = Modifier.weight(1f)
+            ) {
+                Text(text = stringResource(id = R.string.edit))
             }
+        }
+
+        if (deleteConfirmationRequired) {
+            DeleteConfirmationDialog(
+                onDeleteConfirm = {
+                    deleteConfirmationRequired = false
+                    viewModel.deleteRecordatorio(navController.context, recordatorio)
+                    navController.popBackStack()
+                },
+                onDeleteCancel = { deleteConfirmationRequired = false },
+                modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_medium))
+            )
         }
     }
 }
-
 @Composable
 fun DeleteConfirmationDialog(
     onDeleteConfirm: () -> Unit,
