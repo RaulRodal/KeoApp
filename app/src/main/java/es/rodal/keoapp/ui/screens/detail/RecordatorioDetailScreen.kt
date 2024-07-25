@@ -8,36 +8,25 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -45,9 +34,6 @@ import es.rodal.keoapp.R
 import es.rodal.keoapp.data.domain.model.getFormattedDate
 import es.rodal.keoapp.data.domain.model.getFormattedTime
 import es.rodal.keoapp.ui.navigation.NavigationDestinations
-import es.rodal.keoapp.ui.screens.history.EmptyView
-import es.rodal.keoapp.ui.screens.history.RecordatorioHistoryViewModel
-import es.rodal.keoapp.ui.screens.history.RecordatorioLazyColumn
 import es.rodal.keoapp.ui.utils.KeoBottomAppBar
 import es.rodal.keoapp.ui.utils.KeoTopAppBar
 
@@ -64,7 +50,7 @@ fun RecordatorioDetailScreen(
             KeoTopAppBar(
                 title = stringResource(id = NavigationDestinations.RecordatorioDetailDestination.titleRes),
                 canNavigateBack = true,
-                navigateUp = { navController.popBackStack() }
+                navigateBack = { navController.popBackStack() }
             )
         },
         bottomBar = {

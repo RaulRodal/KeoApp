@@ -19,6 +19,7 @@ ksp = "1.9.24-1.0.20"
 accompanistPermissions = "0.35.1-alpha"
 material = "1.12.0"
 materialcalendarview = "2.0.1"
+uiTextGoogleFonts = "1.6.8"
 
 [libraries]
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidxCore" }
@@ -53,6 +54,7 @@ kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-t
 accompanist-permission = { group="com.google.accompanist", name="accompanist-permissions", version.ref="accompanistPermissions" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 materialcalendarview = { group = "com.prolificinteractive", name = "material-calendarview", version.ref = "materialcalendarview" }
+androidx-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }

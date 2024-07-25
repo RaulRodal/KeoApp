@@ -34,6 +34,7 @@ import java.util.Date
 import android.widget.CalendarView
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.res.dimensionResource
+import androidx.core.content.ContextCompat
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -46,7 +47,7 @@ fun RecordatorioCalendarScreen(
             KeoTopAppBar(
                 title = stringResource(id = NavigationDestinations.RecordatorioCalendarDestination.titleRes),
                 canNavigateBack = true,
-                navigateUp = navController::navigateUp
+                navigateBack = navController::navigateUp
             )
         },
         bottomBar = {
@@ -85,12 +86,13 @@ fun CalendarView(onDayChange: (Date) -> Unit) {
 
     AndroidView(
         factory = { CalendarView(context).apply {
+            setBackgroundColor(ContextCompat.getColor(context, R.color.white))
+
             setOnDateChangeListener { _, year, month, dayOfMonth ->
                 val calendar = Calendar.getInstance()
                 calendar.set(year, month, dayOfMonth)
                 onDayChange(calendar.time)
             }
-
         }},
         modifier = Modifier
             .fillMaxWidth()

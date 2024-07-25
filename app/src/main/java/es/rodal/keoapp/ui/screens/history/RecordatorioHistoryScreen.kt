@@ -92,7 +92,11 @@ fun RecordatorioScaffold(
 ) {
     Scaffold(
         topBar = {
-            KeoTopAppBar("", true)
+            KeoTopAppBar(
+                title = "",
+                canNavigateBack = true,
+                navigateBack = { navController.popBackStack() }
+            )
         },
         bottomBar = {
             KeoBottomAppBar(navController)

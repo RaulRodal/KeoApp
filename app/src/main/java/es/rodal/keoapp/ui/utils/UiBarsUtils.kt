@@ -45,7 +45,7 @@ fun KeoTopAppBar(
     canNavigateBack: Boolean,
     modifier: Modifier = Modifier,
     scrollBehavior: TopAppBarScrollBehavior? = null,
-    navigateUp: () -> Unit = {}
+    navigateBack: () -> Unit = {}
 ) {
     CenterAlignedTopAppBar(colors = TopAppBarDefaults.topAppBarColors(
         containerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -64,7 +64,7 @@ fun KeoTopAppBar(
         }
     }, navigationIcon = {
         if (canNavigateBack) {
-            IconButton(onClick = navigateUp) {
+            IconButton(onClick = navigateBack) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = stringResource(id = R.string.back)
@@ -147,5 +147,5 @@ fun MoreButtonWithMenu(
 @Preview(showBackground = true)
 @Composable
 fun PreviewKeoTopAppBar() {
-    KeoTopAppBar(title = "Nuevo recordatorio", canNavigateBack = true, navigateUp = {})
+    KeoTopAppBar(title = "Nuevo recordatorio", canNavigateBack = true, navigateBack = {})
 }

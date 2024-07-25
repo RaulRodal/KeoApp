@@ -16,7 +16,6 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -48,7 +47,7 @@ fun RecordatorioEntryScreen (
             KeoTopAppBar(
                 title = stringResource(id = R.string.recordatorio_entry_title),
                 canNavigateBack = true,
-                navigateUp = navController::navigateUp
+                navigateBack = navController::navigateUp
             )
         },
         bottomBar = {
