@@ -73,4 +73,9 @@
     <string name="reminder_saved">Recordatorio guardado</string>
     <string name="wrong_datetime">La fecha y hora del recordatorio ya han pasado</string>
     <string name="please_fill_all_fields">Por favor, complete todos los campos</string>
+    <string name="recordatorio_entry_title">Nuevo recordatorio</string>
+    <string name="recordatorio_home_screen_subtitle">Gestiona tus recordatorios fácilmente</string>
+    <string name="recordatorio_show_calendar">Ver calendario</string>
+    <string name="recordatorio_show_reminders">Ver recordatorios</string>
+    <string name="recordatorio_add_reminder">Añadir recordatorio</string>
 </resources>

@@ -46,7 +46,7 @@ fun RecordatorioEntryScreen (
     Scaffold(
         topBar = {
             KeoTopAppBar(
-                title = "Nuevo Recordatorio",
+                title = stringResource(id = R.string.recordatorio_entry_title),
                 canNavigateBack = true,
                 navigateUp = navController::navigateUp
             )

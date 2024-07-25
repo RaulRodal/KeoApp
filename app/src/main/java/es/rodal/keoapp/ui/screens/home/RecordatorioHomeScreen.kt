@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -62,7 +63,7 @@ fun RecordatorioHomeScreen(
                 painter = logo,
                 contentDescription = null,
                 modifier = Modifier
-                    .size(100.dp)
+                    .size(200.dp)
                     .background(MaterialTheme.colorScheme.primary, shape = CircleShape)
                     .padding(16.dp)
             )
@@ -70,7 +71,7 @@ fun RecordatorioHomeScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = "Bienvenido a Recordatorios",
+                text = stringResource(id = R.string.recordatorio_home_screen_title),
                 fontWeight = FontWeight.Bold,
                 fontSize = 24.sp,
                 color = MaterialTheme.colorScheme.onBackground
@@ -79,7 +80,7 @@ fun RecordatorioHomeScreen(
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = "Gestiona tus recordatorios fácilmente",
+                text = stringResource(id = R.string.recordatorio_home_screen_subtitle),
                 fontSize = 16.sp,
                 color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
             )
@@ -98,7 +99,7 @@ fun RecordatorioHomeScreen(
                     contentColor = Color.White
                 )
             ) {
-                Text(text = "Ver calendario")
+                Text(text = stringResource(id = R.string.recordatorio_show_calendar))
             }
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -115,7 +116,7 @@ fun RecordatorioHomeScreen(
                     contentColor = Color.White
                 )
             ) {
-                Text(text = "Ver recordatorios")
+                Text(text = stringResource(id = R.string.recordatorio_show_reminders))
             }
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -132,7 +133,7 @@ fun RecordatorioHomeScreen(
                     contentColor = Color.White
                 )
             ) {
-                Text(text = "Añadir recordatorio")
+                Text(text = stringResource(id = R.string.recordatorio_add_reminder))
             }
         }
     }

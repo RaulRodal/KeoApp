@@ -73,4 +73,9 @@
     <string name="reminder_saved">Reminder saved</string>
     <string name="wrong_datetime">The reminder date and time have already passed</string>
     <string name="please_fill_all_fields">Please complete all fields</string>
+    <string name="recordatorio_entry_title">New reminder</string>
+    <string name="recordatorio_home_screen_subtitle">Manage your reminders easily</string>
+    <string name="recordatorio_show_calendar">Show calendar</string>
+    <string name="recordatorio_show_reminders">Show reminders</string>
+    <string name="recordatorio_add_reminder">Add reminder</string>
 </resources>

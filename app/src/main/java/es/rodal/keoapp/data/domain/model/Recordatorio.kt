@@ -23,7 +23,7 @@ data class Recordatorio (
 }
 
 fun Date.getFormattedDateTime(): String {
-    val dateTimeFormat = SimpleDateFormat("EEE, MMM d, yyyy 'at' h:mm a", Locale.getDefault())
+    val dateTimeFormat = SimpleDateFormat("EEE, MMM d, yyyy 'at' hh:mm a", Locale.getDefault())
     return dateTimeFormat.format(this)
 }
 
