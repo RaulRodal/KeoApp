@@ -58,23 +58,14 @@ fun RecordatorioHomeScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            val logo: Painter = painterResource(id = R.mipmap.ic_launcher_foreground) // Reemplaza con tu logo
+            val logo: Painter = painterResource(id = R.mipmap.ic_launcher_foreground)
             Image(
                 painter = logo,
                 contentDescription = null,
                 modifier = Modifier
-                    .size(200.dp)
+                    .size(250.dp)
                     .background(MaterialTheme.colorScheme.primary, shape = CircleShape)
                     .padding(16.dp)
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Text(
-                text = stringResource(id = R.string.recordatorio_home_screen_title),
-                fontWeight = FontWeight.Bold,
-                fontSize = 24.sp,
-                color = MaterialTheme.colorScheme.onBackground
             )
 
             Spacer(modifier = Modifier.height(8.dp))

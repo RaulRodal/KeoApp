@@ -65,7 +65,12 @@ fun MainNavigation(
         }
 
         //ENTRY
-        composable(route = NavigationDestinations.RecordatorioEntryDestination.route) {
+        composable(
+            route = NavigationDestinations.RecordatorioEntryDestination.routeWithArgs,
+            arguments = listOf(navArgument(NavigationDestinations.RecordatorioEntryDestination.recordatorioIdArg) {//argumentos que recibe de la ruta
+                type = NavType.IntType
+            })
+        ) {
             RecordatorioEntryScreen(
                 navController = navController
             )
@@ -86,7 +91,8 @@ fun MainNavigation(
             })
         ) {
             RecordatorioDetailScreen(
-                navController = navController
+                navController = navController,
+                navigateToEditRecordatorio = { navController.navigate("${NavigationDestinations.RecordatorioEntryDestination.route}/$it") }
             )
         }
     }

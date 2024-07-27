@@ -8,12 +8,22 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.sizeIn
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Label
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.PlainTooltip
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -25,6 +35,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -41,6 +52,7 @@ import es.rodal.keoapp.ui.utils.KeoTopAppBar
 @Composable
 fun RecordatorioDetailScreen(
     modifier: Modifier = Modifier,
+    navigateToEditRecordatorio: (Long) -> Unit,
     navController: NavController,
     viewModel: RecordatorioDetailViewModel = hiltViewModel()
 ) {
@@ -59,12 +71,13 @@ fun RecordatorioDetailScreen(
     ) { innerPadding ->
         RecordatorioDetailColumn(
             padding = innerPadding,
-            navigateToEditRecordatorio = { TODO() },
+            navigateToEditRecordatorio = navigateToEditRecordatorio,
             navController = navController,
             viewModel = viewModel
         )
     }
 }
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecordatorioDetailColumn(
     padding: PaddingValues,
@@ -88,40 +101,27 @@ fun RecordatorioDetailColumn(
         Text(text = stringResource(id = R.string.recordatorio_details), style = MaterialTheme.typography.headlineSmall)
         Spacer(modifier = Modifier.height(16.dp))
 
-        OutlinedTextField(
-            value = recordatorio.name,
-            onValueChange = {},
-            label = { Text(text = stringResource(id = R.string.recordatorio_name)) },
-            readOnly = true,
-            modifier = Modifier.fillMaxWidth()
-        )
-        Spacer(modifier = Modifier.height(16.dp))
 
-        OutlinedTextField(
-            value = recordatorio.description,
-            onValueChange = {},
-            label = { Text(text = stringResource(id = R.string.recordatorio_description)) },
-            readOnly = true,
-            modifier = Modifier.fillMaxWidth()
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-
-        OutlinedTextField(
-            value = recordatorio.recordatorioTime.getFormattedDate(),
-            onValueChange = {},
-            label = { Text(text = stringResource(id = R.string.recordatorio_date)) },
-            readOnly = true,
-            modifier = Modifier.fillMaxWidth()
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-
-        OutlinedTextField(
-            value = recordatorio.recordatorioTime.getFormattedTime(),
-            onValueChange = {},
-            label = { Text(text = stringResource(id = R.string.recordatorio_time)) },
-            readOnly = true,
-            modifier = Modifier.fillMaxWidth()
-        )
+        Row {
+            Text(text = stringResource(id = R.string.recordatorio_name), style = MaterialTheme.typography.labelLarge, modifier = modifier.weight(1f))
+            Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.padding_large)))
+            Text(text = recordatorio.name, style = MaterialTheme.typography.labelLarge)
+        }
+        Row {
+            Text(text = stringResource(id = R.string.recordatorio_description), style = MaterialTheme.typography.labelLarge, modifier = modifier.weight(1f))
+            Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.padding_large)))
+            Text(text = recordatorio.description, style = MaterialTheme.typography.labelLarge)
+        }
+        Row {
+            Text(text = stringResource(id = R.string.recordatorio_date), style = MaterialTheme.typography.labelLarge, modifier = modifier.weight(1f))
+            Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.padding_large)))
+            Text(text = recordatorio.recordatorioTime.getFormattedDate(), style = MaterialTheme.typography.labelLarge)
+        }
+        Row {
+            Text(text = stringResource(id = R.string.recordatorio_time), style = MaterialTheme.typography.labelLarge, modifier = modifier.weight(1f))
+            Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.padding_large)))
+            Text(text = recordatorio.recordatorioTime.getFormattedTime(), style = MaterialTheme.typography.labelLarge)
+        }
         Spacer(modifier = Modifier.height(16.dp))
 
         Row(

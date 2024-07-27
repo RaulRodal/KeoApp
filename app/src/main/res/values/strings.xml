@@ -4,7 +4,7 @@
     <string name="home">Home</string>
     <string name="calendar">Calendar</string>
     <string name="add_recordatorio">Add Reminder</string>
-    <string name="recordatorio_name">Reminder Name</string>
+    <string name="recordatorio_name">Reminder Name:</string>
     <string name="dose_per_day">Dose</string>
     <string name="recurrence">Recurrence</string>
     <string name="end_date">End Date</string>
@@ -68,7 +68,7 @@
     <string name="recordatorio_date">Date:</string>
     <string name="recordatorio_time">Hour:</string>
     <string name="select_date">Select date</string>
-    <string name="select_hour">Select hour</string>
+    <string name="select_time">Select hour</string>
     <string name="set_reminder">Set reminder</string>
     <string name="reminder_saved">Reminder saved</string>
     <string name="wrong_datetime">The reminder date and time have already passed</string>
@@ -78,4 +78,6 @@
     <string name="recordatorio_show_calendar">Show calendar</string>
     <string name="recordatorio_show_reminders">Show reminders</string>
     <string name="recordatorio_add_reminder">Add reminder</string>
+    <string name="update_reminder">Update reminder</string>
+    <string name="reminder_updated">Reminder updated</string>
 </resources>

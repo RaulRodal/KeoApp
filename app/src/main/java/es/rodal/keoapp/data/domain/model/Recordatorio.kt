@@ -18,9 +18,13 @@ data class Recordatorio (
 ) : Parcelable {
     constructor(name: String, description: String, recordatorioTime: Date) :
             this(0, name, description, true, false, recordatorioTime)
+    constructor(id: Long, name: String, description: String, recordatorioTime: Date) :
+            this(id, name, description, true, false, recordatorioTime)
 
 
 }
+
+fun Long.toDate(): Date = Date(this)
 
 fun Date.getFormattedDateTime(): String {
     val dateTimeFormat = SimpleDateFormat("EEE, MMM d, yyyy 'at' hh:mm a", Locale.getDefault())

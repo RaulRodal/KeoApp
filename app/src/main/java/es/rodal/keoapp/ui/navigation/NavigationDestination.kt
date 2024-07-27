@@ -28,6 +28,8 @@ object NavigationDestinations {
     object RecordatorioEntryDestination : NavigationDestination {
         override val route = "recordatorio_entry"
         override val titleRes = R.string.recordatorio_entry_screen_title
+        const val recordatorioIdArg = "recordatorioId"
+        val routeWithArgs = "$route/{$recordatorioIdArg}"
     }
 
     object RecordatorioHistoryDestination : NavigationDestination {

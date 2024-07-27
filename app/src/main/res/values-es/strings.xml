@@ -68,7 +68,7 @@
     <string name="recordatorio_date">Fecha:</string>
     <string name="recordatorio_time">Hora:</string>
     <string name="select_date">Selecciona fecha</string>
-    <string name="select_hour">Selecciona hora</string>
+    <string name="select_time">Selecciona hora</string>
     <string name="set_reminder">Añadir recordatorio</string>
     <string name="reminder_saved">Recordatorio guardado</string>
     <string name="wrong_datetime">La fecha y hora del recordatorio ya han pasado</string>

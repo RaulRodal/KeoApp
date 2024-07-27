@@ -56,7 +56,7 @@ private class FakeRecordatorioRepository : RecordatorioRepository {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getRecordatorioById(id: Long): Recordatorio {
+    override fun getRecordatorioById(id: Long): Flow<Recordatorio> {
         TODO("Not yet implemented")
     }
 
