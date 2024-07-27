@@ -49,4 +49,16 @@ class RecordatorioDetailViewModel @Inject constructor(
             service.deleteNotification(recordatorio)
         }
     }
+
+    fun reverseActive(context: Context, recordatorio: Recordatorio) {
+        viewModelScope.launch {
+            recordatorioRepository.updateRecordatorio(recordatorio.copy(active = !recordatorio.active))
+            val service = RecordatorioNotificationService(context)
+            if (recordatorio.active) {
+                service.deleteNotification(recordatorio)
+            } else {
+                service.scheduleNotification(recordatorio)
+            }
+        }
+    }
 }

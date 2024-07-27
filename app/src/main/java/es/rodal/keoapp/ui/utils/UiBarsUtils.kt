@@ -87,7 +87,8 @@ fun KeoBottomAppBar(navController: NavController, modifier: Modifier = Modifier)
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            NavigationBarItem(selected = false,
+            NavigationBarItem(
+                selected = false,
                 onClick = { navController.navigate(NavigationDestinations.RecordatorioCalendarDestination.route) },
                 icon = {
                     Icon(
@@ -95,7 +96,8 @@ fun KeoBottomAppBar(navController: NavController, modifier: Modifier = Modifier)
                         contentDescription = stringResource(id = R.string.home)
                     )
                 })
-            NavigationBarItem(selected = false,
+            NavigationBarItem(
+                selected = false,
                 onClick = { navController.navigate(NavigationDestinations.RecordatorioHomeDestination.route) },
                 icon = {
                     Icon(
@@ -103,7 +105,8 @@ fun KeoBottomAppBar(navController: NavController, modifier: Modifier = Modifier)
                         contentDescription = stringResource(id = R.string.home)
                     )
                 })
-            NavigationBarItem(selected = false,
+            NavigationBarItem(
+                selected = false,
                 onClick = { navController.navigate(NavigationDestinations.RecordatorioHistoryDestination.route) },
                 icon = {
                     Icon(

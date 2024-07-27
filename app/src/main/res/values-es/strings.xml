@@ -57,7 +57,7 @@
     <string name="more_options">Mas opciones</string>
     <string name="recordatorio_calendar_screen_title">Calendario</string>
     <string name="recordatorio_day_empty_card_message">No hay recordatorios programados para esta fecha. Tómate un descanso y relájate.</string>
-    <string name="recordatorio_detail_screen_title">Detalle</string>
+    <string name="recordatorio_detail_screen_title">Detalle recordatorio</string>
     <string name="attention">Atención</string>
     <string name="delete_question">Estas seguro que deseas eliminar el recordatorio?</string>
     <string name="no">No</string>
@@ -78,4 +78,11 @@
     <string name="recordatorio_show_calendar">Ver calendario</string>
     <string name="recordatorio_show_reminders">Ver recordatorios</string>
     <string name="recordatorio_add_reminder">Añadir recordatorio</string>
+    <string name="update_reminder">Actualizar recordatorio</string>
+    <string name="reminder_updated">Recordatorio actualizado</string>
+    <string name="disable_notification">Desactivar</string>
+    <string name="enable_notification">Activar</string>
+    <string name="enabled">Activado</string>
+    <string name="disabled">Desactivado</string>
+    <string name="recordatorio_status">Estado:</string>
 </resources>
