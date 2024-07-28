@@ -113,7 +113,7 @@ fun RecordatorioHomeScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             Button(
-                onClick = { navController.navigate(NavigationDestinations.RecordatorioEntryDestination.route) },
+                onClick = { navController.navigate("${NavigationDestinations.RecordatorioEntryDestination.route}/0") },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp)

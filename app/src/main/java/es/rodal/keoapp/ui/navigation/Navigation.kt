@@ -59,7 +59,7 @@ fun MainNavigation(
         composable(route = NavigationDestinations.RecordatorioHistoryDestination.route) {
             RecordatorioHistoryScreen(
                 navController = navController,
-                navigateToRecordatorioEntry = { navController.navigate(NavigationDestinations.RecordatorioEntryDestination.route) },
+                navigateToRecordatorioEntry = { navController.navigate("${NavigationDestinations.RecordatorioEntryDestination.route}/0") },
                 navigateToRecordatorioDetail = { navController.navigate("${NavigationDestinations.RecordatorioDetailDestination.route}/$it") }
             )
         }
