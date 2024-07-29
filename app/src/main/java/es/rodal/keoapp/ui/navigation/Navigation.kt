@@ -28,19 +28,14 @@ import es.rodal.keoapp.ui.screens.detail.RecordatorioDetailScreen
 import es.rodal.keoapp.ui.screens.entry.RecordatorioEntryScreen
 import es.rodal.keoapp.ui.screens.history.RecordatorioHistoryScreen
 import es.rodal.keoapp.ui.screens.home.RecordatorioHomeScreen
+import es.rodal.keoapp.ui.screens.notification.RecordatorioNotficationScreen
 import es.rodal.keoapp.ui.utils.scheduleAlarmPermissionGranted
-
-
-//const val ASK_NOTIFICATION_PERMISSION = "notification_permission"
-//const val ASK_ALARM_PERMISSION = "alarm_permission"
 
 @Composable
 fun MainNavigation(
     context: Context
 ) {
     val navController = rememberNavController()
-//  val askNotificationPermission = navController.currentBackStackEntry?.savedStateHandle?.get<Boolean>(ASK_NOTIFICATION_PERMISSION) ?: false
-//  val askAlarmPermission = navController.currentBackStackEntry?.savedStateHandle?.get<Boolean>(ASK_ALARM_PERMISSION) ?: false
     val askPermission = scheduleAlarmPermissionGranted(context)
     NavHost(
         navController = navController,
@@ -50,6 +45,7 @@ fun MainNavigation(
         composable(route = NavigationDestinations.RecordatorioHomeDestination.route) {
             RecordatorioHomeScreen(
                 navController = navController,
+                navigateToNotification = { navController.navigate("notification/$it") },
                 askNotificationPermission = askPermission,
                 askAlarmPermission = askPermission
             )
@@ -94,6 +90,15 @@ fun MainNavigation(
                 navController = navController,
                 navigateToEditRecordatorio = { navController.navigate("${NavigationDestinations.RecordatorioEntryDestination.route}/$it") }
             )
+        }
+
+        //NOTIFICATION
+        composable(
+            "notification/{recordatorioId}",
+            arguments = listOf(navArgument("recordatorioId") { type = NavType.LongType })
+        ) { backStackEntry ->
+            val recordatorioId = backStackEntry.arguments?.getLong("recordatorioId")
+            RecordatorioNotficationScreen(navController = navController, recordatorioId = recordatorioId!!)
         }
     }
 }

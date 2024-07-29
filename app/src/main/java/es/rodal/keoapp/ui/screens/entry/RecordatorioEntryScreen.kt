@@ -55,6 +55,7 @@ fun RecordatorioEntryScreen(
 @Composable
 fun Form(viewModel: RecordatorioEntryViewModel, navController: NavController) {
     val recordatorio by viewModel.recordatorioState.collectAsState()
+    val recordatorioPresent = recordatorio.name.isNotBlank()
     val context = navController.context
     var name by remember { mutableStateOf(recordatorio.name) }
     var description by remember { mutableStateOf(recordatorio.description) }
@@ -177,7 +178,7 @@ fun Form(viewModel: RecordatorioEntryViewModel, navController: NavController) {
             onClick = {
                 if (name.isNotEmpty() && isDateSelected && isTimeSelected) {
                     if (calendar.after(Calendar.getInstance())) {
-                        if (recordatorio != null) {
+                        if (recordatorioPresent) {
                             viewModel.updateRecordatorio(context, recordatorio.copy(
                                 name = name,
                                 description = description,
