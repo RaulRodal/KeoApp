@@ -170,16 +170,22 @@ fun RecordatorioCard(
 
     Card(
         modifier = modifier
-            .padding(8.dp)
-            .shadow(4.dp, RoundedCornerShape(12.dp))
-            .background(Color.White, RoundedCornerShape(12.dp)),
-        shape = RoundedCornerShape(12.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+            .padding(dimensionResource(id = R.dimen.padding_small))
+            .shadow(
+                dimensionResource(id = R.dimen.shadow_medium),
+                RoundedCornerShape(dimensionResource(id = R.dimen.corner_medium))
+            )
+            .background(
+                Color.White,
+                RoundedCornerShape(dimensionResource(id = R.dimen.corner_medium))
+            ),
+        shape = RoundedCornerShape(dimensionResource(id = R.dimen.corner_medium)),
+        elevation = CardDefaults.cardElevation(defaultElevation = dimensionResource(id = R.dimen.elevation_medium))
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(dimensionResource(id = R.dimen.padding_medium)),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(modifier = Modifier.weight(2f)) {
@@ -188,7 +194,7 @@ fun RecordatorioCard(
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
                     color = MaterialTheme.colorScheme.onBackground,
-                    modifier = Modifier.padding(bottom = 4.dp)
+                    modifier = Modifier.padding(bottom = dimensionResource(id = R.dimen.padding_small))
                 )
                 Text(
                     text = dateFormat.format(recordatorio.recordatorioTime),
@@ -196,25 +202,6 @@ fun RecordatorioCard(
                     color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
                 )
             }
-//            Column(
-//                modifier = Modifier.weight(1f),
-//                horizontalAlignment = Alignment.End
-//            ) {
-//                Button(
-//                    onClick = { viewModel.deleteRecordatorio(context, recordatorio) },
-//                    colors = ButtonDefaults.buttonColors(
-//                        containerColor = MaterialTheme.colorScheme.error,
-//                        contentColor = Color.White
-//                    ),
-//                    shape = RoundedCornerShape(8.dp),
-//                    modifier = Modifier.fillMaxWidth()
-//                ) {
-//                    Text(
-//                        text = stringResource(id = R.string.delete),
-//                        fontSize = 12.sp
-//                    )
-//                }
-//                Spacer(modifier = Modifier.height(8.dp))
                 Button(
                     onClick = { viewModel.reverseActive(context, recordatorio) },
                     colors = ButtonDefaults.buttonColors(
@@ -222,7 +209,9 @@ fun RecordatorioCard(
                         contentColor = if (recordatorio.active) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onErrorContainer
                     ),
                     shape = RoundedCornerShape(8.dp),
-                    modifier = Modifier.fillMaxWidth().weight(1f)
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
                 ) {
                     Text(
                         text = if (recordatorio.active) stringResource(id = R.string.cancel) else stringResource(id = R.string.activate),

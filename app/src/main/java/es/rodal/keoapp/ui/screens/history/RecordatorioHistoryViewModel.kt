@@ -70,8 +70,3 @@ class RecordatorioHistoryViewModel @Inject constructor(
     }
 }
 
-sealed interface RecordatorioUiState {
-    object Loading : RecordatorioUiState
-    data class Error(val throwable: Throwable) : RecordatorioUiState
-    data class Success(val data: List<String>) : RecordatorioUiState
-}

@@ -178,7 +178,7 @@ fun RecordatorioDetailContent(
 fun RecordatorioDetailRow(labelResId: Int, value: String) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.padding(vertical = 4.dp)
+        modifier = Modifier.padding(vertical = dimensionResource(id = R.dimen.padding_small))
     ) {
         Text(
             text = stringResource(id = labelResId),
@@ -203,7 +203,7 @@ fun ActionButtons(
     )
 
     Row(
-        horizontalArrangement = Arrangement.spacedBy(dimensionResource(id =R.dimen.spacing_small)),
+        horizontalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.spacing_small)),
         modifier = Modifier.fillMaxWidth()
     ) {
         Button(

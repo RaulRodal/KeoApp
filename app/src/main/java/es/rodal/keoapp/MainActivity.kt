@@ -26,12 +26,18 @@ import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
 import es.rodal.keoapp.ui.navigation.MainNavigation
 import es.rodal.keoapp.ui.theme.MyApplicationTheme
+import es.rodal.keoapp.ui.utils.loadLanguagePreference
+import es.rodal.keoapp.ui.utils.setLocale
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Cargar el idioma guardado
+        val language = loadLanguagePreference(this) ?: "en"
+        setLocale(this, language)
 
         setContent {
             MyApplicationTheme {

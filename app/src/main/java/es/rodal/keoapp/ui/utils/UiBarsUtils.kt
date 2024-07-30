@@ -1,5 +1,6 @@
 package es.rodal.keoapp.ui.utils
 
+import android.app.Activity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -30,6 +31,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -43,14 +45,16 @@ import es.rodal.keoapp.ui.navigation.NavigationDestinations
 fun KeoTopAppBar(
     title: String = "",
     canNavigateBack: Boolean,
+    showBar: Boolean = true,
     modifier: Modifier = Modifier,
     scrollBehavior: TopAppBarScrollBehavior? = null,
     navigateBack: () -> Unit = {}
 ) {
     CenterAlignedTopAppBar(colors = TopAppBarDefaults.topAppBarColors(
-        containerColor = MaterialTheme.colorScheme.primaryContainer,
+        containerColor = MaterialTheme.colorScheme.background,
         titleContentColor = MaterialTheme.colorScheme.primary,
     ), title = {
+        if (showBar) {
         if (title.isBlank()) {
             Image(
                 painter = painterResource(id = R.mipmap.ic_launcher_foreground),
@@ -62,6 +66,7 @@ fun KeoTopAppBar(
             )
 
         }
+            }
     }, navigationIcon = {
         if (canNavigateBack) {
             IconButton(onClick = navigateBack) {
@@ -72,10 +77,7 @@ fun KeoTopAppBar(
             }
         }
     }, actions = {
-        MoreButtonWithMenu(
-            navigateUp = { /*TODO*/ },
-            navigateToScreen1 = { /*TODO*/ },
-            navigateToScreen2 = { /*TODO*/ })
+        MoreButtonWithMenu()
     })
 }
 
@@ -120,11 +122,10 @@ fun KeoBottomAppBar(navController: NavController, modifier: Modifier = Modifier)
 
 @Composable
 fun MoreButtonWithMenu(
-    navigateUp: () -> Unit,
-    navigateToScreen1: () -> Unit,
-    navigateToScreen2: () -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    val language = loadLanguagePreference(context) ?: "en"
 
     Box {
         IconButton(onClick = { expanded = true }) {
@@ -134,13 +135,12 @@ fun MoreButtonWithMenu(
             )
         }
         DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-            DropdownMenuItem(text = { Text("Go to Screen 1") }, onClick = {
+            DropdownMenuItem(text = { Text(stringResource(id = R.string.change_language)) }, onClick = {
                 expanded = false
-                navigateUp()
-            })
-            DropdownMenuItem(text = { Text("Go to Screen 1") }, onClick = {
-                expanded = false
-                navigateUp()
+                val newLanguage = if (language == "en") "es" else "en"
+                saveLanguagePreference(context, newLanguage)
+                setLocale(context, newLanguage)
+                (context as? Activity)?.recreate()
             })
         }
     }

@@ -57,12 +57,11 @@ fun RecordatorioCalendarScreen(
         Column(
             modifier = Modifier
                 .padding(innerPadding),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
+            verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.spacing_medium)),
         ) {
             CalendarView(
                 onDayChange = { day ->
                     viewModel.filterRecordatorios(day = day)
-                    Log.d("RecordatorioCalendarScreen", "Reminders filtered: ${viewModel.recordatoriosFilteredState}")
                 }
             )
 
@@ -72,7 +71,9 @@ fun RecordatorioCalendarScreen(
                     text = stringResource(id = R.string.recordatorio_day_empty_card_message),
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Normal,
-                    modifier = Modifier.fillMaxWidth().padding(dimensionResource(id = R.dimen.padding_large))
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(dimensionResource(id = R.dimen.padding_large))
                 )
                 false -> ReminderList(viewModel.recordatoriosFilteredState)
             }
@@ -116,8 +117,8 @@ fun ReminderList(recordatorios: List<Recordatorio>) {
 fun RecordatorioItem(recordatorio: Recordatorio) {
     Row (
         modifier = Modifier
-        .fillMaxWidth()
-        .padding(dimensionResource(id = R.dimen.padding_large))
+            .fillMaxWidth()
+            .padding(dimensionResource(id = R.dimen.padding_large))
     ) {
         Text(text = recordatorio.name)
         Spacer(modifier = Modifier.weight(0.5f))

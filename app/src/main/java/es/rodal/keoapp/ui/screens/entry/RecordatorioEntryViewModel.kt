@@ -1,6 +1,7 @@
 package es.rodal.keoapp.ui.screens.entry
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,6 +13,7 @@ import es.rodal.keoapp.ui.navigation.NavigationDestinations
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.launch
 import java.util.Date
@@ -49,7 +51,7 @@ class RecordatorioEntryViewModel @Inject constructor(
 
     fun updateRecordatorio(context: Context, recordatorio: Recordatorio) {
         viewModelScope.launch {
-            val oldRecordatorio = recordatorioRepository.getRecordatorioById(recordatorio.id).single()
+            val oldRecordatorio = recordatorioRepository.getRecordatorioById(recordatorio.id).first()
             val service = RecordatorioNotificationService(context)
             if (oldRecordatorio.recordatorioTime != recordatorio.recordatorioTime) {
                 service.deleteNotification(oldRecordatorio)
