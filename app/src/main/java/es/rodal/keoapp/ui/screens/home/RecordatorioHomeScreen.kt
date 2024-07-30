@@ -3,12 +3,14 @@ package es.rodal.keoapp.ui.screens.home
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -80,15 +82,17 @@ fun RecordatorioHomeScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            val logo: Painter = painterResource(id = R.mipmap.ic_launcher_foreground)
-            Image(
-                painter = logo,
-                contentDescription = null,
+            Box(
                 modifier = Modifier
                     .size(250.dp)
-                    .background(MaterialTheme.colorScheme.primary, shape = CircleShape)
-                    .padding(dimensionResource(id = R.dimen.padding_medium))
-            )
+                    .background(Color.White, shape = CircleShape)
+            ) {
+                Image(
+                    painter = painterResource(id = R.mipmap.ic_launcher_foreground),
+                    contentDescription = null,
+                    modifier = Modifier.size(350.dp)
+                )
+            }
 
             Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_medium)))
 
@@ -109,7 +113,7 @@ fun RecordatorioHomeScreen(
                 shape = RoundedCornerShape(dimensionResource(id = R.dimen.corner_medium)),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.secondary,
-                    contentColor = Color.White
+                    contentColor = MaterialTheme.colorScheme.onSecondary
                 )
             ) {
                 Text(text = stringResource(id = R.string.recordatorio_show_calendar))
@@ -126,7 +130,7 @@ fun RecordatorioHomeScreen(
                 shape = RoundedCornerShape(dimensionResource(id = R.dimen.corner_medium)),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primary,
-                    contentColor = Color.White
+                    contentColor = MaterialTheme.colorScheme.onPrimary
                 )
             ) {
                 Text(text = stringResource(id = R.string.recordatorio_show_reminders))
@@ -143,7 +147,7 @@ fun RecordatorioHomeScreen(
                 shape = RoundedCornerShape(dimensionResource(id = R.dimen.corner_medium)),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.secondary,
-                    contentColor = Color.White
+                    contentColor = MaterialTheme.colorScheme.onSecondary
                 )
             ) {
                 Text(text = stringResource(id = R.string.recordatorio_add_reminder))

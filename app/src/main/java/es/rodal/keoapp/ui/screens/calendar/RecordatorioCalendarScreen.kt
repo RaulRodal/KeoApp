@@ -89,6 +89,7 @@ fun CalendarView(onDayChange: (Date) -> Unit) {
         factory = { CalendarView(context).apply {
             setBackgroundColor(ContextCompat.getColor(context, R.color.white))
 
+
             setOnDateChangeListener { _, year, month, dayOfMonth ->
                 val calendar = Calendar.getInstance()
                 calendar.set(year, month, dayOfMonth)
