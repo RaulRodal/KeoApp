@@ -14,15 +14,6 @@ fun Recordatorio.toRecordatorioEntity(): RecordatorioEntity = RecordatorioEntity
 )
 
 
-//fun RecordatorioEntity.toRecordatorio(): Recordatorio = Recordatorio(
-//        id = id,
-//        name = name,
-//        description = description,
-//        active = active,
-//        recordatorioDone = recordatorioDone,
-//        recordatorioTime = recordatorioTime
-//)
-
 fun RecordatorioEntity?.toRecordatorio(): Recordatorio {
     return if (this != null) {
         Recordatorio(
@@ -34,7 +25,6 @@ fun RecordatorioEntity?.toRecordatorio(): Recordatorio {
             recordatorioTime = recordatorioTime
         )
     } else {
-        // Handle the case where the entity is null, e.g., return a default Recordatorio object
         Recordatorio("", "", Date())
     }
 }

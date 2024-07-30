@@ -37,4 +37,6 @@
     <dimen name="border_radius_small">4dp</dimen>
     <dimen name="border_radius_medium">8dp</dimen>
     <dimen name="border_radius_large">16dp</dimen>
+    <dimen name="shadow_medium">4.dp</dimen>
+    <dimen name="corner_medium">12.dp</dimen>
 </resources>

@@ -41,7 +41,6 @@ class RecordatorioDetailViewModel @Inject constructor(
         }
     }
 
-
     fun deleteRecordatorio(context: Context, recordatorio: Recordatorio) {
         viewModelScope.launch {
             recordatorioRepository.deleteRecordatorio(recordatorio)

@@ -31,16 +31,11 @@ import es.rodal.keoapp.ui.screens.home.RecordatorioHomeScreen
 import es.rodal.keoapp.ui.utils.scheduleAlarmPermissionGranted
 
 
-//const val ASK_NOTIFICATION_PERMISSION = "notification_permission"
-//const val ASK_ALARM_PERMISSION = "alarm_permission"
-
 @Composable
 fun MainNavigation(
     context: Context
 ) {
     val navController = rememberNavController()
-//  val askNotificationPermission = navController.currentBackStackEntry?.savedStateHandle?.get<Boolean>(ASK_NOTIFICATION_PERMISSION) ?: false
-//  val askAlarmPermission = navController.currentBackStackEntry?.savedStateHandle?.get<Boolean>(ASK_ALARM_PERMISSION) ?: false
     val askPermission = scheduleAlarmPermissionGranted(context)
     NavHost(
         navController = navController,

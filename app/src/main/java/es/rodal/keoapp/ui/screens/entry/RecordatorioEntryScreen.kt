@@ -1,5 +1,6 @@
 package es.rodal.keoapp.ui.screens.entry
 
+import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
@@ -8,6 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -30,6 +32,9 @@ fun RecordatorioEntryScreen(
     canNavigateBack: Boolean = true,
     viewModel: RecordatorioEntryViewModel = hiltViewModel(),
 ) {
+    val recordatorio by viewModel.recordatorioState.collectAsState()
+    val context = LocalContext.current
+
     Scaffold(
         topBar = {
             KeoTopAppBar(
@@ -44,18 +49,29 @@ fun RecordatorioEntryScreen(
     ) { innerPadding ->
         Column(
             modifier = Modifier.padding(innerPadding),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
+            verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium)),
         ) {
-            Form(viewModel = viewModel, navController = navController)
+            Form(
+                recordatorio = recordatorio,
+                context = context,
+                onNavigateBack = { navController.popBackStack() },
+                onUpdateRecordatorio = { viewModel.updateRecordatorio(context, it) },
+                onAddRecordatorio = { viewModel.addRecordatorio(context, it) }
+            )
         }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Form(viewModel: RecordatorioEntryViewModel, navController: NavController) {
-    val recordatorio by viewModel.recordatorioState.collectAsState()
-    val context = navController.context
+fun Form(
+    recordatorio: Recordatorio,
+    context: Context,
+    onNavigateBack: () -> Unit,
+    onUpdateRecordatorio: (Recordatorio) -> Unit,
+    onAddRecordatorio: (Recordatorio) -> Unit
+) {
+    val recordatorioPresent = recordatorio.name.isNotBlank()
     var name by remember { mutableStateOf(recordatorio.name) }
     var description by remember { mutableStateOf(recordatorio.description) }
     val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
@@ -72,6 +88,8 @@ fun Form(viewModel: RecordatorioEntryViewModel, navController: NavController) {
         String.format("%02d:%02d", calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE))
     } ?: "") }
 
+    val scope = rememberCoroutineScope()
+
     LaunchedEffect(recordatorio) {
         name = recordatorio.name
         description = recordatorio.description
@@ -85,7 +103,9 @@ fun Form(viewModel: RecordatorioEntryViewModel, navController: NavController) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium)),
-        modifier = Modifier.fillMaxSize().padding(dimensionResource(id = R.dimen.padding_medium))
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(dimensionResource(id = R.dimen.padding_medium))
     ) {
         OutlinedTextField(
             value = name,
@@ -139,7 +159,7 @@ fun Form(viewModel: RecordatorioEntryViewModel, navController: NavController) {
                         enabled = confirmEnabled.value
                     ) { Text("OK") }
                 },
-                dismissButton = { TextButton(onClick = { openDialog.value = false }) { Text("Cancel") } }
+                dismissButton = { TextButton(onClick = { openDialog.value = false }) { Text(stringResource(id = R.string.cancel)) } }
             ) { DatePicker(state = datePickerState) }
         }
 
@@ -177,23 +197,21 @@ fun Form(viewModel: RecordatorioEntryViewModel, navController: NavController) {
             onClick = {
                 if (name.isNotEmpty() && isDateSelected && isTimeSelected) {
                     if (calendar.after(Calendar.getInstance())) {
-                        if (recordatorio != null) {
-                            viewModel.updateRecordatorio(context, recordatorio.copy(
+                        if (recordatorioPresent) {
+                            val updatedRecordatorio = recordatorio.copy(
                                 name = name,
                                 description = description,
                                 recordatorioTime = calendar.time
-                            ))
+                            )
+                            scope.launch {
+                                onUpdateRecordatorio(updatedRecordatorio)
+                            }
                             Toast.makeText(context, context.getString(R.string.reminder_updated), Toast.LENGTH_SHORT).show()
                         } else {
-                            viewModel.addRecordatorio(context, Recordatorio(
-                                name = name,
-                                description = description,
-                                recordatorioTime = calendar.time
-                            ))
+                            onAddRecordatorio(Recordatorio(name, description, calendar.time))
                             Toast.makeText(context, context.getString(R.string.reminder_saved), Toast.LENGTH_SHORT).show()
                         }
-                        Toast.makeText(context, context.getString(R.string.reminder_saved), Toast.LENGTH_SHORT).show()
-                        navController.popBackStack()
+                        onNavigateBack()
                     } else {
                         Toast.makeText(context, context.getString(R.string.wrong_datetime), Toast.LENGTH_SHORT).show()
                     }
@@ -203,7 +221,7 @@ fun Form(viewModel: RecordatorioEntryViewModel, navController: NavController) {
             },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(text = stringResource(id = if (recordatorio == null) R.string.set_reminder else R.string.update_reminder))
+            Text(text = stringResource(id = if (recordatorioPresent) R.string.update_reminder else R.string.set_reminder))
         }
     }
 }
@@ -222,14 +240,14 @@ fun TimePickerDialog(
     ) {
         Surface(
             shape = MaterialTheme.shapes.extraLarge,
-            tonalElevation = 6.dp,
-            modifier = Modifier.padding(16.dp)
+            tonalElevation = dimensionResource(id = R.dimen.elevation_small),
+            modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_medium))
         ) {
             toggle()
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(16.dp),
-                modifier = Modifier.padding(16.dp)
+                verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium)),
+                modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_medium))
             ) {
                 Text(text = title, style = MaterialTheme.typography.headlineSmall)
                 content()
@@ -237,8 +255,8 @@ fun TimePickerDialog(
                     horizontalArrangement = Arrangement.End,
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    TextButton(onClick = onCancel) { Text("Cancel") }
-                    TextButton(onClick = onConfirm) { Text("OK") }
+                    TextButton(onClick = onCancel) { Text(stringResource(id = R.string.cancel)) }
+                    TextButton(onClick = onConfirm) { Text(stringResource(id = R.string.ok)) }
                 }
             }
         }
