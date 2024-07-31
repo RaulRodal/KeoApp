@@ -46,13 +46,12 @@ fun KeoTopAppBar(
     title: String = "",
     canNavigateBack: Boolean,
     showBar: Boolean = true,
-    modifier: Modifier = Modifier,
-    scrollBehavior: TopAppBarScrollBehavior? = null,
     navigateBack: () -> Unit = {}
 ) {
+    val topBarColor = if (showBar) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.background
     CenterAlignedTopAppBar(colors = TopAppBarDefaults.topAppBarColors(
-        containerColor = MaterialTheme.colorScheme.background,
-        titleContentColor = MaterialTheme.colorScheme.primary,
+        containerColor = topBarColor,
+        titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
     ), title = {
         if (showBar) {
         if (title.isBlank()) {

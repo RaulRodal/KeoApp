@@ -143,7 +143,7 @@ fun RecordatorioLazyColumn(
                 context = context,
                 modifier = Modifier
                     .padding(dimensionResource(id = R.dimen.padding_small))
-                    .clickable { navigateToRecordatorioDetail(recordatorio.id!!.toInt()) }
+                    .clickable { navigateToRecordatorioDetail(recordatorio.id.toInt()) }
             )
         }
 
@@ -160,10 +160,6 @@ fun RecordatorioCard(
     val color by animateColorAsState(
         targetValue = if (recordatorio.active) MaterialTheme.colorScheme.primaryContainer
         else MaterialTheme.colorScheme.errorContainer, label = "color"
-    )
-    val borderColor by animateColorAsState(
-        targetValue = if (recordatorio.active) MaterialTheme.colorScheme.onPrimaryContainer
-        else MaterialTheme.colorScheme.onErrorContainer, label = "color"
     )
 
     val dateFormat = SimpleDateFormat("EEE, MMM d, yyyy 'at' h:mm a", Locale.getDefault())

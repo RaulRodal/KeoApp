@@ -65,7 +65,6 @@ import es.rodal.keoapp.ui.utils.KeoTopAppBar
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecordatorioDetailScreen(
-    modifier: Modifier = Modifier,
     navigateToEditRecordatorio: (Long) -> Unit,
     navController: NavController,
     viewModel: RecordatorioDetailViewModel = hiltViewModel()
@@ -123,7 +122,6 @@ fun RecordatorioDetailScreen(
 @Composable
 fun RecordatorioDetailContent(
     padding: PaddingValues,
-    modifier: Modifier = Modifier,
     navigateToEditRecordatorio: (Long) -> Unit,
     navController: NavController,
     viewModel: RecordatorioDetailViewModel
@@ -165,7 +163,7 @@ fun RecordatorioDetailContent(
 
         ActionButtons(
             recordatorio = recordatorio,
-            onEditClick = { navigateToEditRecordatorio(recordatorio.id!!) },
+            onEditClick = { navigateToEditRecordatorio(recordatorio.id) },
             onNotificationToggle = {
                 isNotificationEnabled = !isNotificationEnabled
                 viewModel.reverseActive(navController.context, recordatorio)

@@ -29,7 +29,7 @@ import java.util.*
 @Composable
 fun RecordatorioEntryScreen(
     navController: NavController,
-    canNavigateBack: Boolean = true,
+    //canNavigateBack: Boolean = true,
     viewModel: RecordatorioEntryViewModel = hiltViewModel(),
 ) {
     val recordatorio by viewModel.recordatorioState.collectAsState()
@@ -75,25 +75,25 @@ fun Form(
     var name by remember { mutableStateOf(recordatorio.name) }
     var description by remember { mutableStateOf(recordatorio.description) }
     val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-    var calendar by rememberSaveable { mutableStateOf(recordatorio.recordatorioTime?.let {
+    var calendar by rememberSaveable { mutableStateOf(recordatorio.recordatorioTime.let {
         Calendar.getInstance().apply { time = it }
     } ?: Calendar.getInstance()) }
 
     var isDateSelected by remember { mutableStateOf(recordatorio != null) }
     var isTimeSelected by remember { mutableStateOf(recordatorio != null) }
-    var selectedDate by remember { mutableStateOf(recordatorio?.recordatorioTime?.let {
+    var selectedDate by remember { mutableStateOf(recordatorio.recordatorioTime.let {
         dateFormat.format(it)
     } ?: "") }
-    var selectedTime by remember { mutableStateOf(recordatorio?.recordatorioTime?.let {
+    var selectedTime by remember { mutableStateOf(recordatorio.recordatorioTime.let {
         String.format("%02d:%02d", calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE))
-    } ?: "") }
+    } ) }
 
     val scope = rememberCoroutineScope()
 
     LaunchedEffect(recordatorio) {
         name = recordatorio.name
         description = recordatorio.description
-        calendar = recordatorio.recordatorioTime?.let {
+        calendar = recordatorio.recordatorioTime.let {
             Calendar.getInstance().apply { time = it }
         } ?: Calendar.getInstance()
         selectedDate = dateFormat.format(calendar.time)

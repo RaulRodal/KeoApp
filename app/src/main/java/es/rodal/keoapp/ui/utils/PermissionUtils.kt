@@ -84,7 +84,6 @@ fun PermissionDialog(
     }
 }
 
-@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun PermissionAlarmDialog(
     askAlarmPermission: Boolean
@@ -92,7 +91,6 @@ fun PermissionAlarmDialog(
     val context = LocalContext.current
     val alarmManager = ContextCompat.getSystemService(context, AlarmManager::class.java)
     if (askAlarmPermission && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE)) {
-        val alarmPermissionState = rememberPermissionState(Manifest.permission.SCHEDULE_EXACT_ALARM)
         if (alarmManager?.canScheduleExactAlarms() == false) {
             val openAlertDialog = remember { mutableStateOf(true) }
 

@@ -78,14 +78,15 @@ fun RecordatorioHomeScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(dimensionResource(id = R.dimen.padding_medium)),
+                .padding(paddingValues),
+                //.padding(dimensionResource(id = R.dimen.padding_medium)),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
             Box(
                 modifier = Modifier
                     .size(250.dp)
-                    .background(Color.White, shape = CircleShape)
+                    .background(Color(0xFFFCF9F8), shape = CircleShape)
             ) {
                 Image(
                     painter = painterResource(id = R.mipmap.ic_launcher_foreground),

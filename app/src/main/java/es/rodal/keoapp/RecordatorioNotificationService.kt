@@ -19,8 +19,7 @@ class RecordatorioNotificationService(
         }
         val pendingIntent = PendingIntent.getBroadcast(
             context,
-            //si no existe crea con el hashcode
-            recordatorio.id?.toInt() ?: recordatorio.hashCode(),
+            recordatorio.id.toInt(),
             intent,
             PendingIntent.FLAG_IMMUTABLE
         )
@@ -50,7 +49,7 @@ class RecordatorioNotificationService(
         val intent = Intent(context, RecordatorioNotificationReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(
             context,
-            recordatorio.id?.toInt() ?: recordatorio.hashCode(),
+            recordatorio.id.toInt(),
             intent,
             PendingIntent.FLAG_IMMUTABLE
         )
