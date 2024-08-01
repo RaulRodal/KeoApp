@@ -1,7 +1,9 @@
 package es.rodal.keoapp.ui.screens.calendar
 
-import android.util.Log
+import android.widget.CalendarView
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,33 +12,33 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import es.rodal.keoapp.R
 import es.rodal.keoapp.data.domain.model.Recordatorio
 import es.rodal.keoapp.data.domain.model.getFormattedTime
 import es.rodal.keoapp.ui.navigation.NavigationDestinations
+import es.rodal.keoapp.ui.theme.backgroundLight
 import es.rodal.keoapp.ui.utils.KeoBottomAppBar
 import es.rodal.keoapp.ui.utils.KeoTopAppBar
 import java.util.Calendar
 import java.util.Date
-import android.widget.CalendarView
-import androidx.compose.ui.viewinterop.AndroidView
-import androidx.compose.ui.res.dimensionResource
-import androidx.core.content.ContextCompat
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecordatorioCalendarScreen(
     navController: NavController,
@@ -55,10 +57,18 @@ fun RecordatorioCalendarScreen(
         }
     ) { innerPadding ->
         Column(
-            modifier = Modifier
-                .padding(innerPadding),
+
             verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.spacing_medium)),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .padding(
+                    top = innerPadding.calculateTopPadding(),
+                    bottom = innerPadding.calculateBottomPadding(),
+                    start = dimensionResource(id = R.dimen.padding_large),
+                    end = dimensionResource(id = R.dimen.padding_large))
         ) {
+            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.spacing_small)))
+
             CalendarView(
                 onDayChange = { day ->
                     viewModel.filterRecordatorios(day = day)
@@ -83,23 +93,26 @@ fun RecordatorioCalendarScreen(
 
 @Composable
 fun CalendarView(onDayChange: (Date) -> Unit) {
-    val context = LocalContext.current
-
-    AndroidView(
-        factory = { CalendarView(context).apply {
-            setBackgroundColor(ContextCompat.getColor(context, R.color.white))
-
-
-            setOnDateChangeListener { _, year, month, dayOfMonth ->
-                val calendar = Calendar.getInstance()
-                calendar.set(year, month, dayOfMonth)
-                onDayChange(calendar.time)
-            }
-        }},
+    Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(300.dp)
-    )
+            .height(320.dp)
+            .clip(RoundedCornerShape(dimensionResource(id = R.dimen.corner_medium)))
+            .background(color = backgroundLight)
+    ) {
+        AndroidView(
+            factory = { context ->
+                CalendarView(context).apply {
+                    setOnDateChangeListener { _, year, month, dayOfMonth ->
+                        val calendar = Calendar.getInstance()
+                        calendar.set(year, month, dayOfMonth)
+                        onDayChange(calendar.time)
+                    }
+                }
+            },
+            modifier = Modifier.fillMaxSize()
+        )
+    }
 }
 
 @Composable

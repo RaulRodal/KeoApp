@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import es.rodal.keoapp.R
 import es.rodal.keoapp.ui.navigation.NavigationDestinations
+import es.rodal.keoapp.ui.theme.backgroundLight
 import es.rodal.keoapp.ui.utils.KeoTopAppBar
 import es.rodal.keoapp.ui.utils.PermissionAlarmDialog
 import es.rodal.keoapp.ui.utils.PermissionDialog
@@ -86,7 +87,7 @@ fun RecordatorioHomeScreen(
             Box(
                 modifier = Modifier
                     .size(250.dp)
-                    .background(Color(0xFFFCF9F8), shape = CircleShape)
+                    .background(color = backgroundLight, shape = CircleShape)
             ) {
                 Image(
                     painter = painterResource(id = R.mipmap.ic_launcher_foreground),
