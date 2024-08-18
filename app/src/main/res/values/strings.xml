@@ -8,21 +8,13 @@
     <string name="dose_per_day">Dose</string>
     <string name="recurrence">Recurrence</string>
     <string name="end_date">End Date</string>
-    <string name="times_of_day">Times of Day</string>
-    <string name="times_for_recordatorio">Time(s) for Reminder</string>
     <string name="next">Next</string>
-    <string name="value_is_empty">Please enter a valid value for %s</string>
     <string name="all_done">All Done!</string>
-    <plurals name="all_set">
-        <item quantity="one">Your %1$s reminder is ready, with %2$s alert from %3$s until %4$s.</item>
-        <item quantity="many">Your %1$s reminders are ready, with %2$s alerts from %3$s until %4$s.</item>
-    </plurals>
     <string name="confirm">Confirm</string>
     <string name="time_remaining">Next reminder in %1$s %2$s</string>
     <string name="days">days</string>
     <string name="hours">hours</string>
     <string name="minutes">minutes</string>
-    <string name="skipped">Skipped</string>
     <string name="done">Done</string>
     <string name="history">History</string>
     <string name="no_history_yet">No history yet</string>
@@ -31,8 +23,6 @@
     <string name="recordatorio_name_hint">e.g. Aspirin, 20mg</string>
     <string name="error">Error</string>
     <string name="selected_content_description">Selected</string>
-    <string name="your_plan_for_today">Your plan for today</string>
-    <string name="recordatorio_break">Break for Reminder</string>
     <string name="home_screen_empty_card_message">No reminders scheduled for this date. Take a break and relax.</string>
     <string name="today">Today</string>
     <string name="this_week">This Week</string>
@@ -41,14 +31,12 @@
     <string name="notification_permission_required">Notification permission required</string>
     <string name="notification_permission_required_description_message">To ensure you never miss your reminder, please grant notification permission.</string>
     <string name="allow">Allow</string>
-    <string name="recordatorio_skipped_at">Skipped at %s</string>
     <string name="recordatorio_scheduled_at">Scheduled at %s</string>
     <string name="recordatorio_logged">Reminder logged</string>
     <string name="cancel">Cancel</string>
     <string name="activate">Activate</string>
     <string name="ok">OK</string>
     <string name="delete">Delete</string>
-    <string name="alarms_permission_required">Alarm permission required</string>
     <string name="alarms">Notifications</string>
     <string name="alarms_permission_required_description_message">To ensure you never miss a reminder, you need to grant permissions</string>
     <string name="recordatorio_home_screen_title">Home</string>
@@ -72,7 +60,7 @@
     <string name="set_reminder">Set reminder</string>
     <string name="reminder_saved">Reminder saved</string>
     <string name="wrong_datetime">The reminder date and time have already passed</string>
-    <string name="please_fill_all_fields">Please complete all fields</string>
+    <string name="please_fill_all_fields">Please complete required fields</string>
     <string name="recordatorio_entry_title">New reminder</string>
     <string name="recordatorio_home_screen_subtitle">Manage your reminders easily</string>
     <string name="recordatorio_show_calendar">Show calendar</string>

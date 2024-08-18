@@ -2,8 +2,10 @@ package es.rodal.keoapp
 
 import android.app.AlarmManager
 import android.app.PendingIntent
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.util.Log
 import es.rodal.keoapp.data.domain.model.Recordatorio
 import java.util.Date
@@ -36,6 +38,16 @@ class RecordatorioNotificationService(
                     pendingIntent
                 )
                 Log.d("RNServiceADD", "Añadiendo alarma ${recordatorio.id}")
+
+                //Habilitar receiver despues de reincio
+                val receiver = ComponentName(context, RecordatorioNotificationReceiver::class.java)
+
+                context.packageManager.setComponentEnabledSetting(
+                    receiver,
+                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                    PackageManager.DONT_KILL_APP
+                )
+
             } catch (exception: SecurityException) {
                 Log.e("RNService", "Error al programar la alarma")
                ///FirebaseCrashlytics.getInstance().recordException(exception)
@@ -57,6 +69,16 @@ class RecordatorioNotificationService(
         Log.d("RNServiceDELETE", "Cancelando alarma ${recordatorio.id}")
         val alarmService = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmService.cancel(pendingIntent)
+
+
+        //deshabilitar receiver despues de apagado
+        val receiver = ComponentName(context, RecordatorioNotificationReceiver::class.java)
+
+        context.packageManager.setComponentEnabledSetting(
+            receiver,
+            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+            PackageManager.DONT_KILL_APP
+        )
     }
     companion object {
         const val RECORDATORIO_CHANNEL_ID = "recordatorio_channel"

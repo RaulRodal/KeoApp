@@ -19,7 +19,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
@@ -105,7 +104,7 @@ fun PermissionAlarmDialog(
                             )
                         },
                         title = {
-                            Text(text = stringResource(R.string.alarms_permission_required))
+                            Text(text = stringResource(R.string.notification_permission_required))
                         },
                         text = {
                             Text(text = stringResource(R.string.alarms_permission_required_description_message))

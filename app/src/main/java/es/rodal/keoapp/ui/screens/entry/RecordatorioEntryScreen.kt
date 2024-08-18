@@ -1,7 +1,6 @@
 package es.rodal.keoapp.ui.screens.entry
 
 import android.content.Context
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -10,9 +9,9 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -71,6 +70,7 @@ fun Form(
     onUpdateRecordatorio: (Recordatorio) -> Unit,
     onAddRecordatorio: (Recordatorio) -> Unit
 ) {
+
     val recordatorioPresent = recordatorio.name.isNotBlank()
     var name by remember { mutableStateOf(recordatorio.name) }
     var description by remember { mutableStateOf(recordatorio.description) }
@@ -123,23 +123,27 @@ fun Form(
         )
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_medium)))
 
-        val openDialog = remember { mutableStateOf(false) }
+        val focusManager = LocalFocusManager.current
+        val showDatePicker = remember { mutableStateOf(false) }
         val datePickerState = rememberDatePickerState()
 
         OutlinedButton(
-            onClick = { openDialog.value = true },
+            onClick = {
+                showDatePicker.value = true
+                focusManager.clearFocus()
+            },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(text = if (isDateSelected) selectedDate else stringResource(id = R.string.select_date))
         }
-        if (openDialog.value) {
+        if (showDatePicker.value) {
             val confirmEnabled = remember { derivedStateOf { datePickerState.selectedDateMillis != null } }
             DatePickerDialog(
-                onDismissRequest = { openDialog.value = false },
+                onDismissRequest = { showDatePicker.value = false },
                 confirmButton = {
                     TextButton(
                         onClick = {
-                            openDialog.value = false
+                            showDatePicker.value = false
                             datePickerState.selectedDateMillis?.let { dateInMillis ->
                                 val datePicker = Calendar.getInstance().apply {
                                     timeInMillis = dateInMillis
@@ -159,11 +163,12 @@ fun Form(
                         enabled = confirmEnabled.value
                     ) { Text("OK") }
                 },
-                dismissButton = { TextButton(onClick = { openDialog.value = false }) { Text(stringResource(id = R.string.cancel)) } }
+                dismissButton = { TextButton(onClick = { showDatePicker.value = false }) { Text(stringResource(id = R.string.cancel)) } }
             ) { DatePicker(state = datePickerState) }
         }
 
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_medium)))
+
 
         var showTimePicker by remember { mutableStateOf(false) }
         val state = rememberTimePickerState(
@@ -172,7 +177,10 @@ fun Form(
         )
 
         OutlinedButton(
-            onClick = { showTimePicker = true },
+            onClick = {
+                showTimePicker = true
+                focusManager.clearFocus()
+                      },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(text = if (isTimeSelected) selectedTime else stringResource(id = R.string.select_time))
@@ -195,7 +203,7 @@ fun Form(
 
         Button(
             onClick = {
-                if (name.isNotEmpty() && isDateSelected && isTimeSelected) {
+                if (name.isNotBlank() && isDateSelected && isTimeSelected) {
                     if (calendar.after(Calendar.getInstance())) {
                         if (recordatorioPresent) {
                             val updatedRecordatorio = recordatorio.copy(
