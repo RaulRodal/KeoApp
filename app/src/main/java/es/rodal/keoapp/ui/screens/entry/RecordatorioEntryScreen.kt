@@ -3,6 +3,7 @@ package es.rodal.keoapp.ui.screens.entry
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -12,6 +13,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -111,7 +114,12 @@ fun Form(
             value = name,
             onValueChange = { name = it },
             label = { Text(text = stringResource(id = R.string.recordatorio_name)) },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true, // Limit to a single line
+            keyboardOptions = KeyboardOptions.Default.copy(
+                imeAction = ImeAction.Next,
+                keyboardType = KeyboardType.Text
+            )
         )
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_medium)))
 
@@ -119,7 +127,12 @@ fun Form(
             value = description,
             onValueChange = { description = it },
             label = { Text(text = stringResource(id = R.string.recordatorio_description)) },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            maxLines = 5, // Limit to 5 lines
+            keyboardOptions = KeyboardOptions.Default.copy(
+                imeAction = ImeAction.Done,
+                keyboardType = KeyboardType.Text
+            )
         )
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_medium)))
 
