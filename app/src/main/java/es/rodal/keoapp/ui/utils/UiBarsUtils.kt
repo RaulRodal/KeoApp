@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.List
@@ -31,6 +32,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -93,7 +95,8 @@ fun KeoBottomAppBar(navController: NavController, modifier: Modifier = Modifier)
                 icon = {
                     Icon(
                         imageVector = Icons.Filled.DateRange,
-                        contentDescription = stringResource(id = R.string.home)
+                        contentDescription = stringResource(id = R.string.home),
+                        modifier = Modifier.size(dimensionResource(id = R.dimen.icon_medium))
                     )
                 })
             NavigationBarItem(
@@ -102,7 +105,8 @@ fun KeoBottomAppBar(navController: NavController, modifier: Modifier = Modifier)
                 icon = {
                     Icon(
                         imageVector = Icons.Filled.Home,
-                        contentDescription = stringResource(id = R.string.home)
+                        contentDescription = stringResource(id = R.string.home),
+                        modifier = Modifier.size(dimensionResource(id = R.dimen.icon_medium))
                     )
                 })
             NavigationBarItem(
@@ -111,7 +115,8 @@ fun KeoBottomAppBar(navController: NavController, modifier: Modifier = Modifier)
                 icon = {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.List,
-                        contentDescription = stringResource(id = R.string.history)
+                        contentDescription = stringResource(id = R.string.history),
+                        modifier = Modifier.size(dimensionResource(id = R.dimen.icon_medium))
                     )
                 })
         }

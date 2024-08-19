@@ -1,4 +1,3 @@
-import org.gradle.internal.impldep.org.junit.experimental.categories.Categories.CategoryFilter.exclude
 
 /*
  * Copyright (C) 2022 The Android Open Source Project
@@ -34,8 +33,8 @@ android {
         applicationId = "es.rodal.keoapp"
         minSdk = 23
         targetSdk = 34
-        versionCode = 3
-        versionName = "1.0"
+        versionCode = 4
+        versionName = "1.0.1"
 
         testInstrumentationRunner = "es.rodal.keoapp.HiltTestRunner"
         vectorDrawables {
