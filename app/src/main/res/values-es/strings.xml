@@ -73,5 +73,5 @@
     <string name="enabled">Activado</string>
     <string name="disabled">Desactivado</string>
     <string name="recordatorio_status">Estado:</string>
-    <string name="change_language">Change language</string>
+    <string name="change_language">Cambiar idioma</string>
 </resources>

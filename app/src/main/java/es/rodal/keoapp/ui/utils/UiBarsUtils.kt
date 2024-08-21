@@ -95,7 +95,7 @@ fun KeoBottomAppBar(navController: NavController, modifier: Modifier = Modifier)
                 icon = {
                     Icon(
                         imageVector = Icons.Filled.DateRange,
-                        contentDescription = stringResource(id = R.string.home),
+                        contentDescription = stringResource(id = R.string.calendar),
                         modifier = Modifier.size(dimensionResource(id = R.dimen.icon_medium))
                     )
                 })

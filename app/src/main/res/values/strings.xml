@@ -56,7 +56,7 @@
     <string name="recordatorio_date">Date:</string>
     <string name="recordatorio_time">Hour:</string>
     <string name="select_date">Select date</string>
-    <string name="select_time">Select hour</string>
+    <string name="select_time">Select time</string>
     <string name="set_reminder">Set reminder</string>
     <string name="reminder_saved">Reminder saved</string>
     <string name="wrong_datetime">The reminder date and time have already passed</string>
@@ -73,5 +73,5 @@
     <string name="enabled">Enabled</string>
     <string name="disabled">Disabled</string>
     <string name="recordatorio_status">Status:</string>
-    <string name="change_language">Cambiar idioma</string>
+    <string name="change_language">Change language</string>
 </resources>
