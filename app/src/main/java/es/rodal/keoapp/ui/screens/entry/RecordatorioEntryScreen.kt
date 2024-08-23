@@ -42,7 +42,7 @@ fun RecordatorioEntryScreen(
             KeoTopAppBar(
                 title = stringResource(id = R.string.recordatorio_entry_title),
                 canNavigateBack = true,
-                navigateBack = navController::navigateUp
+                navController = navController
             )
         },
         bottomBar = {

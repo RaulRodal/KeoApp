@@ -74,4 +74,16 @@
     <string name="disabled">Disabled</string>
     <string name="recordatorio_status">Status:</string>
     <string name="change_language">Change language</string>
+    <string name="help">Help</string>
+    <string name="time_prefix">\nat</string>
+    <string name="faq_title">Frequently asked questions</string>
+    <string name="faq_add_question">How to add a reminder?</string>
+    <string name="faq_delete_question">How to delete a reminder?</string>
+    <string name="faq_edit_question">How to edit a reminder?</string>
+    <string name="faq_enable_question">How to enable/disable a reminder?</string>
+    <string name="faq_add_answer">To add a reminder, navigate to the main screen and tap the \'Add Reminder\' button, or in any other screen, tap the \'+\' button in the bottom right corner. Then, fill in the reminder details and save.</string>
+    <string name="faq_delete_answer">To delete a reminder, long press the reminder you wish to remove or use the delete button from the reminder\'s details.</string>
+    <string name="faq_edit_answer">To edit a reminder, tap the reminder you want to modify, make the necessary changes, and save the changes.</string>
+    <string name="faq_enable_answer">To enable or disable a reminder, tap the switch on the reminders screen or within the reminder\'s details.</string>
+
 </resources>

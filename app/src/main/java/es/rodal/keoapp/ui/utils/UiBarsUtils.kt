@@ -37,6 +37,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import es.rodal.keoapp.R
 import es.rodal.keoapp.ui.navigation.NavigationDestinations
 
@@ -47,7 +48,7 @@ fun KeoTopAppBar(
     title: String = "",
     canNavigateBack: Boolean,
     showBar: Boolean = true,
-    navigateBack: () -> Unit = {}
+    navController: NavController
 ) {
     val topBarColor = if (showBar) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.background
     CenterAlignedTopAppBar(colors = TopAppBarDefaults.topAppBarColors(
@@ -69,7 +70,7 @@ fun KeoTopAppBar(
             }
     }, navigationIcon = {
         if (canNavigateBack) {
-            IconButton(onClick = navigateBack) {
+            IconButton(onClick = { navController.popBackStack() }) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = stringResource(id = R.string.back)
@@ -77,7 +78,7 @@ fun KeoTopAppBar(
             }
         }
     }, actions = {
-        MoreButtonWithMenu()
+        MoreButtonWithMenu(navController)
     })
 }
 
@@ -125,6 +126,7 @@ fun KeoBottomAppBar(navController: NavController, modifier: Modifier = Modifier)
 
 @Composable
 fun MoreButtonWithMenu(
+    navController: NavController
 ) {
     var expanded by remember { mutableStateOf(false) }
     val context = LocalContext.current
@@ -138,13 +140,22 @@ fun MoreButtonWithMenu(
             )
         }
         DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-            DropdownMenuItem(text = { Text(stringResource(id = R.string.change_language)) }, onClick = {
-                expanded = false
-                val newLanguage = if (language == "en") "es" else "en"
-                saveLanguagePreference(context, newLanguage)
-                setLocale(context, newLanguage)
-                (context as? Activity)?.recreate()
-            })
+            DropdownMenuItem(
+                text = { Text(stringResource(id = R.string.change_language)) },
+                onClick = {
+                    expanded = false
+                    val newLanguage = if (language == "en") "es" else "en"
+                    saveLanguagePreference(context, newLanguage)
+                    setLocale(context, newLanguage)
+                    (context as? Activity)?.recreate()
+                }
+            )
+            DropdownMenuItem(
+                text = { Text(stringResource(id = R.string.help)) },
+                onClick = {
+                    navController.navigate(NavigationDestinations.RecordatorioHelpDestination.route)
+                }
+            )
         }
     }
 }
@@ -152,5 +163,5 @@ fun MoreButtonWithMenu(
 @Preview(showBackground = true)
 @Composable
 fun PreviewKeoTopAppBar() {
-    KeoTopAppBar(title = "Nuevo recordatorio", canNavigateBack = true, navigateBack = {})
+    KeoTopAppBar(title = "Nuevo recordatorio", canNavigateBack = true, navController = rememberNavController())
 }

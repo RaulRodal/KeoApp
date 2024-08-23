@@ -47,7 +47,7 @@ fun RecordatorioCalendarScreen(
             KeoTopAppBar(
                 title = stringResource(id = NavigationDestinations.RecordatorioCalendarDestination.titleRes),
                 canNavigateBack = true,
-                navigateBack = navController::navigateUp
+                navController = navController
             )
         },
         bottomBar = {

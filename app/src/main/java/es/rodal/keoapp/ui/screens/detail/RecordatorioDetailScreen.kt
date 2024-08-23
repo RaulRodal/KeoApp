@@ -76,7 +76,7 @@ fun RecordatorioDetailScreen(
             KeoTopAppBar(
                 title = stringResource(id = NavigationDestinations.RecordatorioDetailDestination.titleRes),
                 canNavigateBack = true,
-                navigateBack = { navController.popBackStack() }
+                navController = navController
             )
         },
         bottomBar = {

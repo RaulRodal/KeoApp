@@ -59,7 +59,8 @@ fun RecordatorioHomeScreen(
         topBar = {
             KeoTopAppBar(
                 showBar = false,
-                canNavigateBack = false
+                canNavigateBack = false,
+                navController = navController
             )
         }
     ) { innerPadding ->
