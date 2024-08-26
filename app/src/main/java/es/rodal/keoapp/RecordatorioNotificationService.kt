@@ -72,13 +72,13 @@ class RecordatorioNotificationService(
 
 
         //deshabilitar receiver despues de apagado
-        val receiver = ComponentName(context, RecordatorioNotificationReceiver::class.java)
-
-        context.packageManager.setComponentEnabledSetting(
-            receiver,
-            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-            PackageManager.DONT_KILL_APP
-        )
+//        val receiver = ComponentName(context, RecordatorioNotificationReceiver::class.java)
+//
+//        context.packageManager.setComponentEnabledSetting(
+//            receiver,
+//            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+//            PackageManager.DONT_KILL_APP
+//        )
     }
     companion object {
         const val RECORDATORIO_CHANNEL_ID = "recordatorio_channel"

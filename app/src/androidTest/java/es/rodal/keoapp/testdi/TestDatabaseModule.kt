@@ -20,9 +20,10 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
+//import es.rodal.keoapp.data.di.DataModule
+//import es.rodal.keoapp.data.di.FakeRecordatorioRepository
 import es.rodal.keoapp.data.domain.repository.RecordatorioRepository
-import es.rodal.keoapp.data.di.DataModule
-import es.rodal.keoapp.data.di.FakeRecordatorioRepository
+import es.rodal.keoapp.data.local.di.DataModule
 
 @Module
 @TestInstallIn(
@@ -31,8 +32,8 @@ import es.rodal.keoapp.data.di.FakeRecordatorioRepository
 )
 interface FakeDataModule {
 
-    @Binds
-    abstract fun bindRepository(
-        fakeRepository: FakeRecordatorioRepository
-    ): RecordatorioRepository
+//    @Binds
+//    fun bindRepository(
+//        fakeRepository: FakeRecordatorioRepository
+//    ): RecordatorioRepository
 }

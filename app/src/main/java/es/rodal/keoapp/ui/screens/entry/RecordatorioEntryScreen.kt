@@ -22,7 +22,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TimeInput
+import androidx.compose.material3.TimePicker
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
@@ -238,7 +238,7 @@ fun Form(
                     selectedTime = String.format("%02d:%02d", state.hour, state.minute)
                     showTimePicker = false
                 },
-            ) { TimeInput(state = state) }
+            ) { TimePicker(state = state) }
         }
 
         Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_medium)))
@@ -249,8 +249,8 @@ fun Form(
                     if (calendar.after(Calendar.getInstance())) {
                         if (recordatorioPresent) {
                             val updatedRecordatorio = recordatorio.copy(
-                                name = name,
-                                description = description,
+                                name = name.trim(),
+                                description = description.trim(),
                                 recordatorioTime = calendar.time
                             )
                             scope.launch {

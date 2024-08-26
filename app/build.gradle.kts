@@ -79,9 +79,6 @@ android {
 
 dependencies {
 
-    implementation(libs.material)
-    implementation(libs.androidx.ui.text.google.fonts)
-    implementation(libs.androidx.ui.test.junit4.android)
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
     androidTestImplementation(composeBom)
@@ -130,9 +127,12 @@ dependencies {
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.runner)
 
+
+    //Nuevas dependencias
+    implementation(libs.material)
+    implementation(libs.androidx.ui.text.google.fonts)
     // Accompanist
     implementation(libs.accompanist.permission)
 
-   // implementation(libs.materialcalendarview)
 
 }
