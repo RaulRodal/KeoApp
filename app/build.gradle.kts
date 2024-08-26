@@ -33,8 +33,8 @@ android {
         applicationId = "es.rodal.keoapp"
         minSdk = 23
         targetSdk = 34
-        versionCode = 4
-        versionName = "1.0.1"
+        versionCode = 6
+        versionName = "1.0.2"
 
         testInstrumentationRunner = "es.rodal.keoapp.HiltTestRunner"
         vectorDrawables {
