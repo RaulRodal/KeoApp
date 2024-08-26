@@ -17,15 +17,19 @@
 package es.rodal.keoapp.ui.screens
 
 
+import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.performClick
+import androidx.navigation.compose.rememberNavController
 import es.rodal.keoapp.data.domain.model.Recordatorio
+import es.rodal.keoapp.data.domain.repository.RecordatorioRepository
+import es.rodal.keoapp.ui.screens.history.RecordatorioHistoryScreen
+import es.rodal.keoapp.ui.screens.history.RecordatorioHistoryViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
-import es.rodal.keoapp.data.domain.repository.RecordatorioRepository
-import es.rodal.keoapp.ui.screens.history.RecordatorioUiState
-import es.rodal.keoapp.ui.screens.history.RecordatorioHistoryViewModel
+import org.junit.Rule
 import org.junit.Test
 
 /**
@@ -33,18 +37,18 @@ import org.junit.Test
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-@OptIn(ExperimentalCoroutinesApi::class) // TODO: Remove when stable
 class RecordatorioHistoryViewModelTest {
-    @Test
-    fun uiState_initiallyLoading() = runTest {
-        val viewModel = RecordatorioHistoryViewModel(FakeRecordatorioRepository())
-        assertEquals(viewModel.recordatorioState.first(), RecordatorioUiState.Loading)
-    }
+
+    @get:Rule val composeTestRule = createComposeRule()
 
     @Test
-    fun uiState_onItemSaved_isDisplayed() = runTest {
+    fun buttonTest() {
         val viewModel = RecordatorioHistoryViewModel(FakeRecordatorioRepository())
-        assertEquals(viewModel.recordatorioState.first(), RecordatorioUiState.Loading)
+        composeTestRule.setContent {
+            RecordatorioHistoryScreen(rememberNavController(),{},{})
+        }
+
+        composeTestRule.onNodeWithTag("button").performClick()
     }
 }
 

@@ -27,14 +27,9 @@ import es.rodal.keoapp.R
 
 fun scheduleAlarmPermissionGranted(context: Context): Boolean {
     val alarmManager: AlarmManager = context.getSystemService(ALARM_SERVICE) as AlarmManager
-    return if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-                && Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
-        && !alarmManager.canScheduleExactAlarms()
-    ) {
-        false
-    } else {
-        true
-    }
+    return !((Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+            && Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
+            && !alarmManager.canScheduleExactAlarms())
 }
 
 

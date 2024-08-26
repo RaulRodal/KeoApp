@@ -81,6 +81,7 @@ dependencies {
 
     implementation(libs.material)
     implementation(libs.androidx.ui.text.google.fonts)
+    implementation(libs.androidx.ui.test.junit4.android)
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
     androidTestImplementation(composeBom)

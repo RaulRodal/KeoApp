@@ -19,16 +19,13 @@ package es.rodal.keoapp.ui.screens.history
 import android.content.Context
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -39,7 +36,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -67,8 +63,6 @@ import es.rodal.keoapp.data.domain.model.Recordatorio
 import es.rodal.keoapp.ui.screens.detail.DeleteConfirmationDialog
 import es.rodal.keoapp.ui.utils.KeoBottomAppBar
 import es.rodal.keoapp.ui.utils.KeoTopAppBar
-import es.rodal.keoapp.ui.utils.PermissionAlarmDialog
-import es.rodal.keoapp.ui.utils.PermissionDialog
 import java.text.SimpleDateFormat
 import java.util.Locale
 

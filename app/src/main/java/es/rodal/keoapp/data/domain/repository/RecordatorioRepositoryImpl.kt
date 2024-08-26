@@ -6,7 +6,6 @@ import es.rodal.keoapp.data.mapper.toRecordatorio
 import es.rodal.keoapp.data.mapper.toRecordatorioEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import java.time.Month
 
 class RecordatorioRepositoryImpl(
     private val dao: RecordatorioDao

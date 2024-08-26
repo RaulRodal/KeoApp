@@ -1,9 +1,6 @@
 package es.rodal.keoapp.ui.screens.detail
 
 import android.content.Context
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,11 +10,6 @@ import es.rodal.keoapp.data.domain.model.Recordatorio
 import es.rodal.keoapp.data.domain.repository.RecordatorioRepository
 import es.rodal.keoapp.ui.navigation.NavigationDestinations
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.util.Date
 import javax.inject.Inject
