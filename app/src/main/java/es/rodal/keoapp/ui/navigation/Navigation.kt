@@ -26,6 +26,7 @@ import androidx.navigation.navArgument
 import es.rodal.keoapp.ui.screens.calendar.RecordatorioCalendarScreen
 import es.rodal.keoapp.ui.screens.detail.RecordatorioDetailScreen
 import es.rodal.keoapp.ui.screens.entry.RecordatorioEntryScreen
+import es.rodal.keoapp.ui.screens.help.RecordatorioHelpScreen
 import es.rodal.keoapp.ui.screens.history.RecordatorioHistoryScreen
 import es.rodal.keoapp.ui.screens.home.RecordatorioHomeScreen
 import es.rodal.keoapp.ui.utils.scheduleAlarmPermissionGranted
@@ -90,5 +91,13 @@ fun MainNavigation(
                 navigateToEditRecordatorio = { navController.navigate("${NavigationDestinations.RecordatorioEntryDestination.route}/$it") }
             )
         }
+
+        //HELP
+        composable(route = NavigationDestinations.RecordatorioHelpDestination.route) {
+            RecordatorioHelpScreen(
+                navController = navController
+            )
+        }
+
     }
 }

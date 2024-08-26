@@ -1,7 +1,6 @@
 package es.rodal.keoapp.ui.screens.entry
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,11 +9,8 @@ import es.rodal.keoapp.RecordatorioNotificationService
 import es.rodal.keoapp.data.domain.model.Recordatorio
 import es.rodal.keoapp.data.domain.repository.RecordatorioRepository
 import es.rodal.keoapp.ui.navigation.NavigationDestinations
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.launch
 import java.util.Date
 import javax.inject.Inject

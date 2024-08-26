@@ -74,4 +74,16 @@
     <string name="disabled">Desactivado</string>
     <string name="recordatorio_status">Estado:</string>
     <string name="change_language">Cambiar idioma</string>
+    <string name="help">Ayuda</string>
+    <string name="time_prefix">\na las</string>
+    <string name="faq_title">Preguntas frecuentes</string>
+    <string name="faq_add_question">¿Cómo añadir un recordatorio?</string>
+    <string name="faq_delete_question">¿Cómo borrar un recordatorio?</string>
+    <string name="faq_edit_question">¿Cómo editar un recordatorio?</string>
+    <string name="faq_enable_question">¿Cómo activar/desactivar un recordatorio?</string>
+    <string name="faq_add_answer">Para añadir un recordatorio, navega a la pantalla principal y toca el botón \'Añadir recordatorio\' o en cualquier otra pantalla toca el botón \'+\' en la esquina inferior derecha. Luego, completa los detalles del recordatorio y guarda.</string>
+    <string name="faq_delete_answer">Para borrar un recordatorio, mantén presionado el recordatorio que deseas eliminar o desde el detalle del recordatorio con el botón eliminar.</string>
+    <string name="faq_edit_answer">Para editar un recordatorio, toca el recordatorio que deseas modificar, realiza los cambios necesarios y guarda los cambios.</string>
+    <string name="faq_enable_answer">Para activar o desactivar un recordatorio, toca el interruptor en la pantalla de recordatorios o dentro del detalle de recordatorio.</string>
+
 </resources>

@@ -48,4 +48,9 @@ object NavigationDestinations {
         const val recordatorioIdArg = "recordatorioId"
         val routeWithArgs = "$route/{$recordatorioIdArg}"
     }
+
+    object RecordatorioHelpDestination : NavigationDestination {
+        override val route = "recordatorio_help"
+        override val titleRes = R.string.help
+    }
 }
