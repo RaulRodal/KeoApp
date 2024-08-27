@@ -6,9 +6,14 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import es.rodal.keoapp.data.domain.model.Recordatorio
 import es.rodal.keoapp.data.domain.repository.RecordatorioRepository
 import es.rodal.keoapp.data.domain.repository.RecordatorioRepositoryImpl
 import es.rodal.keoapp.data.local.database.AppDatabase
+import es.rodal.keoapp.data.local.database.RecordatorioDao
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 import javax.inject.Singleton
 
 
@@ -18,7 +23,7 @@ object DataModule {
 
     @Provides
     @Singleton
-    fun provideMedicationDatabase(app: Application): AppDatabase {
+    fun provideRecordatorioDatabase(app: Application): AppDatabase {
         return Room.databaseBuilder(
             app,
             AppDatabase::class.java,
@@ -28,11 +33,13 @@ object DataModule {
 
     @Provides
     @Singleton
-    fun provideMedicationRepository(
-        db: AppDatabase
-    ): RecordatorioRepository{
-        return RecordatorioRepositoryImpl(
-            dao = db.recordatorioDao
-        )
+    fun provideRecordatorioDao(db: AppDatabase): RecordatorioDao {
+        return db.recordatorioDao
     }
+
+//    @Provides
+//    @Singleton
+//    fun provideRecordatorioRepository(dao: RecordatorioDao): RecordatorioRepository {
+//        return RecordatorioRepositoryImpl(dao)
+//    }
 }

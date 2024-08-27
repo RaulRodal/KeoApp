@@ -1,78 +1,95 @@
-/*
- * Copyright (C) 2022 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package es.rodal.keoapp.ui.screens
 
-
-import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.performClick
-import androidx.navigation.compose.rememberNavController
+import android.content.Context
 import es.rodal.keoapp.data.domain.model.Recordatorio
-import es.rodal.keoapp.data.domain.repository.RecordatorioRepository
-import es.rodal.keoapp.ui.screens.history.RecordatorioHistoryScreen
+import es.rodal.keoapp.data.local.di.FakeRecordatorioRepository
+import es.rodal.keoapp.ui.screens.history.HistoryUiState
 import es.rodal.keoapp.ui.screens.history.RecordatorioHistoryViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
+import junit.framework.TestCase.assertEquals
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.assertEquals
-import org.junit.Rule
+import kotlinx.coroutines.test.setMain
+import org.junit.After
+import org.junit.Assert
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
+import org.junit.Before
 import org.junit.Test
+import org.mockito.Mockito.mock
+import java.util.Date
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
+
 class RecordatorioHistoryViewModelTest {
 
-    @get:Rule val composeTestRule = createComposeRule()
+    private val testDispatcher = TestCoroutineDispatcher()
+
+    lateinit var viewModel: RecordatorioHistoryViewModel
+
+    @Before
+    fun setUp() {
+        Dispatchers.setMain(testDispatcher)
+        viewModel = RecordatorioHistoryViewModel(FakeRecordatorioRepository())
+    }
+
+    @After
+    fun tearDown() {
+        testDispatcher.cleanupTestCoroutines()
+    }
+
 
     @Test
-    fun buttonTest() {
-        val viewModel = RecordatorioHistoryViewModel(FakeRecordatorioRepository())
-        composeTestRule.setContent {
-            RecordatorioHistoryScreen(rememberNavController(),{},{})
+    fun uiState_initiallyEmpty() = runTest {
+        Assert.assertTrue(viewModel.recordatorioState.isEmpty())
+    }
+
+    @Test
+    fun uiState_onItemSaved_isDisplayed() = runTest {
+        viewModel.loadRecordatorios()
+        assertEquals(viewModel.recordatorioState.first(), HistoryUiState.Loading)
+    }
+    @Test
+    fun loadRecordatorios_populatesRecordatorioState() = runTest {
+        val viewModel = RecordatorioHistoryViewModel(FakeRecordatorioRepository().apply {
+            insertRecordatorio(Recordatorio(1, "Test", "", Date() ))
+        })
+        viewModel.loadRecordatorios()
+        assertEquals(1, viewModel.recordatorioState.size)
+    }
+
+    @Test
+    fun deleteRecordatorio_removesRecordatorioFromState() = runTest {
+        val repository = FakeRecordatorioRepository().apply {
+            insertRecordatorio(Recordatorio(1, "Test", "", Date() ))
         }
-
-        composeTestRule.onNodeWithTag("button").performClick()
-    }
-}
-
-private class FakeRecordatorioRepository : RecordatorioRepository {
-
-    private val data = mutableListOf<String>()
-
-    override suspend fun getRecordatorios(): Flow<List<Recordatorio>> {
-        TODO("Not yet implemented")
+        val viewModel = RecordatorioHistoryViewModel(repository)
+        viewModel.deleteRecordatorio(mock(Context::class.java), Recordatorio(1, "Test", "", Date() ))
+        assertTrue(viewModel.recordatorioState.isEmpty())
     }
 
-    override fun getRecordatorioById(id: Long): Flow<Recordatorio> {
-        TODO("Not yet implemented")
+    @Test
+    fun reverseActive_togglesRecordatorioActiveState() = runTest {
+        val repository = FakeRecordatorioRepository().apply {
+            insertRecordatorio(Recordatorio(1, "Test", "", Date() ))
+        }
+        val viewModel = RecordatorioHistoryViewModel(repository)
+        viewModel.reverseActive(mock(Context::class.java), Recordatorio(1, "Test", "", Date() ))
+        assertFalse(viewModel.recordatorioState.first().active)
     }
 
-    override suspend fun insertRecordatorio(item: Recordatorio): Long {
-        TODO("Not yet implemented")
+    @Test
+    fun loadRecordatorios_handlesEmptyList() = runTest {
+        val viewModel = RecordatorioHistoryViewModel(FakeRecordatorioRepository())
+        viewModel.loadRecordatorios()
+        assertTrue(viewModel.recordatorioState.isEmpty())
     }
 
-    override suspend fun updateRecordatorio(item: Recordatorio) {
-        TODO("Not yet implemented")
+    @Test
+    fun deleteRecordatorio_handlesNonExistentRecordatorio() = runTest {
+        val repository = FakeRecordatorioRepository()
+        val viewModel = RecordatorioHistoryViewModel(repository)
+        viewModel.deleteRecordatorio(mock(Context::class.java), Recordatorio(1, "Test", "", Date()))
+        assertTrue(viewModel.recordatorioState.isEmpty())
     }
 
-    override suspend fun deleteRecordatorio(item: Recordatorio) {
-        TODO("Not yet implemented")
-    }
 }

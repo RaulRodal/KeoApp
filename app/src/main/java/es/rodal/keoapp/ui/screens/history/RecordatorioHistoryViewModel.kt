@@ -35,6 +35,7 @@ class RecordatorioHistoryViewModel @Inject constructor(
     private val recordatorioRepository: RecordatorioRepository
 ) : ViewModel() {
 
+
     var recordatorioState by mutableStateOf(emptyList<Recordatorio>())
 
     init {
@@ -68,5 +69,11 @@ class RecordatorioHistoryViewModel @Inject constructor(
             }
         }
     }
+}
+
+sealed interface HistoryUiState {
+    object Loading : HistoryUiState
+    data class Error(val throwable: Throwable) : HistoryUiState
+    data class Success(val data: List<String>) : HistoryUiState
 }
 

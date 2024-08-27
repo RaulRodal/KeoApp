@@ -6,8 +6,9 @@ import es.rodal.keoapp.data.mapper.toRecordatorio
 import es.rodal.keoapp.data.mapper.toRecordatorioEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class RecordatorioRepositoryImpl(
+class RecordatorioRepositoryImpl @Inject constructor(
     private val dao: RecordatorioDao
 ): RecordatorioRepository {
     override suspend fun getRecordatorios(): Flow<List<Recordatorio>> {

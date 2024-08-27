@@ -18,6 +18,8 @@ package es.rodal.keoapp.data.domain.repository
 
 import es.rodal.keoapp.data.domain.model.Recordatorio
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
 interface RecordatorioRepository {
 
@@ -26,6 +28,28 @@ interface RecordatorioRepository {
     suspend fun insertRecordatorio(item: Recordatorio): Long
     suspend fun updateRecordatorio(item: Recordatorio)
     suspend fun deleteRecordatorio(item: Recordatorio)
+}
 
 
+class FakeRecordatorioRepository @Inject constructor() : RecordatorioRepository {
+    private val data = mutableListOf<Recordatorio>()
+
+    override suspend fun getRecordatorios(): Flow<List<Recordatorio>> = flow { emit(data.toList()) }
+
+    override fun getRecordatorioById(id: Long): Flow<Recordatorio> {
+        TODO()
+    }
+
+    override suspend fun insertRecordatorio(item: Recordatorio): Long {
+        data.add(item)
+        return item.id
+    }
+
+    override suspend fun updateRecordatorio(item: Recordatorio) {
+        TODO()
+    }
+
+    override suspend fun deleteRecordatorio(item: Recordatorio) {
+        data.remove(item)
+    }
 }
