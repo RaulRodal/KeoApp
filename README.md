@@ -15,11 +15,7 @@ Reminder app so you don't forget anything focused on simplicity
 - [Coroutines](https://github.com/Kotlin/kotlinx.coroutines): simplifies asynchronous programming and concurrency in Kotlin
 - [Lifecycle](https://developer.android.com/jetpack/androidx/releases/lifecycle): seamlessly manage UI states based on Android lifecycles
 - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel): preserves UI-related data through configuration changes
-- [Live Data](https://developer.android.com/topic/libraries/architecture/livedata): responsive data holder that reacts to lifecycle changes
 - [Room](https://developer.android.com/training/data-storage/room): constructs a robust database with SQLite abstraction for fluent data access
-- [Data Store](https://developer.android.com/topic/libraries/architecture/datastore): efficient and modern data storage solution
-- [Splash API](https://developer.android.com/develop/ui/views/launch/splash-screen): implements a sleek splash screen for a polished user experience
-- [Lottie](https://github.com/airbnb/lottie-android): integrates delightful animations into the app
 - [Ksp](https://github.com/google/ksp): enhances Kotlin with powerful symbol processing capabilities
 
 
