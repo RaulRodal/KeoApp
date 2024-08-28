@@ -1,9 +1,7 @@
 <img align="left" alt="asset1" src="/screenshots/img/keo.png" alt="app logo" height="80" width="80"/>
 
-## KeoApp  
-
-
-
+# KeoApp  
+  
 Reminder app so you don't forget anything focused on simplicity
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Get it on Google Play" height="90"/>]([https://play.google.com/store/apps/details?id=com.rodoyf.satonda](https://play.google.com/store/apps/details?id=es.rodal.keoapp))
 
