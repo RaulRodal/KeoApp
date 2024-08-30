@@ -1,19 +1,3 @@
-/*
- * Copyright (C) 2022 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package es.rodal.keoapp.ui.screens.history
 
 import android.content.Context
@@ -79,7 +63,6 @@ fun RecordatorioHistoryScreen(
         navigateToRecordatorioDetail = navigateToRecordatorioDetail,
         viewModel = viewModel
     )
-
 }
 
 @Composable
@@ -89,7 +72,6 @@ fun RecordatorioScaffold(
     navigateToRecordatorioDetail: (Int) -> Unit,
     viewModel: RecordatorioHistoryViewModel
 ) {
-
     Scaffold(
         topBar = {
             KeoTopAppBar(
@@ -124,7 +106,6 @@ fun RecordatorioScaffold(
     }
 }
 
-
 @Composable
 fun RecordatorioLazyColumn(
     viewModel: RecordatorioHistoryViewModel,
@@ -135,7 +116,6 @@ fun RecordatorioLazyColumn(
         modifier = Modifier,
         contentPadding = PaddingValues(vertical = dimensionResource(id = R.dimen.padding_small))
     ) {
-
         items(viewModel.recordatorioState.asReversed()) { recordatorio ->
             RecordatorioCard(
                 navigateToRecordatorioDetail = navigateToRecordatorioDetail,
@@ -146,7 +126,6 @@ fun RecordatorioLazyColumn(
                     .padding(dimensionResource(id = R.dimen.padding_small))
             )
         }
-
     }
 }
 
@@ -172,8 +151,12 @@ fun RecordatorioCard(
     }
 
     val color by animateColorAsState(
-        targetValue = if (recordatorio.active) MaterialTheme.colorScheme.primaryContainer
-        else MaterialTheme.colorScheme.errorContainer, label = "color"
+        targetValue = if (recordatorio.active) {
+            MaterialTheme.colorScheme.primaryContainer
+        } else {
+            MaterialTheme.colorScheme.errorContainer
+        },
+        label = "color"
     )
 
     val dateFormat = SimpleDateFormat("EEE, MMM d, yyyy '$timePrefix' h:mm a", Locale.getDefault())
@@ -188,7 +171,8 @@ fun RecordatorioCard(
             .background(
                 Color.White,
                 RoundedCornerShape(dimensionResource(id = R.dimen.corner_medium))
-            ).pointerInput(Unit) {
+            )
+            .pointerInput(Unit) {
                 detectTapGestures(
                     onTap = { navigateToRecordatorioDetail(recordatorio.id.toInt()) },
                     onLongPress = { deleteConfirmationRequired = true }
@@ -217,22 +201,32 @@ fun RecordatorioCard(
                     color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
                 )
             }
-                Button(
-                    onClick = { viewModel.reverseActive(context, recordatorio) },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = color,
-                        contentColor = if (recordatorio.active) MaterialTheme.colorScheme.onPrimaryContainer else MaterialTheme.colorScheme.onErrorContainer
-                    ),
-                    shape = RoundedCornerShape(8.dp),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f)
-                ) {
-                    Text(
-                        text = if (recordatorio.active) stringResource(id = R.string.cancel) else stringResource(id = R.string.activate),
-                        fontSize = 12.sp
-                    )
-                }
+            Button(
+                onClick = { viewModel.reverseActive(context, recordatorio) },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = color,
+                    contentColor = if (recordatorio.active) {
+                        MaterialTheme.colorScheme.onPrimaryContainer
+                    } else {
+                        MaterialTheme.colorScheme.onErrorContainer
+                    }
+                ),
+                shape = RoundedCornerShape(8.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+            ) {
+                Text(
+                    text = if (recordatorio.active) {
+                        stringResource(id = R.string.cancel)
+                    } else {
+                        stringResource(
+                            id = R.string.activate
+                        )
+                    },
+                    fontSize = 12.sp
+                )
+            }
         }
     }
 }
@@ -254,5 +248,3 @@ fun EmptyView() {
         )
     }
 }
-
-

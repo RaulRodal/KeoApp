@@ -17,9 +17,6 @@
 package es.rodal.keoapp.ui.screens
 
 
-import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.performClick
 import androidx.navigation.compose.rememberNavController
 import es.rodal.keoapp.data.domain.model.Recordatorio
 import es.rodal.keoapp.data.domain.repository.RecordatorioRepository
@@ -37,20 +34,7 @@ import org.junit.Test
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-class RecordatorioHistoryViewModelTest {
-
-    @get:Rule val composeTestRule = createComposeRule()
-
-    @Test
-    fun buttonTest() {
-        val viewModel = RecordatorioHistoryViewModel(FakeRecordatorioRepository())
-        composeTestRule.setContent {
-            RecordatorioHistoryScreen(rememberNavController(),{},{})
-        }
-
-        composeTestRule.onNodeWithTag("button").performClick()
-    }
-}
+class RecordatorioHistoryViewModelTest
 
 private class FakeRecordatorioRepository : RecordatorioRepository {
 

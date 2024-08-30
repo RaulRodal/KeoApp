@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.map
 
 class RecordatorioRepositoryImpl(
     private val dao: RecordatorioDao
-): RecordatorioRepository {
+) : RecordatorioRepository {
     override suspend fun getRecordatorios(): Flow<List<Recordatorio>> {
         return dao.getRecordatorios().map { entities ->
             entities.map { it.toRecordatorio() }
@@ -30,5 +30,4 @@ class RecordatorioRepositoryImpl(
     override suspend fun deleteRecordatorio(item: Recordatorio) {
         dao.deleteRecordatorio(item.toRecordatorioEntity())
     }
-
 }

@@ -24,14 +24,16 @@ import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import es.rodal.keoapp.R
 
-
 fun scheduleAlarmPermissionGranted(context: Context): Boolean {
     val alarmManager: AlarmManager = context.getSystemService(ALARM_SERVICE) as AlarmManager
-    return !((Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-            && Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
-            && !alarmManager.canScheduleExactAlarms())
+    return !(
+        (
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
+                Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU
+            ) &&
+            !alarmManager.canScheduleExactAlarms()
+        )
 }
-
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
@@ -90,7 +92,6 @@ fun PermissionAlarmDialog(
 
             when {
                 openAlertDialog.value -> {
-
                     AlertDialog(
                         icon = {
                             Icon(

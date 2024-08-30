@@ -39,7 +39,7 @@ class RecordatorioNotificationService(
                 )
                 Log.d("RNServiceADD", "Añadiendo alarma ${recordatorio.id}")
 
-                //Habilitar receiver despues de reincio
+                // Habilitar receiver despues de reincio
                 val receiver = ComponentName(context, RecordatorioNotificationReceiver::class.java)
 
                 context.packageManager.setComponentEnabledSetting(
@@ -47,14 +47,13 @@ class RecordatorioNotificationService(
                     PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                     PackageManager.DONT_KILL_APP
                 )
-
             } catch (exception: SecurityException) {
-                Log.e("RNService", "Error al programar la alarma")
-               ///FirebaseCrashlytics.getInstance().recordException(exception)
+                Log.e("RNService", "Error al programar la alarma: ${exception.message}")
+                // FirebaseCrashlytics.getInstance().recordException(exception)
             }
         }
 
-        ///analyticsHelper.trackNotificationScheduled(recordatorio)
+        // analyticsHelper.trackNotificationScheduled(recordatorio)
     }
 
     fun deleteNotification(recordatorio: Recordatorio) {
@@ -70,8 +69,7 @@ class RecordatorioNotificationService(
         val alarmService = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmService.cancel(pendingIntent)
 
-
-        //deshabilitar receiver despues de apagado
+        // deshabilitar receiver despues de apagado
 //        val receiver = ComponentName(context, RecordatorioNotificationReceiver::class.java)
 //
 //        context.packageManager.setComponentEnabledSetting(
@@ -79,8 +77,5 @@ class RecordatorioNotificationService(
 //            PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
 //            PackageManager.DONT_KILL_APP
 //        )
-    }
-    companion object {
-        const val RECORDATORIO_CHANNEL_ID = "recordatorio_channel"
     }
 }

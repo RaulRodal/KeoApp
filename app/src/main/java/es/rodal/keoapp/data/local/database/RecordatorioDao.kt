@@ -24,6 +24,4 @@ interface RecordatorioDao {
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateRecordatorio(recordatorioEntity: RecordatorioEntity)
-
-
 }

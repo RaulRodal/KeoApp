@@ -19,7 +19,6 @@ interface NavigationDestination {
 
 object NavigationDestinations {
 
-
     object RecordatorioHomeDestination : NavigationDestination {
         override val route = "recordatorio_home"
         override val titleRes = R.string.recordatorio_home_screen_title

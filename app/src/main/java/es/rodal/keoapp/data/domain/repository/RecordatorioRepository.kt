@@ -26,6 +26,4 @@ interface RecordatorioRepository {
     suspend fun insertRecordatorio(item: Recordatorio): Long
     suspend fun updateRecordatorio(item: Recordatorio)
     suspend fun deleteRecordatorio(item: Recordatorio)
-
-
 }

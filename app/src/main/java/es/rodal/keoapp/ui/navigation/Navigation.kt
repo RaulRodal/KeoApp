@@ -42,7 +42,7 @@ fun MainNavigation(
         navController = navController,
         startDestination = NavigationDestinations.RecordatorioHomeDestination.route
     ) {
-        //HOME
+        // HOME
         composable(route = NavigationDestinations.RecordatorioHomeDestination.route) {
             RecordatorioHomeScreen(
                 navController = navController,
@@ -51,48 +51,58 @@ fun MainNavigation(
             )
         }
 
-        //HISTORY
+        // HISTORY
         composable(route = NavigationDestinations.RecordatorioHistoryDestination.route) {
             RecordatorioHistoryScreen(
                 navController = navController,
-                navigateToRecordatorioEntry = { navController.navigate("${NavigationDestinations.RecordatorioEntryDestination.route}/0") },
-                navigateToRecordatorioDetail = { navController.navigate("${NavigationDestinations.RecordatorioDetailDestination.route}/$it") }
+                navigateToRecordatorioEntry = {
+                    navController.navigate("${NavigationDestinations.RecordatorioEntryDestination.route}/0")
+                },
+                navigateToRecordatorioDetail = {
+                    navController.navigate("${NavigationDestinations.RecordatorioDetailDestination.route}/$it")
+                }
             )
         }
 
-        //ENTRY
+        // ENTRY
         composable(
             route = NavigationDestinations.RecordatorioEntryDestination.routeWithArgs,
-            arguments = listOf(navArgument(NavigationDestinations.RecordatorioEntryDestination.recordatorioIdArg) {//argumentos que recibe de la ruta
-                type = NavType.IntType
-            })
+            arguments = listOf(
+                navArgument(NavigationDestinations.RecordatorioEntryDestination.recordatorioIdArg) {
+                    type = NavType.IntType
+                }
+            )
         ) {
             RecordatorioEntryScreen(
                 navController = navController
             )
         }
 
-        //CALENDAR
+        // CALENDAR
         composable(route = NavigationDestinations.RecordatorioCalendarDestination.route) {
             RecordatorioCalendarScreen(
                 navController = navController
             )
         }
 
-        //DETAIL
+        // DETAIL
         composable(
-                route = NavigationDestinations.RecordatorioDetailDestination.routeWithArgs,
-                arguments = listOf(navArgument(NavigationDestinations.RecordatorioDetailDestination.recordatorioIdArg) {//argumentos que recibe de la ruta
-                type = NavType.IntType
-            })
+            route = NavigationDestinations.RecordatorioDetailDestination.routeWithArgs,
+            arguments = listOf(
+                navArgument(NavigationDestinations.RecordatorioDetailDestination.recordatorioIdArg) {
+                    type = NavType.IntType
+                }
+            )
         ) {
             RecordatorioDetailScreen(
                 navController = navController,
-                navigateToEditRecordatorio = { navController.navigate("${NavigationDestinations.RecordatorioEntryDestination.route}/$it") }
+                navigateToEditRecordatorio = {
+                    navController.navigate("${NavigationDestinations.RecordatorioEntryDestination.route}/$it")
+                }
             )
         }
 
-        //HELP
+        // HELP
         composable(route = NavigationDestinations.RecordatorioHelpDestination.route) {
             RecordatorioHelpScreen(
                 navController = navController

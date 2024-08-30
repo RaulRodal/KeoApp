@@ -51,7 +51,6 @@ import es.rodal.keoapp.ui.navigation.NavigationDestinations
 import es.rodal.keoapp.ui.utils.KeoBottomAppBar
 import es.rodal.keoapp.ui.utils.KeoTopAppBar
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecordatorioDetailScreen(
     navigateToEditRecordatorio: (Long) -> Unit,
@@ -131,7 +130,7 @@ fun RecordatorioDetailContent(
         Card(
             modifier = Modifier.fillMaxWidth(),
             shape = MaterialTheme.shapes.medium,
-            elevation = CardDefaults.cardElevation( defaultElevation = dimensionResource(id = R.dimen.elevation_medium))
+            elevation = CardDefaults.cardElevation(defaultElevation = dimensionResource(id = R.dimen.elevation_medium))
         ) {
             Column(
                 modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_medium))
@@ -140,11 +139,26 @@ fun RecordatorioDetailContent(
                 HorizontalDivider()
                 RecordatorioDetailRow(labelResId = R.string.recordatorio_description, value = recordatorio.description)
                 HorizontalDivider()
-                RecordatorioDetailRow(labelResId = R.string.recordatorio_status, value = if (recordatorio.active) stringResource(id = R.string.enabled) else stringResource(id = R.string.disabled))
+                RecordatorioDetailRow(
+                    labelResId = R.string.recordatorio_status,
+                    value = if (recordatorio.active) {
+                        stringResource(
+                            id = R.string.enabled
+                        )
+                    } else {
+                        stringResource(id = R.string.disabled)
+                    }
+                )
                 HorizontalDivider()
-                RecordatorioDetailRow(labelResId = R.string.recordatorio_date, value = recordatorio.recordatorioTime.getFormattedDate())
+                RecordatorioDetailRow(
+                    labelResId = R.string.recordatorio_date,
+                    value = recordatorio.recordatorioTime.getFormattedDate()
+                )
                 HorizontalDivider()
-                RecordatorioDetailRow(labelResId = R.string.recordatorio_time, value = recordatorio.recordatorioTime.getFormattedTime())
+                RecordatorioDetailRow(
+                    labelResId = R.string.recordatorio_time,
+                    value = recordatorio.recordatorioTime.getFormattedTime()
+                )
             }
         }
 
@@ -183,10 +197,13 @@ fun ActionButtons(
     onNotificationToggle: () -> Unit,
     onEditClick: () -> Unit
 ) {
-
     val color by animateColorAsState(
-        targetValue = if (recordatorio.active) MaterialTheme.colorScheme.primaryContainer
-        else MaterialTheme.colorScheme.errorContainer, label = "color"
+        targetValue = if (recordatorio.active) {
+            MaterialTheme.colorScheme.primaryContainer
+        } else {
+            MaterialTheme.colorScheme.errorContainer
+        },
+        label = "color"
     )
 
     Row(
@@ -205,7 +222,13 @@ fun ActionButtons(
                 .weight(1f)
         ) {
             Text(
-                text = if (recordatorio.active) stringResource(id = R.string.disable_notification) else stringResource(id = R.string.enable_notification),
+                text = if (recordatorio.active) {
+                    stringResource(
+                        id = R.string.disable_notification
+                    )
+                } else {
+                    stringResource(id = R.string.enable_notification)
+                },
                 fontSize = 12.sp
             )
         }

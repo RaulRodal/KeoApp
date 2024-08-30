@@ -20,7 +20,9 @@ class RecordatorioDetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val recordatorioId: Long = checkNotNull(savedStateHandle[NavigationDestinations.RecordatorioDetailDestination.recordatorioIdArg])
+    private val recordatorioId: Long = checkNotNull(
+        savedStateHandle[NavigationDestinations.RecordatorioDetailDestination.recordatorioIdArg]
+    )
 
 
     var recordatorioState = MutableStateFlow(Recordatorio("", "", Date()))

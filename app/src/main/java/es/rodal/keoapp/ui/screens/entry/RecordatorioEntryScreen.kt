@@ -56,11 +56,10 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecordatorioEntryScreen(
     navController: NavController,
-    //canNavigateBack: Boolean = true,
+    // canNavigateBack: Boolean = true,
     viewModel: RecordatorioEntryViewModel = hiltViewModel(),
 ) {
     val recordatorio by viewModel.recordatorioState.collectAsState()
@@ -117,7 +116,7 @@ fun Form(
         dateFormat.format(it)
     } ?: "") }
     var selectedTime by remember { mutableStateOf(recordatorio.recordatorioTime.let {
-        String.format("%02d:%02d", calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE))
+        String.format(Locale.getDefault(), "%02d:%02d", calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE))
     } ) }
 
     val scope = rememberCoroutineScope()
@@ -129,7 +128,7 @@ fun Form(
             Calendar.getInstance().apply { time = it }
         } ?: Calendar.getInstance()
         selectedDate = dateFormat.format(calendar.time)
-        selectedTime = String.format("%02d:%02d", calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE))
+        selectedTime = String.format(Locale.getDefault(), "%02d:%02d", calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE))
     }
 
     Column(
@@ -235,7 +234,7 @@ fun Form(
                     calendar.set(Calendar.HOUR_OF_DAY, state.hour)
                     calendar.set(Calendar.MINUTE, state.minute)
                     isTimeSelected = true
-                    selectedTime = String.format("%02d:%02d", state.hour, state.minute)
+                    selectedTime = String.format(Locale.getDefault(), "%02d:%02d", state.hour, state.minute)
                     showTimePicker = false
                 },
             ) { TimePicker(state = state) }

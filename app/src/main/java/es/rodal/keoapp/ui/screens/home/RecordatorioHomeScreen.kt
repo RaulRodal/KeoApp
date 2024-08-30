@@ -16,7 +16,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -37,14 +36,12 @@ import es.rodal.keoapp.ui.utils.KeoTopAppBar
 import es.rodal.keoapp.ui.utils.PermissionAlarmDialog
 import es.rodal.keoapp.ui.utils.PermissionDialog
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecordatorioHomeScreen(
     navController: NavController,
     askNotificationPermission: Boolean,
     askAlarmPermission: Boolean
 ) {
-
     PermissionAlarmDialog(
         askAlarmPermission = askAlarmPermission
     )
@@ -64,12 +61,12 @@ fun RecordatorioHomeScreen(
         RecordatorioHomeSurface(navController = navController, paddingValues = innerPadding)
     }
 }
-    @Composable
-    fun RecordatorioHomeSurface(
-        navController: NavController,
-        paddingValues: PaddingValues
-    ) {
 
+@Composable
+fun RecordatorioHomeSurface(
+    navController: NavController,
+    paddingValues: PaddingValues
+) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
@@ -78,7 +75,7 @@ fun RecordatorioHomeScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues),
-                //.padding(dimensionResource(id = R.dimen.padding_medium)),
+            // .padding(dimensionResource(id = R.dimen.padding_medium)),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {

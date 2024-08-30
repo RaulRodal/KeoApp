@@ -11,7 +11,6 @@ import es.rodal.keoapp.data.domain.repository.RecordatorioRepositoryImpl
 import es.rodal.keoapp.data.local.database.AppDatabase
 import javax.inject.Singleton
 
-
 @Module
 @InstallIn(SingletonComponent::class)
 object DataModule {
@@ -30,7 +29,7 @@ object DataModule {
     @Singleton
     fun provideMedicationRepository(
         db: AppDatabase
-    ): RecordatorioRepository{
+    ): RecordatorioRepository {
         return RecordatorioRepositoryImpl(
             dao = db.recordatorioDao
         )

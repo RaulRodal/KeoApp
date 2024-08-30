@@ -41,7 +41,6 @@ import androidx.navigation.compose.rememberNavController
 import es.rodal.keoapp.R
 import es.rodal.keoapp.ui.navigation.NavigationDestinations
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun KeoTopAppBar(
@@ -51,35 +50,40 @@ fun KeoTopAppBar(
     navController: NavController
 ) {
     val topBarColor = if (showBar) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.background
-    CenterAlignedTopAppBar(colors = TopAppBarDefaults.topAppBarColors(
-        containerColor = topBarColor,
-        titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-    ), title = {
-        if (showBar) {
-        if (title.isBlank()) {
-            Image(
-                painter = painterResource(id = R.mipmap.ic_launcher_foreground),
-                contentDescription = null
-            )
-        } else {
-            Text(
-                text = title, style = MaterialTheme.typography.headlineSmall
-            )
-
-        }
+    CenterAlignedTopAppBar(
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = topBarColor,
+            titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+        ),
+        title = {
+            if (showBar) {
+                if (title.isBlank()) {
+                    Image(
+                        painter = painterResource(id = R.mipmap.ic_launcher_foreground),
+                        contentDescription = null
+                    )
+                } else {
+                    Text(
+                        text = title,
+                        style = MaterialTheme.typography.headlineSmall
+                    )
+                }
             }
-    }, navigationIcon = {
-        if (canNavigateBack) {
-            IconButton(onClick = { navController.popBackStack() }) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = stringResource(id = R.string.back)
-                )
+        },
+        navigationIcon = {
+            if (canNavigateBack) {
+                IconButton(onClick = { navController.popBackStack() }) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = stringResource(id = R.string.back)
+                    )
+                }
             }
+        },
+        actions = {
+            MoreButtonWithMenu(navController)
         }
-    }, actions = {
-        MoreButtonWithMenu(navController)
-    })
+    )
 }
 
 @Composable
@@ -99,7 +103,8 @@ fun KeoBottomAppBar(navController: NavController, modifier: Modifier = Modifier)
                         contentDescription = stringResource(id = R.string.calendar),
                         modifier = Modifier.size(dimensionResource(id = R.dimen.icon_medium))
                     )
-                })
+                }
+            )
             NavigationBarItem(
                 selected = false,
                 onClick = { navController.navigate(NavigationDestinations.RecordatorioHomeDestination.route) },
@@ -109,7 +114,8 @@ fun KeoBottomAppBar(navController: NavController, modifier: Modifier = Modifier)
                         contentDescription = stringResource(id = R.string.home),
                         modifier = Modifier.size(dimensionResource(id = R.dimen.icon_medium))
                     )
-                })
+                }
+            )
             NavigationBarItem(
                 selected = false,
                 onClick = { navController.navigate(NavigationDestinations.RecordatorioHistoryDestination.route) },
@@ -119,7 +125,8 @@ fun KeoBottomAppBar(navController: NavController, modifier: Modifier = Modifier)
                         contentDescription = stringResource(id = R.string.history),
                         modifier = Modifier.size(dimensionResource(id = R.dimen.icon_medium))
                     )
-                })
+                }
+            )
         }
     }
 }

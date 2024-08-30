@@ -21,7 +21,8 @@ class RecordatorioEntryViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val recordatorioId: Long = checkNotNull(savedStateHandle[NavigationDestinations.RecordatorioEntryDestination.recordatorioIdArg])
+    private val recordatorioId: Long =
+        checkNotNull(savedStateHandle[NavigationDestinations.RecordatorioEntryDestination.recordatorioIdArg])
 
     var recordatorioState = MutableStateFlow(Recordatorio("", "", Date()))
 
@@ -35,13 +36,13 @@ class RecordatorioEntryViewModel @Inject constructor(
 
     fun addRecordatorio(context: Context, recordatorio: Recordatorio) {
         viewModelScope.launch {
-            //Guardo el id para poder añadir el Recordatorio con id en el scheduleNotification
+            // Guardo el id para poder añadir el Recordatorio con id en el scheduleNotification
             val idRecordatorioAdded = recordatorioRepository.insertRecordatorio(recordatorio)
             val service = RecordatorioNotificationService(context)
             val recordatorioAdded = recordatorio.copy(id = idRecordatorioAdded)
             service.scheduleNotification(recordatorioAdded)
 
-            //_isRecordatorioSaved.emit(recordatorioAdded)
+            // _isRecordatorioSaved.emit(recordatorioAdded)
         }
     }
 

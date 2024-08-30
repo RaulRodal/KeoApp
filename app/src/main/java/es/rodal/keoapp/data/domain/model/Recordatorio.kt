@@ -8,7 +8,7 @@ import java.util.Date
 import java.util.Locale
 
 @Parcelize
-data class Recordatorio (
+data class Recordatorio(
     val id: Long = 0L,
     val name: String,
     val description: String,
@@ -17,11 +17,9 @@ data class Recordatorio (
     val recordatorioTime: Date
 ) : Parcelable {
     constructor(name: String, description: String, recordatorioTime: Date) :
-            this(0, name, description, true, false, recordatorioTime)
+        this(0, name, description, true, false, recordatorioTime)
     constructor(id: Long, name: String, description: String, recordatorioTime: Date) :
-            this(id, name, description, true, false, recordatorioTime)
-
-
+        this(id, name, description, true, false, recordatorioTime)
 }
 
 fun Long.toDate(): Date = Date(this)
@@ -45,5 +43,5 @@ fun Date.isSameDay(other: Date): Boolean {
     val calendar1 = Calendar.getInstance().apply { time = this@isSameDay }
     val calendar2 = Calendar.getInstance().apply { time = other }
     return calendar1.get(Calendar.YEAR) == calendar2.get(Calendar.YEAR) &&
-            calendar1.get(Calendar.DAY_OF_YEAR) == calendar2.get(Calendar.DAY_OF_YEAR)
+        calendar1.get(Calendar.DAY_OF_YEAR) == calendar2.get(Calendar.DAY_OF_YEAR)
 }

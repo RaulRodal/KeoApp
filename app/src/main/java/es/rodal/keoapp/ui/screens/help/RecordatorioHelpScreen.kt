@@ -83,6 +83,7 @@ fun RecordatorioHelpScreen(
         }
     }
 }
+
 @Composable
 fun FAQItem(question: String, answer: String) {
     var expanded by remember { mutableStateOf(false) }
