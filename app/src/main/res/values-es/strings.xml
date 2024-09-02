@@ -10,7 +10,7 @@
     <string name="add">Agregar</string>
     <string name="notifications">Notificaciones</string>
     <string name="notification_permission_required">Se requiere permiso de notificación</string>
-    <string name="notification_permission_required_description_message">Para asegurarse de que nunca olvide su recordaotorio, otorgue el permiso de notificación.</string>
+    <string name="notification_permission_required_description_message">Para asegurarse de que nunca olvide su recordatorio, otorgue el permiso de notificación.</string>
     <string name="cancel">Cancelar</string>
     <string name="activate">Activar</string>
     <string name="ok">Ok</string>
